@@ -38,15 +38,17 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderSpinnerComponent } from './spinner/loader-spinner/loader-spinner.component';
 import { LoadingInterceptor } from './spinner/interceptor/loading.interceptor';
 import { PageComponent } from './welcome/page/page.component';
-import { UserDashboardComponent } from './hbank/user-dashboard/user-dashboard.component';
-import { MainPageComponent } from './hbank/customer-dashboard/main-page/main-page.component';
-import { BalanceComponent } from './hbank/customer-dashboard/balance/balance.component';
-import { AccountComponent } from './hbank/account/account.component';
 import { AlertModalComponent } from './dialog/alert-modal/alert-modal.component';
 import { ErrorAlertDialogComponent } from './dialog/error-alert-dialog/error-alert-dialog.component';
 import { SuccessAlertDialogComponent } from './dialog/success-alert-dialog/success-alert-dialog.component';
-import { AddAccountComponent } from './hbank/crudAccount/add-account/add-account.component';
-import { EditAccountComponent } from './hbank/crudAccount/edit-account/edit-account.component';
+import { UserDashboardComponent } from './my-bank/user-dashboard/user-dashboard.component';
+import { MainPageComponent } from './my-bank/customer-dashboard/main-page/main-page.component';
+import { BalanceComponent } from './my-bank/customer-dashboard/balance/balance.component';
+import { AccountComponent } from './my-bank/account/account.component';
+import { AddAccountComponent } from './my-bank/crud-account/add-account/add-account.component';
+import { EditAccountComponent } from './my-bank/crud-account/edit-account/edit-account.component';
+import { SendMoneyComponent } from './my-bank/crud-transactions/send-money/send-money.component';
+import { ReceiptMoneyComponent } from './my-bank/crud-transactions/receipt-money/receipt-money.component';
 
 
 @NgModule({
@@ -62,7 +64,9 @@ import { EditAccountComponent } from './hbank/crudAccount/edit-account/edit-acco
     ErrorAlertDialogComponent,
     SuccessAlertDialogComponent,
     AddAccountComponent,
-    EditAccountComponent
+    EditAccountComponent,
+    SendMoneyComponent,
+    ReceiptMoneyComponent
   ],
   imports: [
      BrowserModule,
