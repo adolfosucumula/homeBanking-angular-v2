@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/UserModel';
-import { AuthServicesComponent } from 'src/app/auth/auth-services/auth-services.component';
+import { AuthGetServicesComponent } from 'src/app/auth/auth-services/auth-get.service';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
 import { AuthUtils } from 'src/app/auth/utils/AuthUtils';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
@@ -22,7 +22,7 @@ export class SigninComponent {
 
   constructor(private authUtils: AuthUtils,
      private localStore: StorageService,private formBuilder: FormBuilder,
-     private router: Router, private authServices: AuthServicesComponent, private alertD: AlertMessageFactories,
+     private router: Router, private authServices: AuthGetServicesComponent, private alertD: AlertMessageFactories,
      private  signinService: SigninServicesService
     ){}
 

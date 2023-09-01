@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountUtils } from '../utils/accountUtils';
-import { AccountServicesService } from '../../account/service/account-services.service';
+import { AccountGetService } from '../../account/service/account-get.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { AccountUpdatePostService } from '../service/account-update.service';
 
 @Component({
   selector: 'app-edit-account',
@@ -41,7 +42,8 @@ export class EditAccountComponent {
   constructor(
     private formBuilder: FormBuilder, private currencyPipe: CurrencyPipe,
     private route: ActivatedRoute,private router: Router,
-    private accountService: AccountServicesService,
+    private accountGetService: AccountGetService,
+    private accountUpdateService: AccountUpdatePostService,
     private utils: AccountUtils, public dialog: MatDialog
     ) { }
 
@@ -94,7 +96,7 @@ export class EditAccountComponent {
 
 
   getById(id: number){
-    this.accountService.getById(id).subscribe((data: any) => {
+    this.accountGetService.getById(id).subscribe((data: any) => {
       //console.log(JSON.stringify(data, null, 2));
       this.accountForm.patchValue(data);
     })
@@ -108,7 +110,7 @@ export class EditAccountComponent {
       return;
     }
 
-    this.accountService.update(this.id,
+    this.accountUpdateService.update(this.id,
       this.utils.getFormData(this.accountForm).account,
       this.utils.getFormData(this.accountForm).iban,
       this.utils.getFormData(this.accountForm).swift,
@@ -120,7 +122,7 @@ export class EditAccountComponent {
       this.utils.getFormData(this.accountForm).createdAt,
       this.utils.getFormData(this.accountForm).isActive)
     .subscribe((data: any) => {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/dashboard']);
     })
   }
 }

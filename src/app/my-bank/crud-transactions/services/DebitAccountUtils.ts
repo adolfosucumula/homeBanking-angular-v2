@@ -1,7 +1,7 @@
 
 import { Injectable } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { DebitServicesService } from "src/app/services/transactions/debit-services.service";
+import { DebitServicesService } from "./debit-services.service";
 
 
 @Injectable({

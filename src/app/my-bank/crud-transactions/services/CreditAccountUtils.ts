@@ -1,11 +1,10 @@
 
 import { Injectable } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { AccountServicesService } from "../add-account/service/account-services.service";
-import { Observable } from "rxjs";
-import { CreditServicesService } from "src/app/services/transactions/credit-services.service";
-import { EditAccountUtils } from "./EditAccountUtils";
 import { SnackBarAlertMessage } from "src/app/utils/snackBarAlertMessage";
+import { AccountGetService } from "../../account/service/account-get.service";
+import { CreditServicesService } from "./credit-services.service";
+import { EditAccountUtils } from "../../crud-account/utils/EditAccountUtils";
 
 
 @Injectable({
@@ -14,7 +13,7 @@ import { SnackBarAlertMessage } from "src/app/utils/snackBarAlertMessage";
 
 export class CreditAccountUtils {
 
-  constructor(private accountService: AccountServicesService, private creditServices: CreditServicesService,
+  constructor(private accountService: AccountGetService, private creditServices: CreditServicesService,
     private editAcUtils: EditAccountUtils, private snackBarAlert: SnackBarAlertMessage
     ) {}
 

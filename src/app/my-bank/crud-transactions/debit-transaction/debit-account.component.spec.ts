@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReceiptMoneyComponent } from './receipt-money.component';
+import { ReceiptMoneyComponent } from './debit-account.component';
 
 describe('ReceiptMoneyComponent', () => {
   let component: ReceiptMoneyComponent;

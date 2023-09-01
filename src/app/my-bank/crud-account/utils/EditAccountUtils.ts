@@ -1,10 +1,9 @@
 
 import { Injectable } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SnackBarAlertMessage } from "src/app/utils/snackBarAlertMessage";
-import { AccountServicesService } from "../../account/service/account-services.service";
+import { AccountUpdatePostService } from "../service/account-update.service";
 
 
 @Injectable({
@@ -13,7 +12,7 @@ import { AccountServicesService } from "../../account/service/account-services.s
 
 export class EditAccountUtils {
 
-  constructor(private accountService: AccountServicesService
+  constructor(private accountService: AccountUpdatePostService
     ,private route: ActivatedRoute, private router: Router, private snackAlert: SnackBarAlertMessage) {}
 
 

@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
-import { SignUpUtilsService } from './utils/utils.service';
-import { AuthServicesComponent } from '../auth-services/auth-services.component';
+import { SignUpUtilsService } from './services/utils.service';
+import { AuthGetServicesComponent } from '../auth-services/auth-get.service';
 import { UserModel } from 'src/app/models/UserModel';
 import { SignupServicesService } from './services/signup-services.service';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
@@ -21,7 +21,7 @@ export class SignupComponent {
   constructor(private utils: SignUpUtilsService,
     private localStore: StorageService,
     private signUpService: SignupServicesService,
-    private router: Router, private authServices: AuthServicesComponent,
+    private router: Router, private authServices: AuthGetServicesComponent,
     private alertD: AlertMessageFactories,
     private currentDate: CurrentDate
    ){}

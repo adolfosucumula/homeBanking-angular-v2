@@ -1,7 +1,7 @@
 
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { AccountServicesService } from "../../account/service/account-services.service";
+import { AccountGetService } from "../../account/service/account-get.service";
 
 
 @Injectable({
@@ -10,7 +10,7 @@ import { AccountServicesService } from "../../account/service/account-services.s
 
 export class AccountUtils {
 
-  constructor (private accountServices: AccountServicesService) {}
+  constructor (private accountServices: AccountGetService) {}
 
   /**
    *  This method gets the Form Group data comes from a form and pass them

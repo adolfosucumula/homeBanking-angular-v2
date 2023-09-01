@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AuthServicesComponent } from '../../auth-services/auth-services.component';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SignUpUtilsService } from '../utils/utils.service';
+import { SignUpUtilsService } from './utils.service';
+import { AuthPostServicesComponent } from '../../auth-services/auth-post-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignupServicesService {
 
-  constructor(private authServices: AuthServicesComponent, private utils: SignUpUtilsService, private router: Router) { }
+  constructor(private authServices: AuthPostServicesComponent, private utils: SignUpUtilsService, private router: Router) { }
 
   /**
    *

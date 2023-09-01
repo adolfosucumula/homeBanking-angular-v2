@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-page',
@@ -10,5 +10,6 @@ export class PageComponent {
   public isVisited = true;
   isLogged = false;
 
+  @Input() page: string = 'Home'
 
 }

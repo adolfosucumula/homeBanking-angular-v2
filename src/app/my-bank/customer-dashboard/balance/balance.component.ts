@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { AccountServicesService } from '../../account/service/account-services.service';
+import { AccountGetService } from '../../account/service/account-get.service';
 
 @Component({
   selector: 'app-balance',
@@ -16,7 +16,7 @@ export class BalanceComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private accountServices: AccountServicesService){
+  constructor(private accountServices: AccountGetService){
   }
 
   dataSource = new MatTableDataSource(ELEMENT_DATA);

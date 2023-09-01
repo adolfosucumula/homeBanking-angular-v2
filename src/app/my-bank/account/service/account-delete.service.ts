@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { AccountClass } from 'src/app/models/AccountModel';
-import { HttpEndpointSetting } from 'src/app/endpoint/httpEndpointSetting';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { handleError } from 'src/app/utils/handle-error';
@@ -13,9 +11,9 @@ let model: AccountClass = new AccountClass();
 @Injectable({
   providedIn: 'root'
 })
-export class AccountServicesService {
+export class AccountGetService {
 
-  constructor(private http: HttpClient, private baseUrl: HttpEndpointSetting,
+  constructor(
     private services: GenericServices,
     private alertD: AlertMessageFactories
     ) { }
@@ -46,37 +44,6 @@ export class AccountServicesService {
     return result;
   }
 
-  create(
-    account: number,
-    iban: string,
-    swift: string,
-    owner: string,
-    ownerDoc: number,
-    initialBalance: string,
-    currentBalance: string,
-    currency: string,
-    createdAt: string,
-    isActive: boolean): Observable <any>{
-    model.account = account.toString();
-    model.iban = iban;
-    model.swift = swift;
-    model.owner = owner;
-    model.ownerDoc = ownerDoc.toString();
-    model.initialBalance = initialBalance;
-    model.currentBalance = currentBalance;
-    model.currency = currency;
-    model.createdAt = createdAt;
-    model.isActive = isActive;
-
-    model.setTableName("accounts")
-    return this.services.create(model, model)
-    .pipe(
-      retry(3), // retry a failed request up to 3 times
-      //catchError(this.handleError) // then handle the error
-      retry(3), // retry a failed request up to 3 times
-      catchError(handleError) // then handle the error
-    );
-  }
 
   getById(id: number){
     model.setTableName("accounts")
@@ -97,85 +64,6 @@ export class AccountServicesService {
       //catchError(this.handleError) // then handle the error
       retry(3), // retry a failed request up to 3 times
       catchError(handleError) // then handle the error
-    );
-  }
-
-
-  update(id: number,
-    account: number,
-    iban: string,
-    swift: string,
-    owner: string,
-    ownerDoc: number,
-    initialBalance: string,
-    currentBalance: string,
-    currency: string,
-    createdAt: string,
-    isActive: boolean): Observable <any>{
-      model.account = account.toString();
-      model.iban = iban;
-      model.swift = swift;
-      model.owner = owner;
-      model.ownerDoc = ownerDoc.toString();
-      model.initialBalance = initialBalance;
-      model.currentBalance = currentBalance;
-      model.currency = currency;
-      model.createdAt = createdAt;
-      model.isActive = isActive;
-      model.setTableName("accounts")
-
-    return this.services.update(model, id)
-    .pipe(
-      retry(3), // retry a failed request up to 3 times
-      //catchError(this.handleError) // then handle the error
-      catchError((err) => {
-        this.alertD.openErrorAlertDialog('Error Alert', "Error when try to update account. (STATUS = "+ err.status + ")", 'Close')
-        console.log('error caught in service. When try to update account')
-        console.error(err);
-
-        //Handle the error here
-
-        return throwError(err);    //Rethrow it back to component
-      })
-    );
-  }
-
-  updateBalance(id: number,
-    account: number,
-    iban: string,
-    swift: string,
-    owner: string,
-    ownerDoc: number,
-    initialBalance: string,
-    currentBalance: string,
-    currency: string,
-    createdAt: string,
-    updatedAt: string,
-    isActive: boolean
-    ): Observable <any>{
-      model.account = account.toString();
-      model.iban = iban;
-      model.swift = swift;
-      model.owner = owner;
-      model.ownerDoc = ownerDoc.toString();
-      model.initialBalance = initialBalance;
-      model.currentBalance = currentBalance;
-      model.currency = currency;
-      model.createdAt = createdAt;
-      model.isActive = isActive;
-      model.setTableName("accounts")
-    return this.services.update(model, id)
-    .pipe(
-      retry(3), // retry a failed request up to 3 times
-      //catchError(this.handleError) // then handle the error
-      catchError((err) => {
-        console.log('error caught in service. When try to update account')
-        console.error(err);
-
-        //Handle the error here
-
-        return throwError(err);    //Rethrow it back to component
-      })
     );
   }
 

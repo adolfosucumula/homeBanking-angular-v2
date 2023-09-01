@@ -1,7 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AddAccountService } from './service/account-services.service';
+import { AccountPostService } from '../service/account-post.service';
 import { Router } from '@angular/router';
 import { myGlobalVariablesEditAcount } from '../utils/AccountVariables';
 import { AddAccountUtils } from '../utils/AddAccountUtils';
@@ -27,8 +27,8 @@ export class AddAccountComponent {
 
   //
   constructor(private formBuilder: FormBuilder, private currencyPipe: CurrencyPipe,
-    private accountServices: AddAccountService, private router: Router,
-    private addAccountUtils: AddAccountUtils, private globalVariable: myGlobalVariablesEditAcount) { }
+    private accountPostServices: AccountPostService, private router: Router,
+    private addAccountUtils: AddAccountUtils) { }
 
 
   ngOnInit(): void {
@@ -69,11 +69,18 @@ export class AddAccountComponent {
   onSubmit(): void {
     this.submitted = true;
 
+
     if(this.accountForm.invalid){
       return;
     }
+    // Check if the account inserted already exists
+    const checkAccount = this.addAccountUtils.thisAccountExists(this.accountForm.value.account);
+    console.log("The account exists: "+ checkAccount)
+    if(checkAccount){
+      return
+    }
 
-    //console.log("The account exists: "+ this.addAccountUtils.theAccountExists(this.accountForm.value.account))
+
 
     const { account,
     iban,
@@ -88,7 +95,7 @@ export class AddAccountComponent {
 
     //console.log(JSON.stringify(this.accountForm.value, null, 2));
 
-    this.accountServices.create(account,
+    this.accountPostServices.create(account,
       iban,
       swift,
       owner,
@@ -107,7 +114,7 @@ export class AddAccountComponent {
       },
       error: err => {
         console.log(err)
-        alert("Error: "+err)
+        //alert("Error: "+err)
       }
     });
 

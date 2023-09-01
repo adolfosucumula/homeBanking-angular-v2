@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SignoutServicesService } from '../signout/services/signout-services.service';
 import { Router } from '@angular/router';
-import { AuthServicesComponent } from '../auth-services/auth-services.component';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
+import { AuthPostServicesComponent } from '../auth-services/auth-post-service.service';
 
 @Component({
   selector: 'app-user-status',
@@ -15,8 +14,8 @@ export class UserStatusComponent implements OnInit {
   okay = true;
   user: any;
 
-  constructor(private router: Router, private localStore: StorageService,
-    private authServices: AuthServicesComponent, private currentDate: CurrentDate
+  constructor(private localStore: StorageService,
+    private authServices: AuthPostServicesComponent, private currentDate: CurrentDate
     ){}
 
   ngOnInit(): void {

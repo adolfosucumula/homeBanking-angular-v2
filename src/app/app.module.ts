@@ -47,8 +47,13 @@ import { BalanceComponent } from './my-bank/customer-dashboard/balance/balance.c
 import { AccountComponent } from './my-bank/account/account.component';
 import { AddAccountComponent } from './my-bank/crud-account/add-account/add-account.component';
 import { EditAccountComponent } from './my-bank/crud-account/edit-account/edit-account.component';
-import { SendMoneyComponent } from './my-bank/crud-transactions/send-money/send-money.component';
-import { ReceiptMoneyComponent } from './my-bank/crud-transactions/receipt-money/receipt-money.component';
+import { NavbarComponent } from './welcome/navbar/navbar.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { SignoutComponent } from './auth/signout/signout.component';
+import { UserStatusComponent } from './auth/user-status/user-status.component';
+import { CreditAccountComponent } from './my-bank/crud-transactions/credit-transaction/credit-account.component';
+import { DebitAccountComponent } from './my-bank/crud-transactions/debit-transaction/debit-account.component';
 
 
 @NgModule({
@@ -65,8 +70,13 @@ import { ReceiptMoneyComponent } from './my-bank/crud-transactions/receipt-money
     SuccessAlertDialogComponent,
     AddAccountComponent,
     EditAccountComponent,
-    SendMoneyComponent,
-    ReceiptMoneyComponent
+    CreditAccountComponent,
+    DebitAccountComponent,
+    NavbarComponent,
+    SignupComponent,
+    SigninComponent,
+    SignoutComponent,
+    UserStatusComponent
   ],
   imports: [
      BrowserModule,

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthServicesComponent } from 'src/app/auth/auth-services/auth-services.component';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
 import { AuthUtils } from 'src/app/auth/utils/AuthUtils';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
 import { StorageService } from 'src/app/utils/StorageService.service';
-import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
+import { AuthPostServicesComponent } from '../../auth-services/auth-post-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +16,8 @@ export class SigninServicesService {
 
   constructor(
     private authUtils: AuthUtils, private alertD: AlertMessageFactories,
-     private snackbarAlert: SnackBarAlertMessage,
      private localStore: StorageService,
-     private router: Router, private authServices: AuthServicesComponent,
+     private router: Router, private authServices: AuthPostServicesComponent,
      private currentDate: CurrentDate
     ) {}
 

@@ -2,8 +2,9 @@
 import { Injectable } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { myGlobalVariablesEditAcount } from "./AccountVariables";
-import { AccountServicesService } from "../../account/service/account-services.service";
+import { AccountGetService } from "../../account/service/account-get.service";
 
+const accountExists = 'THIS_ACCOUNT_EXIS';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { AccountServicesService } from "../../account/service/account-services.s
 
 export class AddAccountUtils {
 
-  constructor(private accountServices: AccountServicesService, private globalVariable: myGlobalVariablesEditAcount){}
+  constructor(private accountServices: AccountGetService, private globalVariable: myGlobalVariablesEditAcount){}
 
   accountD!: [];
   private exists = false;
@@ -42,9 +43,11 @@ export class AddAccountUtils {
     this.accountServices.getByAccount(account).subscribe({
       next: data => {
         this.accountD = data;
-        if(data){
-          this.globalVariable.accountExist(false);
 
+        if(this.accountServices.thisAccountExists(data, account)){
+          window.sessionStorage.setItem(accountExists, '1');
+        }else{
+          window.sessionStorage.setItem(accountExists, '0')
         }
         console.log(data)
       },
@@ -54,9 +57,12 @@ export class AddAccountUtils {
     })
   }
 
-  theAccountExists(account: string): boolean{
+  thisAccountExists(account: string): boolean{
     this.getAccount(account);
-    return  this.exists;
+    if(window.sessionStorage.getItem(accountExists) == '1'){
+      return true
+    }
+    return false
   }
 
 }

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SendMoneyComponent } from './send-money.component';
+import { NavbarComponent } from './navbar.component';
 
-describe('SendMoneyComponent', () => {
-  let component: SendMoneyComponent;
-  let fixture: ComponentFixture<SendMoneyComponent>;
+describe('NavbarComponent', () => {
+  let component: NavbarComponent;
+  let fixture: ComponentFixture<NavbarComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SendMoneyComponent]
+      declarations: [NavbarComponent]
     });
-    fixture = TestBed.createComponent(SendMoneyComponent);
+    fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

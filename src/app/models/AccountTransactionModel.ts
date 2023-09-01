@@ -4,6 +4,7 @@ export interface AccountTransactionModel {
   id: number,
   sourceAccount: string,
   owner: string,
+  transactionType: string,
   account: string,
   balanceBefore: string,
   amount: string,

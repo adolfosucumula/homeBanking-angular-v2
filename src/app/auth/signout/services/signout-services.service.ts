@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthServicesComponent } from '../../auth-services/auth-services.component';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
+import { AuthPostServicesComponent } from '../../auth-services/auth-post-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class SignoutServicesService {
   user: any;
 
   constructor(private router: Router, private localStore: StorageService,
-    private authServices: AuthServicesComponent, private currentDate: CurrentDate
+    private authServices: AuthPostServicesComponent, private currentDate: CurrentDate
     ){}
 
   /**
