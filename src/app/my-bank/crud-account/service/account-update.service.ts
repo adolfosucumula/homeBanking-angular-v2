@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
-import { GenericServices } from 'src/app/endpoint/generic-services.service';
+import { GenericServices } from 'src/app/http-settings/generic-services.service';
 
 let model: AccountClass = new AccountClass();
 
