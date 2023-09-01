@@ -1,0 +1,74 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@email.com",
+      "password": "123"
+    }
+  ],
+  "logins": [
+    {
+      "id": 1,
+      "login": "admin@email.com",
+      "password": "123"
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 2
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 3
+    },
+    {
+      "email": "xx@email.com",
+      "password": "1222",
+      "id": 4
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 5
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 6
+    },
+    {
+      "email": "admin@email.com",
+      "password": "123",
+      "id": 7
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "account": "00123",
+      "iban": "",
+      "swift": "",
+      "owner": "",
+      "initialBalance": "",
+      "currentBalance": "",
+      "currency": "",
+      "isActive": true
+    }
+  ],
+  "inputs": [],
+  "outputs": [],
+  "currencies": [
+    {
+      "id": 1,
+      "code": "$",
+      "name": "DOLLAR"
+    },
+    {
+      "id": 2,
+      "code": "EU",
+      "name": "Euro"
+    }
+  ]
+}

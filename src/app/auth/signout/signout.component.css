@@ -1,0 +1,15 @@
+button{
+  font-size: .8rem;
+  color: #e6e6e6;
+
+
+}
+
+button mat-icon{
+  color: #e6e6e6;
+}
+
+button.btn-logout:hover{
+  border: 1px solid #e6e6e6;
+  background: rgba(248, 25, 25, 0.26);
+}

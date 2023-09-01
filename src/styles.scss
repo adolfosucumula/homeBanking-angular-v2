@@ -1,4 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  /*background: #19181d url('assets/img/pexels-pixabay-247676.jpg') no-repeat;*/
+  background-size: cover;
+}
+
+header{
+  overflow: hidden;
+  margin: auto;
+  margin-left: 25%;
+  margin-top: 3%;
+  width: 50%;
+  position: fixed;
+  background: rgba(2, 200, 207, 0.6);
+  border-radius: .2rem 1rem;
+  box-shadow: -.3rem .3rem rgba(56, 56, 56, 0.6);
+}
+
+header .navbar{
+  color: rgb(255, 255, 255);
+  align-items: center;
+}
+
+header .navbar .container{
+  position:relative;
+  align-items: center;
+  padding: .1rem;
+  display: flex;
+}
+
+header .navbar .container h2{
+  width: 10%;
+}
+header .navbar .container div{
+  width: 70%;
+  align-items: center;
+  text-align: center;
+
+}
+
+
+header .navbar .container div a{
+  overflow: hidden;
+  width: 60%;
+  padding: .5rem .8rem;
+  background: #19181d;
+  margin: 2%;
+  text-decoration: none;
+  font-size: .8rem;
+  color: rgb(252, 252, 252);
+
+  border-radius: 1rem;
+  box-shadow: -.0rem .1rem rgba(56, 56, 56, 0.6);
+}
