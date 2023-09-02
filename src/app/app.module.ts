@@ -54,6 +54,9 @@ import { SignoutComponent } from './auth/signout/signout.component';
 import { UserStatusComponent } from './auth/user-status/user-status.component';
 import { CreditAccountComponent } from './my-bank/crud-transactions/credit-transaction/credit-account.component';
 import { DebitAccountComponent } from './my-bank/crud-transactions/debit-transaction/debit-account.component';
+import { BodyComponent } from './welcome/body/body.component';
+import { SidebarComponent } from './welcome/sidebar/sidebar.component';
+import { ToolbarComponent } from './welcome/toolbar/toolbar.component';
 
 
 @NgModule({
@@ -76,7 +79,10 @@ import { DebitAccountComponent } from './my-bank/crud-transactions/debit-transac
     SignupComponent,
     SigninComponent,
     SignoutComponent,
-    UserStatusComponent
+    UserStatusComponent,
+    BodyComponent,
+    SidebarComponent,
+    ToolbarComponent
   ],
   imports: [
      BrowserModule,
