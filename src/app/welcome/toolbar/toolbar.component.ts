@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class ToolbarComponent {
 
+  hidden = false;
+
+  toggleBadgeVisibility() {
+    this.hidden = !this.hidden;
+  }
+  
 }

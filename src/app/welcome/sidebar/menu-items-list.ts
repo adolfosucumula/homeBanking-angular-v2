@@ -19,20 +19,20 @@ export const menuItemsList = [
     router: "/balance",
     label: "My Balance",
     show: true,
-    icon: "money"
+    icon: "euro_symbol"
   },
   {
     id: 1,
     router: "/send-money",
     label: "Send money",
     show: true,
-    icon: "home"
+    icon: "send"
   },
   {
     id: 1,
     router: "/credit-account",
     label: "Credit Account",
     show: true,
-    icon: "home"
+    icon: "add_circle_outline"
   },
 ]

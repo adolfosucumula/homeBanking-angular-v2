@@ -1,1 +1,51 @@
 
+.toolbar{
+  display: flex;
+  width: 100%;
+  background-color: transparent;
+
+  .title{
+    width: 20%;
+    font-size: 1.5rem;
+    color: rgb(13, 13, 14);
+
+    #note{
+      font-size: .8rem;
+      color: #27df30;
+      font-weight: normal;
+      text-decoration: underline;
+    }
+  }
+
+  .navbar{
+    width: 75%;
+    padding: .4rem;
+    border: none;
+    border-radius: 0 1rem 1rem 0;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, .24);
+    background-color: #02224d;
+    text-align: right;
+    color: #FFF;
+
+    button:hover{
+      background-color: rgba(226, 226, 226, 0.24);
+      border-radius: 2rem;
+      text-decoration: underline;
+
+    }
+  }
+}
+.example-spacer {
+  width: 5%;
+  flex: 1 1 auto;
+}
+
+
+.matBadge {
+  margin-right: 3%;
+
+  mat-icon{
+    position: fixed;
+    margin-top: 5px;
+  }
+}

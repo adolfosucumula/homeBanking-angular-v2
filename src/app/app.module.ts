@@ -32,6 +32,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatPaginatorModule} from '@angular/material/paginator';
+import {MatBadgeModule} from '@angular/material/badge';
 
 //Importing Http client module because we have components that make http requests throught HttpClient module
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -118,7 +119,9 @@ import { ToolbarComponent } from './welcome/toolbar/toolbar.component';
         MatSnackBarModule,
         MatTableModule,
         MatPaginatorModule,
-        MatDialogModule
+        MatDialogModule,
+        MatBadgeModule
+
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
