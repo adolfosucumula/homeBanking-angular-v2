@@ -1,1 +1,19 @@
-<p>error-alert-dialog works!</p>
+<h1 mat-dialog-title class="title">
+  <img src="https://th.bing.com/th/id/R.349b51e1fa6c852514052d3fe9c5e3fc?rik=dvX6BHebRAxwLQ&riu=http%3a%2f%2fcliparts.co%2fcliparts%2f8iE%2fjnA%2f8iEjnAgaT.png&ehk=wbObfnKwQBgLf%2bhe282rPie5pINzbPjaBYzAvgn2Vf8%3d&risl=&pid=ImgRaw&r=0"
+  width="40" height="40" alt="" srcset="">
+  <span>{{ title }}</span>
+</h1>
+<div mat-dialog-content class="content">
+  <div class="message">
+    {{ message }}
+  </div>
+</div>
+<div mat-dialog-actions class="footer">
+  <mat-divider></mat-divider>
+</div>
+
+<mat-card>
+  <mat-card-actions align="end">
+    <button mat-button (click)="onNoClick()" alig>{{ buttonName }}</button>
+  </mat-card-actions>
+</mat-card>

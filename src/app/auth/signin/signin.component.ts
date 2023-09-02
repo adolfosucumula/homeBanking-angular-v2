@@ -44,7 +44,7 @@ export class SigninComponent {
     this.entityForm = this.authUtils.validateForm();
 
     if(this.localStore.isLoggedIn()){
-      this.router.navigate(['/']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

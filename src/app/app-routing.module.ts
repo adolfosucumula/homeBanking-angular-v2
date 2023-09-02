@@ -7,18 +7,23 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SignoutComponent } from './auth/signout/signout.component';
 import { UserStatusComponent } from './auth/user-status/user-status.component';
-import { NavbarComponent } from './welcome/navbar/navbar.component';
+import { BodyComponent } from './welcome/body/body.component';
+import { AccountComponent } from './my-bank/account/account.component';
+import { AddAccountComponent } from './my-bank/crud-account/add-account/add-account.component';
+import { EditAccountComponent } from './my-bank/crud-account/edit-account/edit-account.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: PageComponent},
+  { path: 'home', component: BodyComponent},
   { path: 'dashboard', component: MainPageComponent},
   { path: 'balance', component: BalanceComponent},
   { path: 'signin', component: SigninComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'logout', component: SignoutComponent},
   { path: 'user-inactive', component: UserStatusComponent},
-  { path: 'navbar', component: NavbarComponent},
+  { path: 'account', component: AccountComponent},
+  { path: 'add-account', component: AddAccountComponent},
+  { path: 'edit-account/:id', component: EditAccountComponent},
 ];
 
 @NgModule({

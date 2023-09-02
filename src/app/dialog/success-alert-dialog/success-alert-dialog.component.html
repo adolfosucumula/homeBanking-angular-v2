@@ -1,1 +1,19 @@
-<p>success-alert-dialog works!</p>
+<h1 mat-dialog-title class="title">
+  <img src="../../../assets/img/icon-success.png"
+  width="40" height="40" alt="" srcset="">
+  <span>{{ title }}</span>
+</h1>
+<div mat-dialog-content class="content">
+  <div class="message">
+    {{ message }}
+  </div>
+</div>
+<div mat-dialog-actions class="footer">
+  <mat-divider></mat-divider>
+</div>
+
+<mat-card>
+  <mat-card-actions align="end">
+    <button mat-button (click)="onNoClick()" alig>{{ buttonName }}</button>
+  </mat-card-actions>
+</mat-card>

@@ -48,7 +48,6 @@ import { BalanceComponent } from './my-bank/customer-dashboard/balance/balance.c
 import { AccountComponent } from './my-bank/account/account.component';
 import { AddAccountComponent } from './my-bank/crud-account/add-account/add-account.component';
 import { EditAccountComponent } from './my-bank/crud-account/edit-account/edit-account.component';
-import { NavbarComponent } from './welcome/navbar/navbar.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignoutComponent } from './auth/signout/signout.component';
@@ -76,7 +75,6 @@ import { ToolbarComponent } from './welcome/toolbar/toolbar.component';
     EditAccountComponent,
     CreditAccountComponent,
     DebitAccountComponent,
-    NavbarComponent,
     SignupComponent,
     SigninComponent,
     SignoutComponent,

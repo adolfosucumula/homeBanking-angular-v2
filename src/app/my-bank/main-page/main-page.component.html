@@ -7,7 +7,7 @@
     <mat-icon *ngIf="sidenav.opened">close</mat-icon>
   </button>
   </div>
-  <app-toolbar></app-toolbar>
+  <app-toolbar ></app-toolbar>
 </mat-toolbar>
 
   <!-- Resources -->
@@ -18,7 +18,9 @@
 
   <mat-sidenav-content>
     <div class="content mat-elevation-z4">
-      <!--<app-body></app-body>-->
+      <div>
+        <h2>Body</h2>
+      </div>
       <ng-content></ng-content>
     </div>
   </mat-sidenav-content>

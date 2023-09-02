@@ -42,10 +42,7 @@ export class SignupComponent {
     ngOnInit(): void {
 
       this.entityForm = this.utils.validateFieldGroup();
-
-      if(this.localStore.isLoggedIn()){
-        this.router.navigate(['/']);
-      }
+      this.isLogged = this.localStore.isLoggedIn()
     };
 
     /**

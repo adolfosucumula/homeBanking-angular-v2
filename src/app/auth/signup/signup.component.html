@@ -1,144 +1,144 @@
 <app-page>
 
 
-<div class="content" role="main">
+  <div class="content" role="main">
 
-  <div class="card-container">
-    <main>
-      <div class="container">
-        <form class="example-form" [formGroup]="entityForm" (ngSubmit)="onSubmit()">
-          <div class="title">
-            <h2>Sign Up to our Platform</h2>
-          </div>
+    <div class="card-container">
+      <main>
+        <div class="container">
+          <form class="example-form" [formGroup]="entityForm" (ngSubmit)="onSubmit()">
+            <div class="title">
+              <h2>Sign Up to our Platform</h2>
+            </div>
 
-          <!------       Fullname field -->
-          <mat-form-field appearance="outline">
-            <mat-label>Enter your fullname </mat-label>
-            <input matInput type="text"
-              placeholder="Fullname"
-              formControlName="fullname"
-              [ngClass]="{ 'is-invalid': submitted && _fC['fullname'].errors }"
-            >
-            <span *ngIf="submitted && _fC['fullname'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['fullname'].errors['required']">The fullname is required</span>
+            <!------       Fullname field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Enter your fullname </mat-label>
+              <input matInput type="text"
+                placeholder="Fullname"
+                formControlName="fullname"
+                [ngClass]="{ 'is-invalid': submitted && _fC['fullname'].errors }"
+              >
+              <span *ngIf="submitted && _fC['fullname'].errors" class="invalid-feedback">
+                <span *ngIf="_fC['fullname'].errors['required']">The fullname is required</span>
 
-              <span *ngIf="_fC['fullname'].errors['maxlength']">
-                The fullname must not exceed 200 characters
+                <span *ngIf="_fC['fullname'].errors['maxlength']">
+                  The fullname must not exceed 200 characters
+                </span>
+                <span *ngIf="_fC['fullname'].errors['pattern']">
+                  This field accepts only characters and numbers
+                </span>
               </span>
-              <span *ngIf="_fC['fullname'].errors['pattern']">
-                This field accepts only characters and numbers
+              <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
+              <mat-icon matSuffix>done</mat-icon>
+            </mat-form-field>
+
+            <!--  ------------ Username field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Enter your username</mat-label>
+              <input matInput type="text"
+                placeholder="Username"
+                formControlName="username"
+                [ngClass]="{ 'is-invalid': submitted && _fC['username'].errors }"
+              >
+              <span *ngIf="submitted && _fC['username'].errors" class="invalid-feedback">
+                <span *ngIf="_fC['username'].errors['required']">The username is required</span>
+
+                <span *ngIf="_fC['username'].errors['maxlength']">
+                  The username must not exceed 100 characters
+                </span>
+                <span *ngIf="_fC['username'].errors['pattern']">
+                  This field accepts only numbers and characters
+                </span>
               </span>
-            </span>
-            <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
-            <mat-icon matSuffix>done</mat-icon>
-          </mat-form-field>
+              <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
+              <mat-icon matSuffix>done</mat-icon>
+            </mat-form-field>
 
-          <!--  ------------ Username field -->
-          <mat-form-field appearance="outline">
-            <mat-label>Enter your username</mat-label>
-            <input matInput type="text"
-              placeholder="Username"
-              formControlName="username"
-              [ngClass]="{ 'is-invalid': submitted && _fC['username'].errors }"
-            >
-            <span *ngIf="submitted && _fC['username'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['username'].errors['required']">The username is required</span>
+            <!--  ------------ Email field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Enter your email</mat-label>
+              <input matInput type="text"
+                placeholder="Email"
+                formControlName="email"
+                [ngClass]="{ 'is-invalid': submitted && _fC['email'].errors }"
+              >
+              <span *ngIf="submitted && _fC['email'].errors" class="invalid-feedback">
+                <span *ngIf="_fC['email'].errors['required']">The email is required</span>
 
-              <span *ngIf="_fC['username'].errors['maxlength']">
-                The username must not exceed 100 characters
+                <span *ngIf="_fC['email'].errors['maxlength']">
+                  The email must not exceed 100 characters
+                </span>
+                <span *ngIf="_fC['email'].errors['email']">
+                  Enter a valid email
+                </span>
               </span>
-              <span *ngIf="_fC['username'].errors['pattern']">
-                This field accepts only numbers and characters
+              <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
+              <mat-icon matSuffix>done</mat-icon>
+            </mat-form-field>
+
+            <!--  ------------ Telemovel field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Enter your telephone</mat-label>
+              <input matInput type="text"
+                placeholder="Telephone"
+                formControlName="telephone"
+                [ngClass]="{ 'is-invalid': submitted && _fC['telephone'].errors }"
+              >
+              <span *ngIf="submitted && _fC['telephone'].errors" class="invalid-feedback">
+                <span *ngIf="_fC['telephone'].errors['required']">The telephone is required</span>
+
+                <span *ngIf="_fC['telephone'].errors['maxlength']">
+                  The telephone must have exactly 9 digits
+                </span>
+                <span *ngIf="_fC['telephone'].errors['minlength']">
+                  The telephone must have exactly 9 digits
+                </span>
               </span>
-            </span>
-            <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
-            <mat-icon matSuffix>done</mat-icon>
-          </mat-form-field>
+              <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
+              <mat-icon matSuffix>done</mat-icon>
+            </mat-form-field>
 
-          <!--  ------------ Email field -->
-          <mat-form-field appearance="outline">
-            <mat-label>Enter your email</mat-label>
-            <input matInput type="text"
-              placeholder="Email"
-              formControlName="email"
-              [ngClass]="{ 'is-invalid': submitted && _fC['email'].errors }"
-            >
-            <span *ngIf="submitted && _fC['email'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['email'].errors['required']">The email is required</span>
+            <!--      Password field -->
 
-              <span *ngIf="_fC['email'].errors['maxlength']">
-                The email must not exceed 100 characters
+            <mat-form-field appearance="outline">
+              <mat-label>Enter your password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'"
+                placeholder="Password"
+                formControlName="password"
+                [ngClass]="{ 'is-invalid': submitted && _fC['password'].errors }"
+              >
+              <span *ngIf="submitted && _fC['password'].errors" class="invalid-feedback">
+                <span *ngIf="_fC['password'].errors['required']">The password is required</span>
               </span>
-              <span *ngIf="_fC['email'].errors['email']">
-                Enter a valid email
+              <span *ngIf="submitted && _fC['password'].errors" class="invalid-feedback">
+                <span *ngIf="_fC['password'].errors['minlength']">The password must have at least 8 characters</span>
               </span>
-            </span>
-            <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
-            <mat-icon matSuffix>done</mat-icon>
-          </mat-form-field>
 
-          <!--  ------------ Telemovel field -->
-          <mat-form-field appearance="outline">
-            <mat-label>Enter your telephone</mat-label>
-            <input matInput type="text"
-              placeholder="Telephone"
-              formControlName="telephone"
-              [ngClass]="{ 'is-invalid': submitted && _fC['telephone'].errors }"
-            >
-            <span *ngIf="submitted && _fC['telephone'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['telephone'].errors['required']">The telephone is required</span>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
 
-              <span *ngIf="_fC['telephone'].errors['maxlength']">
-                The telephone must have exactly 9 digits
-              </span>
-              <span *ngIf="_fC['telephone'].errors['minlength']">
-                The telephone must have exactly 9 digits
-              </span>
-            </span>
-            <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
-            <mat-icon matSuffix>done</mat-icon>
-          </mat-form-field>
+            <div class="alert alert-danger" *ngIf="erroMessage">
+              <span>{{ erroMessage }}</span>
+            </div>
 
-          <!--      Password field -->
+            <div class="example-button-row" >
+              <button mat-raised-button type="submit" color="primary">Submit</button>
+            </div>
+            <br>
+            <div class="example-button-row">
+              <a mat-button routerLink="/signin" >Sign In</a>
+              <a routerLink="/signin" rel="noopener">
+                <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+              </a>
+            </div>
+        </form>
+        </div>
+      </main>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Enter your password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'"
-              placeholder="Password"
-              formControlName="password"
-              [ngClass]="{ 'is-invalid': submitted && _fC['password'].errors }"
-            >
-            <span *ngIf="submitted && _fC['password'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['password'].errors['required']">The password is required</span>
-            </span>
-            <span *ngIf="submitted && _fC['password'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['password'].errors['minlength']">The password must have at least 8 characters</span>
-            </span>
-
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
-
-          <div class="alert alert-danger" *ngIf="erroMessage">
-            <span>{{ erroMessage }}</span>
-          </div>
-
-          <div class="example-button-row" >
-            <button mat-raised-button type="submit" color="primary">Submit</button>
-          </div>
-          <br>
-          <div class="example-button-row">
-            <a mat-button routerLink="/signin" >Sign In</a>
-            <a routerLink="/signin" rel="noopener">
-              <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-            </a>
-          </div>
-      </form>
-      </div>
-    </main>
+    </div>
 
   </div>
-
-</div>
-</app-page>
+  </app-page>
