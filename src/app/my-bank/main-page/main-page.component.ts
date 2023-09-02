@@ -1,13 +1,18 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Input, Output, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Title } from '@angular/platform-browser';
+import { UserModel } from 'src/app/models/UserModel';
+
 
 @Component({
-  selector: 'app-page',
-  templateUrl: './page.component.html',
-  styleUrls: ['./page.component.scss']
+  selector: 'app-main-page',
+  templateUrl: './main-page.component.html',
+  styleUrls: ['./main-page.component.scss']
 })
-export class PageComponent {
+export class MainPageComponent {
+
+  user: UserModel = new UserModel()
 
   public isVisited = true;
   isLogged: boolean = false;
@@ -41,3 +46,4 @@ export class PageComponent {
   }
 
 }
+

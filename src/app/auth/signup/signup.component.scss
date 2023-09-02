@@ -1,13 +1,17 @@
 
 main{
   align-items: center;
+  background-color: #021733;
+  border-radius: 0 0 20rem;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, .45);
 }
 
 main .container{
   align-items: center;
+  text-align: center;
 }
 
-main .container .example-form{
+.example-form{
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
@@ -15,25 +19,46 @@ main .container .example-form{
   text-align: center;
   width: 800px;
   max-width: 800px;
+  color: #FFF;
+  background-color: rgba(243, 243, 243, 0.45);
+
+  mat-form-field{
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+    min-width: 30%;
+    margin-bottom: 0;
+
+    mat-label{
+      color: #fdfdfd;
+    }
+
+    mat-icon{
+
+    }
+
+    .invalid-feedback{
+      color: #c22626;
+      font-size: .8rem;
+    }
+  }
 
 }
 
 main .container .example-form .title{
   padding: 2rem 1rem;
   margin: 1;
-  background: rgba(rgb(58, 56, 56), rgb(87, 112, 87), rgb(53, 53, 194), 4);
-
   min-width: 400px;
   text-align: center;
 }
 
 main .container .example-form .title h2{
   font-weight: bold;
-  color: rgb(59, 59, 59);
+  color: rgb(179, 179, 179);
 }
-mat-form-field {
 
-  min-width: 500px;
+.example-button-row a{
+  color: #bccadd;
 }
 
 

@@ -15,10 +15,11 @@ let user = new UserModel();
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent {
 
+  fullWidth = 0;
 
   constructor(private authUtils: AuthUtils,
      private localStore: StorageService,private formBuilder: FormBuilder,

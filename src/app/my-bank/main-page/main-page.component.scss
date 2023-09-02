@@ -29,6 +29,17 @@ mat-sidenav{
   text-align: left;
 }
 
+.mat-sidenav::-webkit-scrollbar{
+  width: 1.1rem;
+}
+
+.mat-sidenav::-webkit-scrollbar-track{
+  background-color: rgb(154, 228, 132);
+}
+
+.mat-sidenav::-webkit-scrollbar-thumb{
+  background-color: rgb(154, 228, 132);
+}
 
 
 .content{
@@ -41,7 +52,6 @@ mat-sidenav{
   font-size: 2rem;
   color: lightgrey;
   border-radius: 1rem 1rem 0 0;
-
 }
 
 

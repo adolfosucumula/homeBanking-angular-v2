@@ -43,7 +43,7 @@ import { AlertModalComponent } from './dialog/alert-modal/alert-modal.component'
 import { ErrorAlertDialogComponent } from './dialog/error-alert-dialog/error-alert-dialog.component';
 import { SuccessAlertDialogComponent } from './dialog/success-alert-dialog/success-alert-dialog.component';
 import { UserDashboardComponent } from './my-bank/user-dashboard/user-dashboard.component';
-import { MainPageComponent } from './my-bank/customer-dashboard/main-page/main-page.component';
+import { MainPageComponent } from './my-bank/main-page/main-page.component';
 import { BalanceComponent } from './my-bank/customer-dashboard/balance/balance.component';
 import { AccountComponent } from './my-bank/account/account.component';
 import { AddAccountComponent } from './my-bank/crud-account/add-account/add-account.component';
