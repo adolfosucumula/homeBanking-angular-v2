@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/UserModel';
 import { AuthGetServicesComponent } from 'src/app/auth/auth-services/auth-get.service';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
-import { AuthUtils } from 'src/app/auth/utils/AuthUtils';
+import { AuthUtils } from 'src/app/auth/utils/AuthUtils.service';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
 import { SigninServicesService } from './services/signin-services.service';
+import { SingInUtil } from '../utils/signin-util.servicel';
 
 let user = new UserModel();
 
@@ -21,10 +22,10 @@ export class SigninComponent {
 
   fullWidth = 0;
 
-  constructor(private authUtils: AuthUtils,
-     private localStore: StorageService,private formBuilder: FormBuilder,
+  constructor(private authUtils: AuthUtils, private signIn: SingInUtil,
+     private localStore: StorageService,
      private router: Router, private authServices: AuthGetServicesComponent, private alertD: AlertMessageFactories,
-     private  signinService: SigninServicesService
+     private  signinService: SigninServicesService,
     ){}
 
   submitted = false;
@@ -59,16 +60,16 @@ export class SigninComponent {
     if(this.entityForm.invalid){
       return;
     }
-
-    this.firstFindUser();
+    this.authServices.allUsers().subscribe((data) => this.signIn.makeLogin(data, this.entityForm) )
 
   };
+
 
   /**
    * Firt load all  the user from JSON server and find the user that want to sign In, if found compare their password
    *, if equals, a register of login is created on JSON server and the user is  redirected to  the dashboard
    */
-  firstFindUser(){
+  /*firstFindUser(){
 
     // Load all user from JSON SERVER
     this.authServices.allUsers().subscribe((data: any) => {
@@ -101,7 +102,9 @@ export class SigninComponent {
       }
 
     })
-  };
+  };*/
+
+
 
 
 }

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { StorageService } from 'src/app/utils/StorageService.service';
-import { AuthUtils } from 'src/app/auth/utils/AuthUtils';
+import { AuthUtils } from 'src/app/auth/utils/AuthUtils.service';
 import { FormGroup } from '@angular/forms';
 import { UserModel } from 'src/app/models/UserModel';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';

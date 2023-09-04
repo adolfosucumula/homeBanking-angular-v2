@@ -17,12 +17,8 @@ export class SignupServicesService {
    */
   saveUser(formData: FormGroup){
 
-    this.authServices.register(
-      this.utils.getUserObject(formData)
-    )
-    .subscribe((data: any)=> {
-      this.router.navigate(['/login']);
-    })
+    this.authServices.register(this.utils.getUserObject(formData))
+    .subscribe((data: any)=> this.router.navigate(['/signin']))
 
   }
 

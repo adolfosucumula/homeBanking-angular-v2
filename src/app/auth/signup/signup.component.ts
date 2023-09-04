@@ -21,9 +21,8 @@ export class SignupComponent {
   constructor(private utils: SignUpUtilsService,
     private localStore: StorageService,
     private signUpService: SignupServicesService,
-    private router: Router, private authServices: AuthGetServicesComponent,
+    private authServices: AuthGetServicesComponent,
     private alertD: AlertMessageFactories,
-    private currentDate: CurrentDate
    ){}
 
   submitted = false;

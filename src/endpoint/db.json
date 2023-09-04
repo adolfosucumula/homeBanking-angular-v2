@@ -183,6 +183,36 @@
       "createdAt": "24/08/2023 06:53",
       "updatedAt": "24/08/2023 06:53",
       "tableName": "users"
+    },
+    {
+      "signout": true,
+      "id": 16,
+      "fullname": "Evalina",
+      "username": "marcolino",
+      "email": "marcolino@email.com",
+      "telephone": "929929299",
+      "password": "12345678",
+      "role": "Normal",
+      "isActive": false,
+      "createdAt": "04/09/2023 01:38",
+      "updatedAt": "04/09/2023 01:38",
+      "tableName": "users",
+      "avatar": "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
+    },
+    {
+      "signout": true,
+      "id": 17,
+      "fullname": "Family",
+      "username": "family",
+      "email": "family@email.com",
+      "telephone": "939000288",
+      "password": "12345678",
+      "role": "Normal",
+      "isActive": false,
+      "createdAt": "04/09/2023 01:42",
+      "updatedAt": "04/09/2023 01:42",
+      "tableName": "users",
+      "avatar": "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
     }
   ],
   "loggeds": [
@@ -2454,6 +2484,21 @@
       "updatedAt": "",
       "tableName": "loggeds",
       "avatar": "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
+    },
+    {
+      "signout": true,
+      "id": 179,
+      "fullname": "",
+      "username": "admin",
+      "email": "",
+      "telephone": 0,
+      "password": "12345678",
+      "role": "ADMIN",
+      "isActive": false,
+      "createdAt": "04/09/2023 01:36",
+      "updatedAt": "",
+      "tableName": "loggeds",
+      "avatar": "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
     }
   ],
   "signout": [
@@ -4016,6 +4061,35 @@
       "role": "ADMIN",
       "isActive": false,
       "createdAt": "02/09/2023 09:31",
+      "updatedAt": "",
+      "tableName": "signout",
+      "avatar": "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
+    },
+    {
+      "signout": true,
+      "id": 128,
+      "fullname": "",
+      "username": "admin",
+      "email": "",
+      "telephone": 0,
+      "password": "",
+      "role": "ADMIN",
+      "isActive": false,
+      "createdAt": "04/09/2023 01:38",
+      "updatedAt": "",
+      "tableName": "signout",
+      "avatar": "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
+    },
+    {
+      "signout": true,
+      "id": 129,
+      "fullname": "",
+      "email": "",
+      "telephone": 0,
+      "password": "",
+      "role": "ADMIN",
+      "isActive": false,
+      "createdAt": "04/09/2023 01:42",
       "updatedAt": "",
       "tableName": "signout",
       "avatar": "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"

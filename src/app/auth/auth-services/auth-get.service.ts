@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 //My imports authrntication requests controll
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { AuthUtils } from 'src/app/auth/utils/AuthUtils';
+import { AuthUtils } from 'src/app/auth/utils/AuthUtils.service';
 import { FormGroup } from '@angular/forms';
 import { UserModel } from 'src/app/models/UserModel';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
@@ -48,6 +48,8 @@ export class AuthGetServicesComponent {
       })
     );
   }
+
+
 
   /**
    *
