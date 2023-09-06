@@ -2,6 +2,12 @@ import {AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AccountGetService } from '../../account/service/account-get.service';
+import { AccountTransactionModel } from 'src/app/models/AccountTransactionModel';
+import { StorageService } from 'src/app/utils/StorageService.service';
+import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
+import { Router } from '@angular/router';
+import { AccountClass } from 'src/app/models/AccountModel';
+import { GetTransactionsService } from '../../crud-transactions/services/get-transaction.service';
 
 @Component({
   selector: 'app-balance',
@@ -10,66 +16,69 @@ import { AccountGetService } from '../../account/service/account-get.service';
 })
 export class BalanceComponent {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  allAccounts: any
 
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  constructor(private accountServices: AccountGetService){
-  }
-
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  //Method that returns all accounts from database server
-  getAll(){
-    this.accountServices.getAll().subscribe((data: any) => {
-      this.allAccounts = data
-
-   });
-  }
-
-
-}
-
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
+  totalBalance = '122.200.000,00';
+  currenc = [
+    {currency: "EUR", icon: "euro_symbol", flag: "../../assets/img/ico/euro.ico"},
+    {currency: "USD", icon: "monetization_on", flag: "../../assets/img/ico/dollar.ico"},
+    {currency: "AOA", icon: "monetization_on", flag: "../../assets/img/ico/aoa.ico"},
 ];
 
+  public isLogged = false;
+  username: any;
+  userAccount: any ;
+  accountCredits!: AccountTransactionModel[];
+  accountDebits!: AccountTransactionModel[];
+  allAccounts!: AccountClass[];
+  dataSource: any;
+  dataList: any;
+
+  constructor(private localStore: StorageService,
+    private accountServices: AccountGetService,
+    private transService: GetTransactionsService,
+    private snackBarAlert: SnackBarAlertMessage, private router: Router
+    ){ }
+
+  ngOnInit(): void {
+    this.isLogged = this.localStore.isLoggedIn();
+  this.username = this.localStore.getUser();
+    if(!this.isLogged){
+      this.router.navigate(['/login']);
+    }
+
+    this.isLogged = this.localStore.isLoggedIn();
+    this.username = this.localStore.getUser();
+    this.getTransactions()
+  }
+
+
+  displayedColumns: string[] = ['id', 'account', 'iban', 'initialBalance', 'amount', 'owner', 'isActive', 'edit'];
+
+
+  open(){
+    alert("Open")
+  }
+
+
+  getTransactions(){
+    this.transService.getAll().subscribe((data: AccountTransactionModel) => {
+
+      this.dataList = data;
+        //this.dataSource = new MatTableDataSource(data);
+
+      const array = JSON.stringify(this.accountServices.findByAccountInDBList(data, this.userAccount))
+      const items = JSON.parse(array);
+      console.log("==================  CREDITS ============================")
+      console.log(items)
+      if(items.size == 0) { this.snackBarAlert.openSnackBar("No account found for this user!", "Information", 10, 'bottom', "left"); }
+      else{
+
+      }
+    })
+  };
+  getFormatted(_localLanguage: string = 'pt-PT', _currency: string = 'EUR', value: number): any {
+
+    return new Intl.NumberFormat(_localLanguage, { style: 'currency', currency: _currency }).format(value);
+  }
+
+}

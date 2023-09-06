@@ -1,50 +1,85 @@
 <app-main-page page="Balance">
 
-  <div class="container">
-    This is Account
-    <button routerLink="/acc">Account</button>
+
+  <div class="main">
+
+
+    <div class="container">
+
+      <!------ BALANCE -->
+      <div class="balance">
+        <div class="header">
+          <h2>Total balance</h2>
+          <div>
+            <mat-icon class="currency">{{ currenc[1].icon }}</mat-icon>
+            <span>{{ totalBalance }} {{ currenc[0].currency }}</span>
+          </div>
+        </div>
+
+        <div class="box-card">
+          <div class="card" (click)="open()">
+            <img src="{{currenc[0].flag}}" width="60" height="60" alt="currency-flag" srcset="" >
+            <span id="currency">{{ currenc[0].currency }}</span>
+            <span id="balance" >
+              {{ totalBalance }}
+            </span>
+          </div>
+          <div class="card" (click)="open()">
+            <mat-icon>add_circle</mat-icon>
+            <div>
+              <h2>Open</h2>
+              <p>Explore ways to spend, save and grow your money</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-------- BALANCE END -->
+
+      <div class="transactions">
+        <div class="header">
+
+          <div class="title">
+            <h2>Transactions</h2>
+          </div>
+
+          <div class="form">
+            <div>
+              <button id="btn-search"><mat-icon>search</mat-icon></button>
+              <input type="text" class="search" placeholder="Search ..." >
+            </div>
+            <button id="btn-all">See all</button>
+          </div>
+
+        </div>
+
+        <!---------- LIST OF  TRANSACTIONS  ------->
+
+        <div class="content">
+          <div class="list" *ngFor="let item of dataList">
+            <div class="box">
+              <div class="date">
+                <h2>{{ item.createdAt }}</h2>
+              </div>
+              <div class="operation">
+                <div class="mov">
+                  <span><mat-icon>add</mat-icon></span>
+                  <div id="operator">
+                    <h2>{{ item.operator }}</h2>
+                    <p>{{ item.status }}</p>
+                  </div>
+                  <div id="amount"><h1> + {{ item.balanceAfter  }} {{ currenc[0].currency }}</h1></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
   </div>
-
-  <div class="mat-elevation-z8">
-    <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-    </mat-form-field>
-    <table mat-table [dataSource]="dataSource">
-
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef> Weight </th>
-        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef> Symbol </th>
-        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
-    </mat-paginator>
-  </div>
-
 
 </app-main-page>

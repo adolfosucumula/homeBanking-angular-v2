@@ -20,6 +20,7 @@ export class StorageService {
   clearSession(): void{
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.removeItem(LOGGED_KEY);
+    window.sessionStorage.removeItem('USER_ACCOUNT');
     window.sessionStorage.clear();
   };
 
@@ -58,20 +59,6 @@ export class StorageService {
 
     return false;
   };
-
-  //Method to redirect the route to the login page when user is not logged
-  public redirectToLoginPage(): void {
-    window.onload
-    if(this.isLoggedIn()){
-
-      //alert(" you'r logged")
-      //this.router.navigate(['/account/home']);
-    }
-    else{
-      //alert(" you'r loggout")
-      //this.router.navigate(['/login']);
-    }
-  }
 
 
 

@@ -1,0 +1,20 @@
+
+mat-card{
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0;
+
+  mat-card-content .header{
+    width: 100%;
+    display: flex;
+
+    form{
+      margin-right: 1%;
+      width: 30%;
+
+      mat-form-field{
+        width: 100%;
+      }
+    }
+  }
+}

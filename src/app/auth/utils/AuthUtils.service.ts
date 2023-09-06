@@ -13,7 +13,7 @@ import { SigninServicesService } from "../signin/services/signin-services.servic
 
 export class AuthUtils {
 
-  constructor(private router: Router, private formBuilder: FormBuilder,
+  constructor( private formBuilder: FormBuilder,
     ){}
 
   date = new FormControl(new Date());

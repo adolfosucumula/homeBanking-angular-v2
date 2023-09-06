@@ -39,6 +39,15 @@ export class GenericServices {
     return this.http.get <T | T[]>(`${ this.endPoint.endPointURL() + model.tableName }/${ objToFind }`);
   }
 
+   /**
+   *
+   * @param params
+   * @returns
+   */
+   findObjts<T>(params: T | any): Observable <T | T[]> {
+    return this.http.get <T | T[]>(`${ this.endPoint.endPointURL() + params }`);
+  }
+
   /**
    *
    * @param model

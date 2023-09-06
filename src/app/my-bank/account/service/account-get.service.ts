@@ -51,7 +51,6 @@ export class AccountGetService {
     .pipe(
       retry(3), // retry a failed request up to 3 times
       //catchError(this.handleError) // then handle the error
-      retry(3), // retry a failed request up to 3 times
       catchError(handleError) // then handle the error
     );
   }
@@ -62,7 +61,16 @@ export class AccountGetService {
     .pipe(
       retry(3), // retry a failed request up to 3 times
       //catchError(this.handleError) // then handle the error
+      catchError(handleError) // then handle the error
+    );
+  }
+
+  getByOwner(owner: string): Observable<any> {
+
+    return this.services.findObjts("accounts?owner=" + owner )
+    .pipe(
       retry(3), // retry a failed request up to 3 times
+      //catchError(this.handleError) // then handle the error
       catchError(handleError) // then handle the error
     );
   }

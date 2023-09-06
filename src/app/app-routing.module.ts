@@ -11,6 +11,7 @@ import { BodyComponent } from './welcome/body/body.component';
 import { AccountComponent } from './my-bank/account/account.component';
 import { AddAccountComponent } from './my-bank/crud-account/add-account/add-account.component';
 import { EditAccountComponent } from './my-bank/crud-account/edit-account/edit-account.component';
+import { UserDashboardComponent } from './my-bank/user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'logout', component: SignoutComponent},
   { path: 'user-inactive', component: UserStatusComponent},
   { path: 'account', component: AccountComponent},
+  { path: 'account-details', component: UserDashboardComponent},
   { path: 'add-account', component: AddAccountComponent},
   { path: 'edit-account/:id', component: EditAccountComponent},
 ];

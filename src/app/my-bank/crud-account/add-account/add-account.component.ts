@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountPostService } from '../service/account-post.service';
 import { Router } from '@angular/router';
-import { myGlobalVariablesEditAcount } from '../utils/AccountVariables';
 import { AddAccountUtils } from '../utils/AddAccountUtils';
 
 @Component({
@@ -14,9 +13,9 @@ import { AddAccountUtils } from '../utils/AddAccountUtils';
 })
 export class AddAccountComponent {
 
-  date = new FormControl(new Date());
+  date = new Date();
   serializedDate = new FormControl(new Date().toISOString());
-
+  account = '22222'
   /**
    * Create an object of instance using the FormGroup
    * class to manage the form fields value, controlling and validate them
@@ -26,24 +25,13 @@ export class AddAccountComponent {
   submitted = false;
 
   //
-  constructor(private formBuilder: FormBuilder, private currencyPipe: CurrencyPipe,
-    private accountPostServices: AccountPostService, private router: Router,
+  constructor( private currencyPipe: CurrencyPipe,
     private addAccountUtils: AddAccountUtils) { }
 
 
   ngOnInit(): void {
-    //Function to validate the form fields according to the specific rules
-    this.accountForm = this.formBuilder.group({
-      account: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('^[0-9]+$')] ],
-      iban: ['', [Validators.required, Validators.pattern('^[0-9A-Z]+$'), Validators.minLength(19), Validators.maxLength(19)]],
-      swift: ['', [Validators.required, Validators.pattern('^[A-Z]+$'), Validators.minLength(8), Validators.maxLength(8)] ],
-      owner: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200)] ],
-      ownerDoc: ['', [Validators.required, Validators.pattern('^[1-9]+$'), Validators.maxLength(15)] ],
-      initialBalance: ['', [Validators.required] ],
-      currency: ['', [Validators.required, Validators.minLength(2)] ],
-      createdAt: ['', [Validators.required, Validators.maxLength(9)] ],
-      isActive: [false, Validators.required],
-    });
+    this.account = this.addAccountUtils.generateAccount()
+    this.accountForm = this.addAccountUtils.validateFormFields()
 
     /**
      * Function to catch the event typing from currency field to check the values being typing by user
@@ -69,7 +57,6 @@ export class AddAccountComponent {
   onSubmit(): void {
     this.submitted = true;
 
-
     if(this.accountForm.invalid){
       return;
     }
@@ -80,46 +67,13 @@ export class AddAccountComponent {
       return
     }
 
+    this.addAccountUtils.addAccount(this.accountForm, this.account)
 
-
-    const { account,
-    iban,
-    swift,
-    owner,
-    ownerDoc,
-    initialBalance,
-    currency,
-    createdAt,
-    isActive} = this.accountForm.value;
-
-
-    //console.log(JSON.stringify(this.accountForm.value, null, 2));
-
-    this.accountPostServices.create(account,
-      iban,
-      swift,
-      owner,
-      ownerDoc,
-      initialBalance,
-      initialBalance,
-      currency,
-      createdAt,
-      isActive  === 1 ? true: false).subscribe({
-      next: res => {
-        console.log(res)
-
-        this.router.navigate(['/dashboard'])
-        this.submitted = false;
-        this.accountForm.reset();
-      },
-      error: err => {
-        console.log(err)
-        //alert("Error: "+err)
-      }
-    });
+    this.submitted = false;
 
 
   };
+
 
 
 

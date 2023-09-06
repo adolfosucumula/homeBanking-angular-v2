@@ -20,9 +20,7 @@ export class AccountPostService {
 
 
   create(
-    account: number,
-    iban: string,
-    swift: string,
+    account: string,
     owner: string,
     ownerDoc: number,
     initialBalance: string,
@@ -31,8 +29,6 @@ export class AccountPostService {
     createdAt: string,
     isActive: boolean): Observable <any>{
     model.account = account.toString();
-    model.iban = iban;
-    model.swift = swift;
     model.owner = owner;
     model.ownerDoc = ownerDoc.toString();
     model.initialBalance = initialBalance;
