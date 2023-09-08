@@ -69,7 +69,7 @@ export class SignUpUtilsService {
       telephone,
       password,
       "Normal",
-      false,
+      true,
       this.currentDate.getDate(),
       this.currentDate.getDate());
   }

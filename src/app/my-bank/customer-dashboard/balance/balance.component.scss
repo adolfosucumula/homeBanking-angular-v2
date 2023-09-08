@@ -281,18 +281,33 @@
 
         .operation{
           display: flex;
+          position: static;
+          margin-top: -20px;
           flex-direction: column;
           width: 50%;
+
           .mov{
             display: flex;
             flex-direction: column;
             text-align: right;
             justify-content: end;
 
+            h3{
+              display: block;
+              position: static;
+              color: #777777;
+              
+              span{
+                font-size: .5rem;
+                font-style: italic;
+              }
+            }
+
             .amount{
               display: flex;
               position: static;
               width: 100%;
+              margin-top: -20px;
               text-align: right;
               justify-content: end;
 
@@ -310,6 +325,17 @@
                 font-weight: 600;
                 color: #e21111;
                 margin-top: 5px;
+              }
+            }
+
+            span{
+              margin-top: -15px;
+              font-size: 1rem;
+              color: #777777;
+
+              span{
+                font-size: .5rem;
+                font-style: italic;
               }
             }
 

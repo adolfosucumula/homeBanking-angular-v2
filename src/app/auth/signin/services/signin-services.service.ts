@@ -52,7 +52,7 @@ export class SigninServicesService {
           },1);
           this.isLogged = this.localStore.isLoggedIn();
           if(this.isLogged){
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/balance']);
 
           }else{
             this.alertD.openErrorAlertDialog("Error", "Logging failed!", "Ok", '700ms', '1000ms')

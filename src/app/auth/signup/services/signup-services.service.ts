@@ -26,9 +26,12 @@ export class SignupServicesService {
    * @param formData
    */
   saveUser(formData: FormGroup){
+
     this.addAccountUtils.generateAccount()
+
     this.authServices.register(this.utils.getUserObject(formData))
     .subscribe((data: any)=>
+
     this.addAccountUtils.addAccount(
       new FormGroup({
         owner: new FormControl(formData.value.username),
@@ -36,7 +39,7 @@ export class SignupServicesService {
         initialBalance: new FormControl('0,00'),
         currency: new FormControl('EUR'),
         createdAt: new FormControl(this.date.getDate()),
-        isActive: new FormControl(false),
+        isActive: new FormControl(true),
       }),
       this.addAccountUtils.generateAccount()
       )

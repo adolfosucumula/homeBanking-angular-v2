@@ -1,36 +1,68 @@
 
 main{
   align-items: center;
+  justify-content: center;
+  .container{
+    align-items: center;
+    justify-content: center;
+
+    .example-form{
+      padding: 1rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .title{
+        width: 60%;
+        padding: .6rem 1rem;
+        margin: 1;
+        background: rgba(233, 233, 233, 0.7);
+        text-align: center;
+
+        h2{
+          font-weight: bold;
+          color: rgb(59, 59, 59);
+        }
+      }
+
+      .content{
+        width: 70%;
+        display: flex;
+        padding: .7rem 0;
+        margin-top: 1%;
+        align-items: center;
+        justify-content: center;
+
+        .box{
+          display: flex;
+          flex-direction: column;
+
+          .account{
+            position: static;
+            display: block;
+            padding: 1rem .3rem;
+            top: 0;
+            margin-top: -4%;
+            margin-bottom: 2%;
+            width: 100%;
+            border: 0;
+            border-radius: 2rem;
+            background-color: #e7e7e7;
+            color: #063985;
+            font-size: 1.2rem;
+          }
+        }
+      }
+
+
+    }
+
+  }
+
 }
 
-main .container{
-  align-items: center;
-}
 
-main .container .example-form{
-  padding: 1rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 800px;
-  max-width: 800px;
-
-}
-
-main .container .example-form .title{
-  padding: 2rem 1rem;
-  margin: 1;
-  background: rgba(56, 87, 53, 4);
-
-  min-width: 400px;
-  text-align: center;
-}
-
-main .container .example-form .title h2{
-  font-weight: bold;
-  color: rgb(59, 59, 59);
-}
 mat-form-field {
 
   min-width: 500px;

@@ -95,19 +95,19 @@ export class AccountComponent implements OnInit{
 
 
    accountAdd(){
-     this.router.navigate(['/add-account'], {relativeTo: this.route});
+     this.router.navigate(['/add-account/']);
    }
 
    accountEdit(id: number){
-     this.router.navigate(['/account/edit/',id], {relativeTo: this.route});
+     this.router.navigate(['/edit/account/',id]);
    }
 
    accountCredit(id: number){
-     this.router.navigate(['/account/trans/credit/',id], {relativeTo: this.route});
+     this.router.navigate(['/credit/account/',id]);
    }
 
    accountDebit(id: number){
-     this.router.navigate(['/account/trans/debit/',id], {relativeTo: this.route});
+     this.router.navigate(['/debit/account/',id]);
    }
 
 

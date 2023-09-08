@@ -10,7 +10,8 @@ import { AccountUpdateService } from '../utils/account-update.service';
 @Component({
   selector: 'app-edit-account',
   templateUrl: './edit-account.component.html',
-  styleUrls: ['./edit-account.component.scss']
+  styleUrls: ['./edit-account.component.scss'],
+  providers: [CurrencyPipe]
 })
 export class EditAccountComponent {
 

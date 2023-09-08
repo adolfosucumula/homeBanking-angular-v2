@@ -49,7 +49,8 @@
           <div class="form">
             <div>
               <button id="btn-search"><mat-icon>search</mat-icon></button>
-              <input type="text" class="search" placeholder="Search ..." >
+              <input type="text" class="search" matInput placeholder="Digite seu filtro aqui" formControlName="input"
+              (keyup)="filter($event)" #input >
             </div>
             <button id="btn-all">See all</button>
           </div>
@@ -71,11 +72,13 @@
               </div>
               <div class="operation">
                 <div class="mov">
+                  <h3><span>B.BEFORE</span> {{ item.balanceBefore  }} {{ currenc[0].currency }}</h3>
                   <div class="amount">
                     <mat-icon id="credit" *ngIf="item.transactionType === 'credit'" >add</mat-icon>
                     <mat-icon id="debit" *ngIf="item.transactionType === 'debit'" >remove</mat-icon>
-                    <h1> {{ item.balanceAfter  }} {{ currenc[0].currency }}</h1>
+                    <h1> {{ item.amount  }} {{ currenc[0].currency }}</h1>
                   </div>
+                  <span><span>B.AFTER.</span> {{ item.balanceAfter  }} </span>
                   <div id="status">
                     <p>{{ item.status }}</p>
                   </div>

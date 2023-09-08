@@ -4,7 +4,7 @@ import { EditAccountUtils } from '../crud-account/utils/EditAccountUtils';
 import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountTransactionUtils } from './services/AccountTransactionUtils';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { AccountGetService } from '../account/service/account-get.service';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { getFormattedCurrency_deDE } from 'src/app/utils/functions/formatCurrency';
@@ -16,7 +16,7 @@ let userAccountData = {account: '000', owner: 'owner', currentBalance: '0,00'}
   selector: 'app-send-money',
   templateUrl: './send-money.component.html',
   styleUrls: ['./send-money.component.scss'],
-  providers: [CurrencyPipe]
+  providers: [CurrencyPipe, DatePipe]
 })
 export class SendMoneyComponent {
 
@@ -34,11 +34,15 @@ export class SendMoneyComponent {
   //
   constructor(private localStore: StorageService,
     private currencyPipe: CurrencyPipe,
-   private utils: AccountTransactionUtils, private router: Router, private route: ActivatedRoute,
-    private accountService: AccountGetService, private snackAlert: SnackBarAlertMessage,
+   private utils: AccountTransactionUtils,
+   private router: Router,
+   private route: ActivatedRoute,
+    private accountService: AccountGetService,
+    private snackAlert: SnackBarAlertMessage,
     private editAccountUtils: EditAccountUtils,
     private localStorage: StorageService,
-    private singInUtil: SingInUtil
+    private singInUtil: SingInUtil,
+    private datePipe: DatePipe
     ) { }
 
 
@@ -70,12 +74,12 @@ export class SendMoneyComponent {
       this.accountForm.valueChanges.subscribe( form => {
         if(form.amount){
           this.accountForm.patchValue({
-            amount: this.currencyPipe.transform(form.amount.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '1.0-0')
+            amount: this.currencyPipe.transform(form.amount.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '4.2-2', 'fr')
           }, {emitEvent: false})
         }
         if(form.balanceBefore){
           this.accountForm.patchValue({
-            balanceBefore: this.currencyPipe.transform(form.balanceBefore.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '1.0-0')
+            balanceBefore: this.currencyPipe.transform(form.balanceBefore.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '4.2-2', 'fr')
           }, {emitEvent: false})
         }
       });
@@ -102,19 +106,26 @@ export class SendMoneyComponent {
       if(id > 0){
         this.accountService.getById(id).subscribe((data: any) => {
           this.accountForm.patchValue({
-            owner: data.owner,
-            account: data.account,
-            balanceBefore: data.currentBalance,
-            amount: '',
-            balanceAfter: '',
-            operator: 'Operator',
-            status: 'Pendent',
-            createdAt: this.date.value
+            targetAccount: '',
+            owner2: '',
+            amount: new FormControl(''),
+            operator: new FormControl(''),
+            status: new FormControl(''),
+            createdAt: new FormControl(''),
           });
 
           //Preserve the account register to be used at next step
           this.accountData.patchValue(data);
         })
+      }else{
+        this.accountForm.patchValue({
+          targetAccount: '',
+          owner2: '',
+          amount: '',
+          operator: this.userData.username,
+          status: 'Pendent',
+          createdAt: ''
+        });
       }
     };
 
@@ -163,7 +174,8 @@ export class SendMoneyComponent {
         getFormattedCurrency_deDE(balanceBefore),
         getFormattedCurrency_deDE(amount),
         getFormattedCurrency_deDE(balanceAfter),
-        "O.Finalized"
+        "O.Finalized",
+        this.datePipe.transform(this.accountForm.value.createdAt, 'dd/MM/yyyy h:mm:ss')
         );
 
         //==============  Now update the currency balance form account
@@ -216,7 +228,8 @@ export class SendMoneyComponent {
               data[0].currentBalance,
               getFormattedCurrency_deDE(amount),
               getFormattedCurrency_deDE(parseFloat(balance) + parseFloat(amount)),
-              "O.Finalized"
+              "O.Finalized",
+              this.datePipe.transform(this.accountForm.value.createdAt, 'dd/MM/yyyy h:mm:ss')
             );
           }
         })

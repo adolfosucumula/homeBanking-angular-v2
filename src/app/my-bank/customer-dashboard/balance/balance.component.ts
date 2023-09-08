@@ -8,6 +8,7 @@ import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
 import { Router } from '@angular/router';
 import { AccountClass } from 'src/app/models/AccountModel';
 import { GetTransactionsService } from '../../send-money/services/get-transaction.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-balance',
@@ -25,7 +26,7 @@ export class BalanceComponent {
 ];
 
   public isLogged = false;
-  username: any;
+  userData: any;
   userAccount: any ;
   accountCredits!: AccountTransactionModel[];
   accountDebits!: AccountTransactionModel[];
@@ -33,6 +34,9 @@ export class BalanceComponent {
   dataSource: any;
   dataList: any;
   userAccountData = {account: '000', owner: 'owner', currentBalance: '0,00'}
+  formFilter = new FormGroup({
+    input: new FormControl('')
+  })
 
   constructor(private localStore: StorageService,
     private accountServices: AccountGetService,
@@ -42,17 +46,17 @@ export class BalanceComponent {
     ){ }
 
   ngOnInit(): void {
-    this.isLogged = this.localStore.isLoggedIn();
-    this.username = this.localStore.getUser();
+
+    this.userData = this.localStore.getUser();
+    this.getTransactions(this.userData.username)
+
     if(!this.isLogged){
       this.router.navigate(['/login']);
     }
 
     this.userAccountData = this.localStorage.getUserAccount()
 
-    this.isLogged = this.localStore.isLoggedIn();
-    this.username = this.localStore.getUser();
-    this.getTransactions(this.username)
+
   }
 
 
@@ -60,12 +64,17 @@ export class BalanceComponent {
 
 
   open(){
-    alert("Open")
+
   }
 
+  filter(event: Event){
+    const filterValue = (event.target as HTMLInputElement).value
+    this.dataList.filter = filterValue.trim().toLowerCase()
+  }
 
   getTransactions(username: string){
-    this.transService.getByUser('username='+username).subscribe((data: AccountTransactionModel) => this.dataList = data)
+    this.transService.getByUser('owner1='+username).subscribe((data: AccountTransactionModel) => this.dataList = data);
+    this.transService.getByUser('owner2='+username).subscribe((data: AccountTransactionModel) => this.dataList += data)
   };
 
 

@@ -80,13 +80,13 @@
               <mat-icon color="primary">edit</mat-icon>
               Edit
             </button>
+            <button mat-menu-item (click)="accountCredit(element.id)" >
+              <mat-icon color="basic">add_circle_outline</mat-icon>
+              Credit
+            </button>
             <button mat-menu-item (click)="accountDebit(element.id)" >
               <mat-icon color="warn">remove_circle_outline</mat-icon>
               Debit
-            </button>
-            <button mat-menu-item [routerLink]="['account/trans/credit/',1]" >
-              <mat-icon color="basic">add_circle_outline</mat-icon>
-              Credit
             </button>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="removeAccount(element.id)" >

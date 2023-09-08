@@ -7,7 +7,7 @@ import { AccountUpdateService } from "../../crud-account/utils/account-update.se
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class AccountTransactionUtils {
@@ -87,12 +87,13 @@ export class AccountTransactionUtils {
     balanceBefore: string,
     amount: string,
     balanceAfter: string,
-    status: string
+    status: string,
+    date: any
     ){
 
       this.postServices.create(
         sourceAccount,
-        owner1,
+        this.getFormData(form).owner2,
         this.getFormData(form).targetAccount,
         this.getFormData(form).owner2,
         balanceBefore,
@@ -101,9 +102,9 @@ export class AccountTransactionUtils {
         this.getFormData(form).operator,
         'debit',
         status,
-        this.getFormData(form).createdAt
+        date
       )
-      .subscribe((data: any) =>  this.updateBalanceAsDebit(form, accountData, balanceAfter))
+      .subscribe((data: any) =>  this.updateBalanceAsDebit(form, accountData, balanceAfter, date))
   }
 
   creditTransaction(
@@ -114,9 +115,9 @@ export class AccountTransactionUtils {
     balanceBefore: string,
     amount: string,
     balanceAfter: string,
-    status: string
+    status: string,
+    date: any
     ){
-
       this.postServices.create(
         sourceAccount,
         owner1,
@@ -128,17 +129,18 @@ export class AccountTransactionUtils {
         this.getFormData(form).operator,
         'credit',
         status,
-        this.getFormData(form).createdAt
+        date
       )
-      .subscribe((data: any) =>  this.updateBalanceAsDebit(form, accountData, balanceAfter))
+      .subscribe((data: any) =>  this.updateBalanceAsDebit(form, accountData, balanceAfter, date))
   };
 
 updateBalanceAsDebit(
     form: FormGroup,
     accountData: any,
     balanceAfter: string,
+    date: any
     ){
-
+    
       this.updateAccountService.update(
         accountData.id,
         accountData.account,
@@ -149,7 +151,7 @@ updateBalanceAsDebit(
         accountData.initialBalance,
         balanceAfter,
         accountData.currency,
-        this.getFormData(form).createdAt,
+        date,
         accountData.isActive
       )
       .subscribe()

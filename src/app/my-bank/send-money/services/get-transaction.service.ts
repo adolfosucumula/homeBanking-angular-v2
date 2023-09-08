@@ -52,7 +52,7 @@ export class GetTransactionsService {
   }
 
   getByUser(params: string): Observable <any>{
-
+  
     //return this.http.get < AccountTransactionModel [] > ( this.base_url.endPointURL() + 'credits/')
     return this.genericService.findObjts(this.trans.tableName, params)
     .pipe(
