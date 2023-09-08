@@ -5128,6 +5128,20 @@
       "updatedAt": "",
       "tableName": "signout",
       "avatar": "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
+    },
+    {
+      "signout": true,
+      "id": 169,
+      "fullname": "",
+      "email": "",
+      "telephone": 0,
+      "password": "",
+      "role": "ADMIN",
+      "isActive": false,
+      "createdAt": "08/09/2023 11:32",
+      "updatedAt": "",
+      "tableName": "signout",
+      "avatar": "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
     }
   ],
   "accounts": [
