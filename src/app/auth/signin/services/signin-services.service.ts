@@ -6,6 +6,7 @@ import { AuthUtils } from 'src/app/auth/utils/AuthUtils.service';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { AuthPostServicesComponent } from '../../auth-services/auth-post-service.service';
+import { SessionService } from 'src/app/utils/session/session.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class SigninServicesService {
   constructor(
     private authUtils: AuthUtils, private alertD: AlertMessageFactories,
      private localStore: StorageService,
+     private sessionService: SessionService,
      private router: Router, private authServices: AuthPostServicesComponent,
      private currentDate: CurrentDate
     ) {}
@@ -50,6 +52,9 @@ export class SigninServicesService {
             createdAt: this.currentDate.getDate(),
             isActive: isActive
           },1);
+
+          this.sessionService.saveSession(data)
+
           this.isLogged = this.localStore.isLoggedIn();
           if(this.isLogged){
               this.router.navigate(['/balance']);

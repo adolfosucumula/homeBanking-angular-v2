@@ -1,10 +1,13 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Observable } from "rxjs";
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from 'src/app/models/UserModel.model';
+import { Session } from 'src/app/models/session.model';
 import { StorageService } from 'src/app/utils/StorageService.service';
+import { SessionService } from 'src/app/utils/session/session.service';
 
 
 @Component({
@@ -13,6 +16,8 @@ import { StorageService } from 'src/app/utils/StorageService.service';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
+
+  sessao$: Observable<Session | null>;
 
   user: UserModel = new UserModel()
 
@@ -24,9 +29,14 @@ export class MainPageComponent {
 
   @Input() page: string = 'Home'
 
-  constructor(private observer: BreakpointObserver, private route: ActivatedRoute,
-    private router: Router, private localStore: StorageService){
-
+  constructor(
+    private observer: BreakpointObserver,
+    private route: ActivatedRoute,
+    private router: Router,
+    private localStore: StorageService,
+    private sessionService: SessionService
+    ){
+      this.sessao$ = this.sessionService.getSession();
   }
 
   ngOnInit(): void {
@@ -35,13 +45,19 @@ export class MainPageComponent {
     this.username = this.localStore.getUser();
     //Check is the  user is logged. If false redirect him to the login page
     //Check is the  user is logged. If false redirect him to the login page
-    if(!this.isLogged){
-      this.router.navigate(['/signin']);
-    }
 
+    this.logout();
 
   }
 
+  logout(){
+
+    if(!this.isLogged){
+      this.sessionService.clearSession()
+      this.router.navigate(['/signin']);
+    }
+
+  }
 
   /**
    * Method to catch the page resize event

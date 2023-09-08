@@ -13,22 +13,23 @@ import { SendMoneyComponent } from './my-bank/send-money/send-money.component';
 import { DebitAccountComponent } from './my-bank/crud-transactions/debit-transaction/debit-account.component';
 import { CreditAccountComponent } from './my-bank/crud-transactions/credit-transaction/credit-account.component';
 import { EditAccountComponent } from './my-bank/crud-account/edit-account/edit-account.component';
+import { AuthGuard } from './auth/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: BodyComponent},
-  { path: 'dashboard', component: MainPageComponent},
-  { path: 'balance', component: BalanceComponent},
+  { path: 'dashboard', component: MainPageComponent, canActivate: [AuthGuard]},
+  { path: 'balance', component: BalanceComponent, canActivate: [AuthGuard]},
   { path: 'signin', component: SigninComponent},
-  { path: 'signup', component: SignupComponent},
+  { path: 'signup', component: SignupComponent, canActivate: [AuthGuard]},
   { path: 'logout', component: SignoutComponent},
   { path: 'user-inactive', component: UserStatusComponent},
-  { path: 'account', component: AccountComponent},
-  { path: 'add-account', component: AddAccountComponent},
-  { path: 'edit/account/:id', component: EditAccountComponent},
-  { path: 'credit/account/:id', component: CreditAccountComponent},
-  { path: 'debit/account/:id', component: DebitAccountComponent},
-  { path: 'send-money', component: SendMoneyComponent},
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard]},
+  { path: 'add-account', component: AddAccountComponent, canActivate: [AuthGuard]},
+  { path: 'edit/account/:id', component: EditAccountComponent, canActivate: [AuthGuard]},
+  { path: 'credit/account/:id', component: CreditAccountComponent, canActivate: [AuthGuard]},
+  { path: 'debit/account/:id', component: DebitAccountComponent, canActivate: [AuthGuard]},
+  { path: 'send-money', component: SendMoneyComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
