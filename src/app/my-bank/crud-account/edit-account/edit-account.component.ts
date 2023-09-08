@@ -5,7 +5,7 @@ import { AccountUtils } from '../utils/accountUtils';
 import { AccountGetService } from '../../account/service/account-get.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
-import { AccountUpdatePostService } from '../service/account-update.service';
+import { AccountUpdateService } from '../utils/account-update.service';
 
 @Component({
   selector: 'app-edit-account',
@@ -43,7 +43,7 @@ export class EditAccountComponent {
     private formBuilder: FormBuilder, private currencyPipe: CurrencyPipe,
     private route: ActivatedRoute,private router: Router,
     private accountGetService: AccountGetService,
-    private accountUpdateService: AccountUpdatePostService,
+    private accountUpdateService: AccountUpdateService,
     private utils: AccountUtils, public dialog: MatDialog
     ) { }
 

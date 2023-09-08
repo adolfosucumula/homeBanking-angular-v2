@@ -60,49 +60,11 @@ export class SigninComponent {
     if(this.entityForm.invalid){
       return;
     }
-    this.authServices.allUsers().subscribe((data) => this.signIn.makeLogin(data, this.entityForm) )
+    this.authServices.findUser('username=' + this.entityForm.value.username).subscribe(
+      (data) => this.signIn.makeLogin(data, this.entityForm)
+      );
 
   };
-
-
-  /**
-   * Firt load all  the user from JSON server and find the user that want to sign In, if found compare their password
-   *, if equals, a register of login is created on JSON server and the user is  redirected to  the dashboard
-   */
-  /*firstFindUser(){
-
-    // Load all user from JSON SERVER
-    this.authServices.allUsers().subscribe((data: any) => {
-
-      // Find user from database list
-      const exists = this.authServices.compareUsername(data, this.entityForm.value.username);
-
-      if(!exists){
-        this.alertD.openErrorAlertDialog("Warning", "User not found.", "Ok", '700ms', '1000ms')
-      }else{
-
-        const exists = this.authServices.compareUsernameAndPassword(data, this.entityForm.value.username, this.entityForm.value.password);
-        if(!exists){
-          this.alertD.openErrorAlertDialog("Warning", "Password wrong.", "Ok", '700ms', '1000ms')
-        }else{
-
-          const array = JSON.stringify(this.authServices.findUserByUsernameInDBList(data, this.entityForm.value.username));
-          const items = JSON.parse(array);
-
-          // Register login history
-          if(!items.isActive){
-            this.router.navigate(['/user-inactive']);
-          }
-          else{
-            this.signinService.signIn(this.entityForm, items.username, items.email, items.telephone, items.id, items.role, items.isActive );
-          }
-
-        }
-
-      }
-
-    })
-  };*/
 
 
 

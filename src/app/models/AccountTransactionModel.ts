@@ -3,33 +3,36 @@ import { AccountClass } from "./AccountModel";
 export class AccountTransactionModel {
   private id: number;
   private sourceAccount: string;
-  private owner: string;
+  private owner1: string;
   private transactionType: string;
-  private account: string;
+  private targetAccount: string;
+  private owner2: string;
   private balanceBefore: string;
   private amount: string;
   private balanceAfter: string;
   private operator: string;
   private status: string;
   private createdAt: string;
-  private tableName: string;
+  tableName: string;
 
   constructor(
     sourceAccount = '',
-    owner = '',
-    transactionType = '',
-    account = '',
+    owner1 = '',
+    targetAccount = '',
+    owner2 = '',
     balanceBefore = '',
     amount = '',
     balanceAfter = '',
     operator = '',
+    transactionType = '',
     status = '',
     createdAt = ''){
       this.id = 0;
       this.sourceAccount = sourceAccount;
-      this.owner = owner;
+      this.owner1 = owner1;
       this.transactionType = transactionType;
-      this.account = account;
+      this.targetAccount = targetAccount;
+      this.owner2 = owner2
       this.balanceBefore = balanceBefore;
       this.amount = amount;
       this.balanceAfter = balanceAfter;
@@ -38,4 +41,10 @@ export class AccountTransactionModel {
       this.createdAt = createdAt;
       this.tableName = 'transactions';
   }
+
+  public setTableName(table: string){
+    this.tableName = table
+  }
+
+
 }

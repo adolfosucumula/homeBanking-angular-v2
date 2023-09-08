@@ -16,7 +16,6 @@ export class MainPageComponent {
 
   user: UserModel = new UserModel()
 
-  public isVisited = true;
   public isLogged = false;
   username: any;
 
@@ -56,6 +55,7 @@ export class MainPageComponent {
         this.sidenav.mode = 'over'
         this.sidenav.close()
       }else{
+        
         this.sidenav.mode = 'side'
         this.sidenav.open()
       }

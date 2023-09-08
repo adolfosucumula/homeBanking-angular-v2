@@ -7,7 +7,7 @@ import { StorageService } from 'src/app/utils/StorageService.service';
 import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
 import { Router } from '@angular/router';
 import { AccountClass } from 'src/app/models/AccountModel';
-import { GetTransactionsService } from '../../crud-transactions/services/get-transaction.service';
+import { GetTransactionsService } from '../../send-money/services/get-transaction.service';
 
 @Component({
   selector: 'app-balance',
@@ -32,23 +32,27 @@ export class BalanceComponent {
   allAccounts!: AccountClass[];
   dataSource: any;
   dataList: any;
+  userAccountData = {account: '000', owner: 'owner', currentBalance: '0,00'}
 
   constructor(private localStore: StorageService,
     private accountServices: AccountGetService,
     private transService: GetTransactionsService,
+    private localStorage: StorageService,
     private snackBarAlert: SnackBarAlertMessage, private router: Router
     ){ }
 
   ngOnInit(): void {
     this.isLogged = this.localStore.isLoggedIn();
-  this.username = this.localStore.getUser();
+    this.username = this.localStore.getUser();
     if(!this.isLogged){
       this.router.navigate(['/login']);
     }
 
+    this.userAccountData = this.localStorage.getUserAccount()
+
     this.isLogged = this.localStore.isLoggedIn();
     this.username = this.localStore.getUser();
-    this.getTransactions()
+    this.getTransactions(this.username)
   }
 
 
@@ -60,25 +64,9 @@ export class BalanceComponent {
   }
 
 
-  getTransactions(){
-    this.transService.getAll().subscribe((data: AccountTransactionModel) => {
-
-      this.dataList = data;
-        //this.dataSource = new MatTableDataSource(data);
-
-      const array = JSON.stringify(this.accountServices.findByAccountInDBList(data, this.userAccount))
-      const items = JSON.parse(array);
-      console.log("==================  CREDITS ============================")
-      console.log(items)
-      if(items.size == 0) { this.snackBarAlert.openSnackBar("No account found for this user!", "Information", 10, 'bottom', "left"); }
-      else{
-
-      }
-    })
+  getTransactions(username: string){
+    this.transService.getByUser('username='+username).subscribe((data: AccountTransactionModel) => this.dataList = data)
   };
-  getFormatted(_localLanguage: string = 'pt-PT', _currency: string = 'EUR', value: number): any {
 
-    return new Intl.NumberFormat(_localLanguage, { style: 'currency', currency: _currency }).format(value);
-  }
 
 }

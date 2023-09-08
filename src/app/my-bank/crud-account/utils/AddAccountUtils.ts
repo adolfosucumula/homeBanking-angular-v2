@@ -1,7 +1,6 @@
 
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { myGlobalVariablesEditAcount } from "./AccountVariables";
 import { AccountGetService } from "../../account/service/account-get.service";
 import { AccountPostService } from "../service/account-post.service";
 import { Router } from "@angular/router";
@@ -83,7 +82,7 @@ export class AddAccountUtils {
    */
 
   getAccount(account: string){
-    this.accountServices.getByAccount(account).subscribe({
+    this.accountServices.getByParams('account=' + account).subscribe({
       next: data => {
         this.accountD = data;
 

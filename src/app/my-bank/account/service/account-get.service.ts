@@ -55,7 +55,7 @@ export class AccountGetService {
     );
   }
 
-  getByAccount(account: string): Observable<any> {
+  getUserAccount(account: string, owner: string): Observable<any> {
     model.setTableName("accounts")
     return this.services.find(model, account)
     .pipe(
@@ -65,9 +65,14 @@ export class AccountGetService {
     );
   }
 
-  getByOwner(owner: string): Observable<any> {
+  /**
+   *
+   * @param params ex: 'owner=Admin'
+   * @returns
+   */
+  getByParams(params: string): Observable<any> {
 
-    return this.services.findObjts("accounts?owner=" + owner )
+    return this.services.findObjts('accounts',params)
     .pipe(
       retry(3), // retry a failed request up to 3 times
       //catchError(this.handleError) // then handle the error

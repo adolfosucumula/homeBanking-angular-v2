@@ -44,8 +44,8 @@ export class GenericServices {
    * @param params
    * @returns
    */
-   findObjts<T>(params: T | any): Observable <T | T[]> {
-    return this.http.get <T | T[]>(`${ this.endPoint.endPointURL() + params }`);
+   findObjts<T>(tableName: string, params: T | any): Observable <T | T[]> {
+    return this.http.get <T | T[]>(`${ this.endPoint.endPointURL() + tableName + '?' + params }`);
   }
 
   /**
@@ -57,6 +57,11 @@ export class GenericServices {
   update<T>(model: T | any, objToUpdate: T | any): Observable <T | T[]> {
     return this.http.put <T | T[]> (`${this.endPoint.endPointURL() + model.tableName}/${objToUpdate}`, model);
   }
+
+  updateByParam<T>(model: T | any, objToUpdate: T | any): Observable <T | T[]> {
+    return this.http.put <T | T[]> (`${this.endPoint.endPointURL() + model.tableName}/${objToUpdate}`, model);
+  }
+
 
   /**
    *

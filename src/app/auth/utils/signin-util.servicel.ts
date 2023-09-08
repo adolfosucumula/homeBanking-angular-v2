@@ -5,6 +5,7 @@ import { AuthGetServicesComponent } from "../auth-services/auth-get.service";
 import { AlertMessageFactories } from "src/app/utils/AlertMessageFactories";
 import { SigninServicesService } from "../signin/services/signin-services.service";
 import { AccountGetService } from "src/app/my-bank/account/service/account-get.service";
+import { StorageService } from "src/app/utils/StorageService.service";
 
 
 @Injectable({
@@ -17,7 +18,8 @@ export class SingInUtil {
       private authServices: AuthGetServicesComponent,
       private alertD: AlertMessageFactories,
      private  signinService: SigninServicesService,
-     private accountService: AccountGetService
+     private accountService: AccountGetService,
+     private localStorage: StorageService
     ){}
 
   date = new FormControl(new Date());
@@ -52,9 +54,7 @@ export class SingInUtil {
           this.router.navigate(['/user-inactive']);
         }
         else{
-
           this.getUserAccount(items.username);
-
           this.signinService.signIn(form, items.username, items.email, items.telephone, items.id, items.role, items.isActive );
         }
 
@@ -65,8 +65,21 @@ export class SingInUtil {
 
 
   getUserAccount(user: string){
-    this.accountService.getByOwner(user).subscribe((data: any) => {
-      window.sessionStorage.setItem('USER_ACCOUNT', data[0].account)
+
+    this.accountService.getByParams('owner=' +user).subscribe((data: any) => {
+      this.localStorage.saveUserAccount({
+        id: data[0].id,
+        account: data[0].account,
+        iban: data[0].iban,
+        swift: data[0].swift,
+        owner: data[0].owner,
+        ownerDoc: data[0].ownerDoc,
+        initialBalance: data[0].initialBalance,
+        currentBalance: data[0].currentBalance,
+        currency: data[0].currency,
+        createdAt: data[0].createdAt,
+        isActive: data[0].isActive
+      })
     })
   }
 

@@ -4,7 +4,7 @@ import { EditAccountUtils } from '../../crud-account/utils/EditAccountUtils';
 import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
-import { DebitAccountUtils } from '../services/DebitAccountUtils';
+import { AccountTransactionUtils } from '../../send-money/services/AccountTransactionUtils';
 import { AccountGetService } from '../../account/service/account-get.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class DebitAccountComponent {
 
   //
   constructor(private formBuilder: FormBuilder, private currencyPipe: CurrencyPipe
-    , private utils: DebitAccountUtils, private router: Router, private route: ActivatedRoute,
+    , private utils: AccountTransactionUtils, private router: Router, private route: ActivatedRoute,
     private accountGetService: AccountGetService, private snackAlert: SnackBarAlertMessage,
     private editAccountUtils: EditAccountUtils) { }
 
@@ -137,7 +137,7 @@ export class DebitAccountComponent {
 
       /// ====================  Debit on database ====================
 
-        this.utils.debitAccount(this.accountForm, "€"+balanceBefore.toString(), "€"+balanceAfter.toString(), "O.Finalized");
+        //this.utils.saveTransaction(this.accountForm, '', "€"+balanceBefore.toString(), "€"+balanceAfter.toString(), "O.Finalized");
 
         //==============  Now update the currency balance form account
 

@@ -1,10 +1,74 @@
 
 .main{
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(243, 243, 243);
 }
 
 .container{
-  background-color: rgba(6, 10, 4, 0.22);
+
+  .balance{
+    padding: 2rem;
+
+    .header{
+      color: #333;
+
+      div{
+        color: #333;
+        font-size: 1.7rem;
+        font-weight: 600;
+      }
+    }
+
+    .box-card{
+      padding: .6rem;
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+
+      .card{
+        margin-left: 1%;
+        max-width: 20%;
+        background-color: rgb(18, 102, 10);
+        border: 0;
+        border-radius: 2rem;
+        box-shadow: 0 1px 7px rgba(0, 0, 0, .24);
+
+        div{
+          display: flex;
+          position:static;
+
+          .img{
+            margin: 2%;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 13%;
+          }
+
+          #currency{
+            position:static;
+            display: block;
+            margin-top: 15px;
+            margin-left: 60px;
+            margin-right: 10px;
+            color: #ffffff;
+            font-size: 1.7rem;
+            font-weight: 500;
+          }
+
+        }
+
+        #balance{
+          position: static;
+          display: block;
+          color: #1db924;
+          margin-top: 15px;
+          margin-left: 10px;
+          margin-right: 10px;
+          font-size: 1.3rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
 }
 
 .transactions{
@@ -14,6 +78,7 @@
   font-size: 1rem;
   align-items: center;
   justify-content: center;
+
 
   .header{
     display: flex;

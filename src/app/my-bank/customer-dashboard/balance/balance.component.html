@@ -12,16 +12,18 @@
           <h2>Total balance</h2>
           <div>
             <mat-icon class="currency">{{ currenc[1].icon }}</mat-icon>
-            <span>{{ totalBalance }} {{ currenc[0].currency }}</span>
+            <span>{{ userAccountData.currentBalance }} {{ currenc[0].currency }}</span>
           </div>
         </div>
 
         <div class="box-card">
           <div class="card" (click)="open()">
-            <img src="{{currenc[0].flag}}" width="60" height="60" alt="currency-flag" srcset="" >
-            <span id="currency">{{ currenc[0].currency }}</span>
+            <div>
+              <img src="{{currenc[0].flag}}" width="60" height="60" alt="currency-flag" srcset="" >
+              <span id="currency">{{ currenc[0].currency }}</span>
+            </div>
             <span id="balance" >
-              {{ totalBalance }}
+              {{ userAccountData.currentBalance }}
             </span>
           </div>
           <div class="card" (click)="open()">

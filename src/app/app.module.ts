@@ -57,6 +57,7 @@ import { DebitAccountComponent } from './my-bank/crud-transactions/debit-transac
 import { BodyComponent } from './welcome/body/body.component';
 import { SidebarComponent } from './welcome/sidebar/sidebar.component';
 import { ToolbarComponent } from './welcome/toolbar/toolbar.component';
+import { SendMoneyComponent } from './my-bank/send-money/send-money.component';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { ToolbarComponent } from './welcome/toolbar/toolbar.component';
     UserStatusComponent,
     BodyComponent,
     SidebarComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SendMoneyComponent
   ],
   imports: [
      BrowserModule,
