@@ -58,7 +58,6 @@ import { BodyComponent } from './welcome/body/body.component';
 import { SidebarComponent } from './welcome/sidebar/sidebar.component';
 import { ToolbarComponent } from './welcome/toolbar/toolbar.component';
 import { SendMoneyComponent } from './my-bank/send-money/send-money.component';
-import { DebitTransComponent } from './my-bank/crud-transactions/debit-trans/debit-trans.component';
 
 
 @NgModule({
@@ -84,8 +83,7 @@ import { DebitTransComponent } from './my-bank/crud-transactions/debit-trans/deb
     BodyComponent,
     SidebarComponent,
     ToolbarComponent,
-    SendMoneyComponent,
-    DebitTransComponent
+    SendMoneyComponent
   ],
   imports: [
      BrowserModule,

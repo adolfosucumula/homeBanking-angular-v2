@@ -15,7 +15,9 @@
 
 
     <!-----  Buttons form ROOT user -->
-    <button mat-button class="menu-button" *ngIf="!item.deny && userdata.role === 'ROOT'" routerLink="{{ item.router}}">
+    <button mat-button class="menu-button" *ngIf="!item.deny && userdata.role === 'ROOT'" routerLink="{{ item.router}}"
+      routerLinkActive="selected"
+    >
       <mat-icon>{{item.icon}}</mat-icon>
       <span>{{item.label}}</span>
     </button>
