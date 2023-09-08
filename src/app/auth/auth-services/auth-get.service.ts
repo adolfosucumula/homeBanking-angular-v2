@@ -6,7 +6,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AuthUtils } from 'src/app/auth/utils/AuthUtils.service';
 import { FormGroup } from '@angular/forms';
-import { UserModel } from 'src/app/models/UserModel';
+import { UserModel } from 'src/app/models/UserModel.model';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
 import { GenericServices } from 'src/app/http-settings/generic-services.service';
 

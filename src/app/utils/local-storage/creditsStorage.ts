@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { AccountTransactionModel } from "src/app/models/AccountTransactionModel";
+import { AccountTransactionModel } from "src/app/models/AccountTransactionModel.model";
 ;
 const __CREDITS = 'CREDITS';
 

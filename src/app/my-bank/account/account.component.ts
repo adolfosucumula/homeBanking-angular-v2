@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Utils } from 'src/app/utils/Utils';
 import { AccountGetService } from './service/account-get.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccountClass } from 'src/app/models/AccountModel';
+import { AccountClass } from 'src/app/models/AccountModel.model';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({

@@ -3,7 +3,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserModel } from 'src/app/models/UserModel';
+import { UserModel } from 'src/app/models/UserModel.model';
 import { StorageService } from 'src/app/utils/StorageService.service';
 
 
@@ -55,7 +55,7 @@ export class MainPageComponent {
         this.sidenav.mode = 'over'
         this.sidenav.close()
       }else{
-        
+
         this.sidenav.mode = 'side'
         this.sidenav.open()
       }

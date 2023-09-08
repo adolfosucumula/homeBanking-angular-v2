@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AccountClass } from 'src/app/models/AccountModel';
+import { AccountClass } from 'src/app/models/AccountModel.model';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';

@@ -2,11 +2,11 @@ import {AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AccountGetService } from '../../account/service/account-get.service';
-import { AccountTransactionModel } from 'src/app/models/AccountTransactionModel';
+import { AccountTransactionModel } from 'src/app/models/AccountTransactionModel.model';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
 import { Router } from '@angular/router';
-import { AccountClass } from 'src/app/models/AccountModel';
+import { AccountClass } from 'src/app/models/AccountModel.model';
 import { GetTransactionsService } from '../../send-money/services/get-transaction.service';
 import { FormControl, FormGroup } from '@angular/forms';
 

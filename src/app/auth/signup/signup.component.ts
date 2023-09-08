@@ -6,7 +6,7 @@ import { StorageService } from 'src/app/utils/StorageService.service';
 import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
 import { SignUpUtilsService } from './services/utils.service';
 import { AuthGetServicesComponent } from '../auth-services/auth-get.service';
-import { UserModel } from 'src/app/models/UserModel';
+import { UserModel } from 'src/app/models/UserModel.model';
 import { SignupServicesService } from './services/signup-services.service';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
 

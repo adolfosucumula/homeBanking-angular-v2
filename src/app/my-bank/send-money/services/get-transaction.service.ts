@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { GenericServices } from 'src/app/http-settings/generic-services.service';
 import { HttpEndpointSetting } from 'src/app/http-settings/httpEndpointSetting';
-import { AccountTransactionModel } from 'src/app/models/AccountTransactionModel';
+import { AccountTransactionModel } from 'src/app/models/AccountTransactionModel.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -52,7 +52,7 @@ export class GetTransactionsService {
   }
 
   getByUser(params: string): Observable <any>{
-  
+
     //return this.http.get < AccountTransactionModel [] > ( this.base_url.endPointURL() + 'credits/')
     return this.genericService.findObjts(this.trans.tableName, params)
     .pipe(

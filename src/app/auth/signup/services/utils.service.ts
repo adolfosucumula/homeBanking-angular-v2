@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserModel } from 'src/app/models/UserModel';
+import { UserModel } from 'src/app/models/UserModel.model';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
 
 let user = new UserModel();

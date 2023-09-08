@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserModel } from 'src/app/models/UserModel';
+import { UserModel } from 'src/app/models/UserModel.model';
 import { AuthGetServicesComponent } from 'src/app/auth/auth-services/auth-get.service';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
 import { AuthUtils } from 'src/app/auth/utils/AuthUtils.service';

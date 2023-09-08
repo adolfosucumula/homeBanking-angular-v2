@@ -1,4 +1,4 @@
-import { AccountClass } from "./AccountModel";
+import { AccountClass } from "./AccountModel.model";
 
 export class AccountTransactionModel {
   private id: number;
