@@ -15,7 +15,7 @@ import { UserDashboardComponent } from './my-bank/user-dashboard/user-dashboard.
 import { SendMoneyComponent } from './my-bank/send-money/send-money.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '', redirectTo: 'balance', pathMatch: 'full'},
   { path: 'home', component: BodyComponent},
   { path: 'dashboard', component: MainPageComponent},
   { path: 'balance', component: BalanceComponent},

@@ -10,16 +10,28 @@
 
     .header{
       color: #333;
-
+      border-bottom: 2px solid #e7e7e7;
       div{
         color: #333;
         font-size: 1.7rem;
         font-weight: 600;
       }
+
+      #account{
+        padding: .4rem;
+        width: 20%;
+        border: 2px solid #dadada;
+        border-radius: 2rem;
+        margin-top: 1%;
+        margin-left: 2%;
+        color: #858688;
+        font-size: .9rem;
+      }
+
     }
 
     .box-card{
-      padding: .6rem;
+      padding: .8rem;
       display: flex;
       flex-wrap: wrap;
       width: 100%;
@@ -27,10 +39,11 @@
       .card{
         margin-left: 1%;
         max-width: 20%;
-        background-color: rgb(18, 102, 10);
+        background-color: #02224d;
         border: 0;
         border-radius: 2rem;
         box-shadow: 0 1px 7px rgba(0, 0, 0, .24);
+        cursor: pointer;
 
         div{
           display: flex;
@@ -66,10 +79,50 @@
           font-size: 1.3rem;
           font-weight: 500;
         }
+
+
+
+      }
+
+      .card:hover{
+        color: #FFF;
+        background-color:#103d79;
+        transition: all .3s ease;
       }
     }
   }
 }
+
+.card-button{
+  mat-icon{
+    transform: scale(2);
+    color: #1db924;
+  }
+
+  div {
+    position: static;
+    display: block;
+    flex-direction: column;
+
+    h2{
+      position: static;
+      display: block;
+      margin-top: 10px;
+      margin-left: 5px;
+      color: #FFF;
+    }
+
+    p{
+      position: static;
+      display: block;
+      margin: 0 5px 5px 15px;
+      font-size: 1rem;
+      font-weight: normal;
+      color: #1db924;
+    }
+  }
+}
+
 
 .transactions{
   display: block;
@@ -82,7 +135,79 @@
 
   .header{
     display: flex;
-    flex-direction: column;
+    position: static;
+    padding: 1rem;
+
+    .title{
+      width: 50%;
+      color: #333;
+      border-bottom: 2px solid #e7e7e7;
+    }
+
+    .form{
+      width: 40%;
+      display: flex;
+      position: static;
+      margin-left: 1%;
+      border-bottom: 2px solid #e7e7e7;
+
+      div{
+        width: 85%;
+        height: 37px;
+        display: flex;
+        margin-right: 1%;
+        position: static;
+        border: 1px solid #e7e7e7;
+        border-radius: 2.5rem 0 0 2.5rem;
+        background-color: #e7e7e7;
+        box-shadow: 0 1px 7px rgba(0, 0, 0, .24);
+
+        #btn-search{
+          margin-top: 8px;
+          transform: scale(1.3);
+          border: 0;
+          background-color: transparent;
+          color: #8b8b8b;
+        }
+
+        input{
+          outline: none;
+          margin-top: 5px;
+          height: 25px;
+          background-color: transparent;
+          width: 85%;
+          border-radius: 2.5rem;
+          border: none;
+          color: #8b8b8b;
+        }
+
+        input:focus{
+          background-color: rgba(177, 177, 177, 0.24);
+          color: #383838;
+        }
+
+        input:focus::placeholder{
+          color: #dddddd;
+        }
+      }
+
+      button#btn-all{
+        padding: .5rem;
+        height: 37px;
+        border: 0;
+        border-radius: 0 2.5rem 2.5rem 0;
+        background-color: #e7e7e7;
+        color: #616161;
+        cursor: pointer;
+        box-shadow: 0 1px 7px rgba(0, 0, 0, .24);
+      }
+
+      button#btn-all:hover{
+        background-color: #a1a1a1;
+        color: #FFF;
+      }
+    }
+
   }
 
   .content{
@@ -90,30 +215,121 @@
     margin-left: 32px;
     display: flex;
     flex-direction: column;
-    /*justify-content: center;
-    align-items: center;*/
     font-size: 2rem;
     color: lightgrey;
     border-radius: 1rem 1rem 0 0;
-    height: 300px;
+    height: 270px;
     overflow: scroll;
+    align-items: center;
+    background-color: #02224d;
 
     .list{
+      position: static;
+      display: block;
       padding: .5rem 1rem;
       margin: 1%;
+      width: 85%;
+      height: 90px;
       font-size: .8rem;
-      background-color: rgb(5, 87, 107);
+      border: 1px solid #0e2f5a;
+      background-color: #02224d;
       align-items: center;
       justify-content: center;
+      border-radius: 2rem;
       .box{
         padding: 1rem;
         display: flex;
 
+        .icon{
+          position: static;
+          display: block;
+          margin-top: 1%;
+          mat-icon{
+            transform: scale(1.8);
+            background-color: #ffffff;
+            border-radius: 5rem;
+            color: #02224d;
+            border-radius: 4rem;
+          }
+
+        }
+
+        .date{
+          position: static;
+          display: block;
+          margin-left: 3%;
+          color: #333333;
+          width: 50%;
+          text-align: left;
+          align-items: start;
+
+          h2{
+            position: static;
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #b3b3b3;
+          }
+          span{
+            position: static;
+            display: block;
+            margin-top: -20px;
+            font-size: 1rem;
+            color: #b3b3b3;
+          }
+        }
+
         .operation{
           display: flex;
+          flex-direction: column;
+          width: 50%;
+          .mov{
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            justify-content: end;
+
+            .amount{
+              display: flex;
+              position: static;
+              width: 100%;
+              text-align: right;
+              justify-content: end;
+
+              h1{
+                font-size: 1.5rem;
+              }
+
+              #credit{
+                font-weight: 600;
+                color: #42c70d;
+                margin-top: 5px;
+              }
+
+              #debit{
+                font-weight: 600;
+                color: #e21111;
+                margin-top: 5px;
+              }
+            }
+
+            #status{
+              width: 100%;
+
+              font-size: .8rem;
+              color: #777777;
+              text-transform: uppercase;
+            }
+          }
         }
       }
 
+    }
+
+    .list:hover{
+      color: #FFF;
+      background-color:#103d79;
+      transition: all .3s ease;
     }
   }
 
