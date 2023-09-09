@@ -48,12 +48,7 @@ export class AccountComponent implements OnInit{
     /**
    *
    */
-  listProduct(){
-    //let filter = this.myForm.value.filter || '';
-    /*this.data = []
-    this.data = this.data.concat(this.service.list(''))
-    this.dataSource = new MatTableDataSource(this.data);*/
-  }
+
 
   filter(event: Event){
     const filterValue = (event.target as HTMLInputElement).value

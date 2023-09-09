@@ -16,7 +16,7 @@ import { EditAccountComponent } from './my-bank/crud-account/edit-account/edit-a
 import { AuthGuard } from './auth/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'signin', pathMatch: 'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: BodyComponent},
   { path: 'dashboard', component: MainPageComponent, canActivate: [AuthGuard]},
   { path: 'balance', component: BalanceComponent, canActivate: [AuthGuard]},

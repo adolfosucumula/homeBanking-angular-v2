@@ -44,11 +44,11 @@ export class SigninServicesService {
       ).subscribe((data: any) => {
 
           this.localStore.saveUser({
-            userID: userData.userID,
+            userID: userData.id,
             username: userData.username,
             email: userData.email,
             telephone: userData.telephone,
-            role: userData.userRole,
+            role: userData.role,
             createdAt: this.currentDate.getDate(),
             isActive: userData.isActive
           },1);
