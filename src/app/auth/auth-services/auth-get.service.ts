@@ -121,13 +121,8 @@ export class AuthGetServicesComponent {
    * @param password
    * @returns
    */
-  compareUsernameAndPassword(dataList: any | any, username: string, password: string): boolean {
-    const isEqual = dataList.findIndex( (element: {username: string, password: string}) =>
-    element.username  == username
-    && element.password  == password);
-
-    if(isEqual >= 0) return true;
-    else return false;
+  compareUsernameAndPassword(password02: any | any, password: string): boolean {
+    return password02  === password;
   }
 
 

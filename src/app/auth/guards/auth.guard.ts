@@ -26,13 +26,13 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    // Se o usuário estiver sem sessão,
-    // o enviamos para a tela de login
+    // If the user is without session,
+    // he is sent to the login page
     if (this.sessionService.isLogged()) {
       return true;
     }
 
-    return this.router.parseUrl("/login");
+    return this.router.parseUrl("/signin");
 
   }
 }

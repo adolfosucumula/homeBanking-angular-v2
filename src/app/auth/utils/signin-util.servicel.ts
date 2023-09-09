@@ -35,27 +35,25 @@ export class SingInUtil {
   makeLogin(data: any, form: FormGroup){
 
     // Find user from database list
-    const exists = this.authServices.compareUsername(data, form.value.username);
 
-    if(!exists){
+    if(!data){
       this.alertD.openErrorAlertDialog("Warning", "User not found.", "Ok", '700ms', '1000ms')
     }else{
 
-      const exists = this.authServices.compareUsernameAndPassword(data, form.value.username, form.value.password);
-      if(!exists){
+      const array = data[0];
+
+      if(!this.authServices.compareUsernameAndPassword(array.password, form.value.password)){
         this.alertD.openErrorAlertDialog("Warning", "Password wrong.", "Ok", '700ms', '1000ms')
       }else{
 
-        const array = JSON.stringify(this.authServices.findUserByUsernameInDBList(data, form.value.username));
-        const items = JSON.parse(array);
-
-        // Register login history
-        if(!items.isActive){
+        if(!array.isActive){
           this.router.navigate(['/user-inactive']);
         }
         else{
-          this.getUserAccount(items.username);
-          this.signinService.signIn(form, items.username, items.email, items.telephone, items.id, items.role, items.isActive );
+
+          // Register login history
+          this.getUserAccount(array.username);
+          this.signinService.saveLoginHistoric(form, array);
         }
 
       }

@@ -60,7 +60,7 @@ export class SigninComponent {
     if(this.entityForm.invalid){
       return;
     }
-    this.authServices.findUser('username=' + this.entityForm.value.username).subscribe(
+    this.authServices.findUser('username=' + this.entityForm.value.username ).subscribe(
       (data) => this.signIn.makeLogin(data, this.entityForm)
       );
 

@@ -35,7 +35,7 @@ export class SigninServicesService {
      * @param isActive
      */
 
-    signIn(form: FormGroup, username: string, email: string, telephone: number, userID: number, userRole: string, isActive: boolean ){
+    saveLoginHistoric(form: FormGroup, userData: any ){
 
       this.authServices.signIn(
         this.authUtils.getLoginFormData(form).username,
@@ -44,18 +44,19 @@ export class SigninServicesService {
       ).subscribe((data: any) => {
 
           this.localStore.saveUser({
-            userID: userID,
-            username: username,
-            email: email,
-            telephone: telephone,
-            role: userRole,
+            userID: userData.userID,
+            username: userData.username,
+            email: userData.email,
+            telephone: userData.telephone,
+            role: userData.userRole,
             createdAt: this.currentDate.getDate(),
-            isActive: isActive
+            isActive: userData.isActive
           },1);
 
           this.sessionService.saveSession(data)
 
           this.isLogged = this.localStore.isLoggedIn();
+
           if(this.isLogged){
               this.router.navigate(['/balance']);
 
