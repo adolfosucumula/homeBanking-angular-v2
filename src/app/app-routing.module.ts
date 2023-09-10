@@ -27,8 +27,8 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard]},
   { path: 'add-account', component: AddAccountComponent, canActivate: [AuthGuard]},
   { path: 'edit/account/:id', component: EditAccountComponent, canActivate: [AuthGuard]},
-  { path: 'credit/account/:id', component: CreditAccountComponent, canActivate: [AuthGuard]},
-  { path: 'debit/account/:id', component: DebitAccountComponent, canActivate: [AuthGuard]},
+  { path: 'trans/account/:id/:type', component: CreditAccountComponent, canActivate: [AuthGuard]},
+  //{ path: 'trans/account/:id/:type', component: DebitAccountComponent, canActivate: [AuthGuard]},
   { path: 'send-money', component: SendMoneyComponent, canActivate: [AuthGuard]},
 ];
 

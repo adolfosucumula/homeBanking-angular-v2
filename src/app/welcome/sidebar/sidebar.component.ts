@@ -12,7 +12,7 @@ import { Observable } from "rxjs";
 })
 export class SidebarComponent {
 
-  sessao$: Observable<Session | null>;
+  session$: Observable<Session | null>;
 
   menuItems = menuItemsList
   userImg = 'https://media.licdn.com/dms/image/D4D03AQEnQcEH1eGdeQ/profile-displayphoto-shrink_800_800/0/1672836007935?e=2147483647&v=beta&t=Sfx47qVeN9ca7HH1fuuwoYNSEDyoTuXfNYn-Gf5symo'
@@ -26,7 +26,7 @@ export class SidebarComponent {
   constructor( private localStore: StorageService,
       private sessionService: SessionService
     ){
-      this.sessao$ = this.sessionService.getSession();
+      this.session$ = this.sessionService.getSession();
   }
 
 

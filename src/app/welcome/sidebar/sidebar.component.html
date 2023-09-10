@@ -3,7 +3,7 @@
   <div class="userdata">
     <img *ngIf="userdata.userImg" src="{{ userdata.userImg }}" alt="" srcset="">
     <img *ngIf="!userdata.userImg" src="{{ userImg }}" alt="" srcset="">
-    <span>{{ userdata.username }}</span>
+    <span>{{ userdata.username }} </span>
   </div>
   <mat-divider></mat-divider>
   <mat-list *ngFor="let item of menuItems">
@@ -25,5 +25,6 @@
     <mat-divider *ngIf="!item.deny && userdata.role === 'ROOT'"></mat-divider>
     <mat-divider *ngIf="item.deny"></mat-divider>
   </mat-list>
+
 </div>
 

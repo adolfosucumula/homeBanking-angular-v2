@@ -42,22 +42,10 @@ export class DebitAccountComponent {
    * Create an object of instance using the FormGroup
    * class to manage the form fields value, controlling and validate them
    */
-  accountForm: FormGroup = this.utils.debitFormGroup();
+  accountForm: FormGroup = this.utils.formGroup();
   accountData: FormGroup = this.editAccountUtils.editFormGroup();
 
     ngOnInit(): void {
-
-      //Function to validate the form fields according to the specific rules
-      this.accountForm = this.formBuilder.group({
-        owner2: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200)] ],
-        targetAccount: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('^[0-9]+$')] ],
-        balanceBefore: ['', Validators.required ],
-        amount: ['', Validators.required ],
-        //balanceAfter: ['', Validators.required ],
-        operator: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200)] ],
-        //status: ['', [Validators.required, Validators.minLength(2)] ],
-        createdAt: ['', Validators.required ],
-      });
 
       /**
        * Function to catch the event typing from currency field to check the values being typing by user
@@ -216,7 +204,7 @@ export class DebitAccountComponent {
       var balanceAfter = parseFloat(balanceBefore) - parseFloat(amount);
 
       /// ====================  Debit on database ====================
-      this.utils.debitTransaction(
+     /* this.utils.debitTransaction(
         this.accountForm,
         {
           id: this.id,
@@ -236,7 +224,7 @@ export class DebitAccountComponent {
         getFormattedCurrency_deDE(balanceAfter),
         "O.Finalized",
         this.datePipe.transform(this.accountForm.value.createdAt, 'dd/MM/yyyy h:mm:ss')
-        );
+        );*/
 
         //==============  Now update the currency balance form account
 

@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { GenericServices } from 'src/app/http-settings/generic-services.service';
 import { HttpEndpointSetting } from 'src/app/http-settings/httpEndpointSetting';
-import { AccountTransactionModel } from 'src/app/models/AccountTransactionModel.model';
+import { AccountTransactions } from 'src/app/models/account-transactions.model';
 
 
 @Injectable({
@@ -18,34 +18,35 @@ export class PostTransactionService {
     ) { }
 
   getAll(){
-    return this.http.get < AccountTransactionModel [] > ( this.base_url.endPointURL() + 'debits/')
+    return this.http.get < AccountTransactions [] > ( this.base_url.endPointURL() + 'debits/')
   }
 
   create(
-    sourceAccount: string,
-    owner1: string,
-    targetAccount: string,
-    owner2: string,
-    balanceBefore: string,
-    amount: string,
-    balanceAfter: string,
-    operator: string,
-    transactionType: string,
-    status: string,
-    createdAt: string
+    tType: string = '',
+    account: string = '',
+    owner: string = '',
+    balanceBefore: string = '',
+    amount: string = '',
+    balanceAfter: string = '',
+    xAccount: string = '',
+    xOwner: string = '',
+    operator: string = '',
+    status: string = '',
+    createdAt: string = '',
   ): Observable <any>{
-    var model = new AccountTransactionModel(
-      sourceAccount,
-      owner1,
-      targetAccount,
-      owner2,
+
+    var model = new AccountTransactions(
+      tType,
+      account,
+      owner,
       balanceBefore,
       amount,
       balanceAfter,
+      xAccount,
+      xOwner,
       operator,
-      transactionType,
       status,
-      createdAt
+      createdAt,
     );
    return this.genericSvc.create(model, model)
     .pipe(
@@ -63,7 +64,7 @@ export class PostTransactionService {
   }
 
   getById(id: number) {
-    return this.http.get < AccountTransactionModel > ( this.base_url.endPointURL() + `debits/${ id }`)
+    return this.http.get < AccountTransactions > ( this.base_url.endPointURL() + `debits/${ id }`)
     .pipe(
       retry(3), // retry a failed request up to 3 times
       //catchError(this.handleError) // then handle the error
@@ -79,7 +80,7 @@ export class PostTransactionService {
   }
 
   getByAccount(account: number) {
-    return this.http.get < AccountTransactionModel > ( this.base_url.endPointURL() + `debits/${ account }`)
+    return this.http.get < AccountTransactions > ( this.base_url.endPointURL() + `debits/${ account }`)
     .pipe(
       retry(3), // retry a failed request up to 3 times
       //catchError(this.handleError) // then handle the error

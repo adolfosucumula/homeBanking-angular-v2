@@ -38,19 +38,19 @@ width: 500px;
               <mat-label>Send to</mat-label>
               <input matInput type="text"
                 placeholder="Send  to"
-                formControlName="targetAccount"
-                [ngClass]="{ 'is-invalid': submitted && _fC['targetAccount'].errors }"
+                formControlName="xAccount"
+                [ngClass]="{ 'is-invalid': submitted && _fC['xAccount'].errors }"
                >
-               <span *ngIf="submitted && _fC['targetAccount'].errors" class="invalid-feedback">
-                <span *ngIf="_fC['targetAccount'].errors['required']">The target account is required</span>
+               <span *ngIf="submitted && _fC['xAccount'].errors" class="invalid-feedback">
+                <span *ngIf="_fC['xAccount'].errors['required']">The target account is required</span>
 
-                <span *ngIf="_fC['targetAccount'].errors['maxlength']">
+                <span *ngIf="_fC['xAccount'].errors['maxlength']">
                   The target account must not exceed 13 characters
                 </span>
-                <span *ngIf="_fC['targetAccount'].errors['minlength']">
+                <span *ngIf="_fC['xAccount'].errors['minlength']">
                   The target account must have at least 13 characters
                 </span>
-                <span *ngIf="_fC['targetAccount'].errors['pattern']">
+                <span *ngIf="_fC['xAccount'].errors['pattern']">
                   This field accepts only numbers as value
                 </span>
               </span>
@@ -62,16 +62,16 @@ width: 500px;
             <mat-form-field appearance="outline">
               <mat-label>Owner</mat-label>
               <input matInput placeholder="Owner" type="text"
-              formControlName="owner2"
-              [ngClass]="{ 'is-invalid': submitted && _fC['owner2'].errors }"
+              formControlName="xOwner"
+              [ngClass]="{ 'is-invalid': submitted && _fC['xOwner'].errors }"
 
             >
-              <span *ngIf="submitted && _fC['owner2'].errors" class="invalid-feedback">
-                <span *ngIf="_fC['owner2'].errors['required']">The owner is required</span>
-                <span *ngIf="_fC['owner2'].errors['maxlength']">
+              <span *ngIf="submitted && _fC['xOwner'].errors" class="invalid-feedback">
+                <span *ngIf="_fC['xOwner'].errors['required']">The owner is required</span>
+                <span *ngIf="_fC['xOwner'].errors['maxlength']">
                   The owner must not exceed 200 characters
                 </span>
-                <span *ngIf="_fC['owner2'].errors['pattern']">
+                <span *ngIf="_fC['xOwner'].errors['pattern']">
                   This field accepts only characters as value
                 </span>
               </span>

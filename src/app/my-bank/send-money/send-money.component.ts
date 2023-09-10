@@ -9,6 +9,8 @@ import { AccountGetService } from '../account/service/account-get.service';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { getFormattedCurrency_deDE } from 'src/app/utils/functions/formatCurrency';
 import { SingInUtil } from 'src/app/auth/utils/signin-util.servicel';
+import { formatDateWithPipe, getSystemPipeTime } from 'src/app/utils/functions/system-timestamp';
+import { patchDataToForm } from './services/patch-data-to-form';
 
 let userAccountData = {account: '000', owner: 'owner', currentBalance: '0,00'}
 
@@ -34,15 +36,13 @@ export class SendMoneyComponent {
   //
   constructor(private localStore: StorageService,
     private currencyPipe: CurrencyPipe,
-   private utils: AccountTransactionUtils,
+   private accTransa: AccountTransactionUtils,
    private router: Router,
    private route: ActivatedRoute,
     private accountService: AccountGetService,
-    private snackAlert: SnackBarAlertMessage,
+    private snackBarAlert: SnackBarAlertMessage,
     private editAccountUtils: EditAccountUtils,
-    private localStorage: StorageService,
-    private singInUtil: SingInUtil,
-    private datePipe: DatePipe
+    private localStorage: StorageService
     ) { }
 
 
@@ -50,20 +50,20 @@ export class SendMoneyComponent {
    * Create an object of instance using the FormGroup
    * class to manage the form fields value, controlling and validate them
    */
-  accountForm: FormGroup = this.utils.debitFormGroup();
+  accountForm: FormGroup = this.accTransa.formGroup();
   accountData: FormGroup = this.editAccountUtils.editFormGroup();
 
     ngOnInit(): void {
 
       this.userData = this.localStore.getUser();
-      this.singInUtil.getUserAccount(this.userData.username)
+      //this.singInUtil.getUserAccount(this.userData.username)
       userAccountData = this.localStorage.getUserAccount()
       this.account = userAccountData.account
       this.currentBalance = userAccountData.currentBalance,
-
+      this.patchDataToForm()
 
       //Function to validate the form fields according to the specific rules
-      this.accountForm = this.utils.validateForm()
+      //this.accountForm = this.utils.validateForm()
 
       /**
        * Function to catch the event typing from currency field to check the values being typing by user
@@ -74,22 +74,14 @@ export class SendMoneyComponent {
       this.accountForm.valueChanges.subscribe( form => {
         if(form.amount){
           this.accountForm.patchValue({
-            amount: this.currencyPipe.transform(form.amount.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '4.2-2', 'fr')
+            amount: this.currencyPipe.transform(form.amount.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '1.0-0')
           }, {emitEvent: false})
         }
         if(form.balanceBefore){
           this.accountForm.patchValue({
-            balanceBefore: this.currencyPipe.transform(form.balanceBefore.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '4.2-2', 'fr')
+            balanceBefore: this.currencyPipe.transform(form.balanceBefore.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '1.0-0')
           }, {emitEvent: false})
         }
-      });
-
-      //get router parameter
-      this.route.paramMap.subscribe((param) => {
-        this.id = Number(param.get('id'));
-
-        this.getById(this.id);
-
       });
 
     };
@@ -151,48 +143,131 @@ export class SendMoneyComponent {
 
       //get the ID account from the account list
 
-
       if( Number(balanceBefore) === 0 || amount === 0){
-        this.snackAlert.openSnackBar("Insufficient funds to continue the operation. ", "Information", 10, 'bottom', "left")
+        this.snackBarAlert.openSnackBar("Insufficient funds to continue the operation. ", "Information", 10, 'bottom', "left")
         return;
       }
       if(Number(amount) > Number(balanceBefore) ){
-        this.snackAlert.openSnackBar("Insufficient funds to continue the operation. Am " +
+        this.snackBarAlert.openSnackBar("Insufficient funds to continue the operation. Am " +
         (amount - Number(balanceBefore) < 0) + " Bf "+ Number(balanceBefore),
         "Information", 10, 'bottom', "left");
         return;
       }
 
-      var balanceAfter = parseFloat(balanceBefore) - parseFloat(amount);
+      let tType = this.accountForm.value.tType;
 
-      /// ====================  Debit on database ====================
-      this.utils.debitTransaction(
-        this.accountForm,
-        userAccountData,
-        this.account?.toString(),
-        userAccountData.owner,
-        getFormattedCurrency_deDE(balanceBefore),
-        getFormattedCurrency_deDE(amount),
-        getFormattedCurrency_deDE(balanceAfter),
-        "O.Finalized",
-        this.datePipe.transform(this.accountForm.value.createdAt, 'dd/MM/yyyy h:mm:ss')
-        );
+      if(tType === 'Debit'){
 
-        //==============  Now update the currency balance form account
+        this.registOperation(this.accountForm, userAccountData, tType);
 
-        this.creditAccount(userAccountData.account, userAccountData.owner, this.accountForm);
+        tType = 'Credit'
+      }
 
-        this.singInUtil.getUserAccount(this.userData.username)
+      //this.sleep(1000).then(()=>{
 
-        this.router.navigate(['/dashboard'])
+        if(tType === 'Credit'){
+
+          this.accountService.getByParams('account=' + this.accountForm.value.xAccount +
+          '&&' +
+          'owner=' + this.accountForm.value.xOwner)
+          .subscribe((data: any)=>{
+
+            this.accountForm.patchValue({
+              tType: tType,
+              account: data[0].account,
+              owner: data[0].owner,
+              balanceBefore: data[0].currentBalance,
+              amount: this.accountForm.value.amount,
+              xAccount: userAccountData.account,
+              xOwner: userAccountData.owner,
+              operator: this.userData.username,
+              status: 'Finished',
+              createdAt: this.accountForm.value.createdAt
+            })
+
+            this.registOperation(this.accountForm, data[0], tType);
+
+          });
+        }
+
+        this.router.navigate(['/balance'])
+
+      //})
+
     };
+
+    patchDataToForm(){
+      patchDataToForm(
+        this.accountForm,
+        'Debit',
+        userAccountData.account,
+        userAccountData.owner,
+        userAccountData.currentBalance,
+        '',
+        '',
+        '',
+        this.userData.username,
+        'Finished',
+        ''
+      )
+    }
 
 
     /**
      * Compare the value of this parameter with each account from the database to get its ID
      * @param account the account entered in field form
      */
-    creditAccount(sourceAccount: string, owner: string, form: FormGroup){
+    registOperation(form: FormGroup, accountData: any, transactionType: string){
+
+      if(!accountData){ this.snackBarAlert.openSnackBar("This account was not found!" , "Information", 10, 'top', "left") }
+      else{
+
+        let balance = accountData.currentBalance.replaceAll("€","");
+        balance = balance.replaceAll(".","");
+        balance = balance.replaceAll(",",".");
+
+        let amount = form.value.amount.replaceAll("€","");
+        amount = amount.replaceAll(".","");
+        amount = amount.replaceAll(",",".");
+
+        let finalBalance = 0;
+
+        if(transactionType && (transactionType === 'Deposit' || transactionType === 'Credit')){
+
+          finalBalance = parseFloat(balance) + parseFloat(amount);
+        }
+        else if(transactionType && transactionType === 'Debit'){
+
+          if(Number(amount) > Number(balance) ){
+            this.snackBarAlert.openSnackBar("Insufficient funds to continue the operation. Am " +
+            (amount - Number(balance) < 0) + " Bf "+ Number(balance),
+            "Information", 10, 'bottom', "left");
+            return;
+          }
+
+          finalBalance = parseFloat(balance) - parseFloat(amount);
+        }
+
+        this.accTransa.registTransaction(
+          form,
+          accountData,
+          getFormattedCurrency_deDE(amount),
+          getFormattedCurrency_deDE(finalBalance),
+          formatDateWithPipe(form.value.createdAt) + ' ' + getSystemPipeTime()
+        );
+
+
+
+      }
+
+  }
+
+
+    /**
+     * Compare the value of this parameter with each account from the database to get its ID
+     * @param account the account entered in field form
+     */
+   /* creditAccount(sourceAccount: string, owner: string, form: FormGroup){
 
       if(sourceAccount){
         this.accountService.getByParams('account=' + form.value.targetAccount +
@@ -234,8 +309,10 @@ export class SendMoneyComponent {
           }
         })
       }
+    }*/
+
+    sleep(ms: number){
+      return new Promise(res => setTimeout(res, ms));
     }
-
-
 
 }

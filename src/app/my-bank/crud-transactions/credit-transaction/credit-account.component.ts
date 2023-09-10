@@ -12,6 +12,8 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AccountTransactionUtils } from '../../send-money/services/AccountTransactionUtils';
 import { getFormattedCurrency_deDE } from 'src/app/utils/functions/formatCurrency';
 import { EditAccountUtils } from '../../crud-account/utils/EditAccountUtils';
+import { AccountTransactions } from 'src/app/models/account-transactions.model';
+import { formatDateWithPipe, getSystemDate, getSystemPipeTime } from 'src/app/utils/functions/system-timestamp';
 
 
 const MY_DATE_FORMATS = {
@@ -36,16 +38,14 @@ const MY_DATE_FORMATS = {
 })
 export class CreditAccountComponent {
 //
-constructor(private formBuilder: FormBuilder,
+constructor(
   private currencyPipe: CurrencyPipe,
   private accountGetServices: AccountGetService,
-  private utils: CreditAccountUtils,
   private route: ActivatedRoute,
+  private router: Router,
   private snackBarAlert: SnackBarAlertMessage,
   private localStore: StorageService,
-  private datePipe: DatePipe,
-  private accTransa: AccountTransactionUtils,
-  private editAccountUtils: EditAccountUtils
+  private accTransa: AccountTransactionUtils
   ) { }
 
 userData = this.localStore.getUser();
@@ -53,19 +53,14 @@ date = new FormControl(new Date());
 serializedDate = new FormControl(new Date().toISOString());
 accountData: any;
 currentBalance: any;
+tTypes: string[] = new AccountTransactions().getTypes();
+transactionType: string = ''
 
 /**
 * Create an object of instance using the FormGroup
 * class to manage the form fields value, controlling and validate them
 */
-accountForm: FormGroup = new FormGroup({
-sourceAccount: new FormControl(null),
-owner2: new FormControl(''),
-targetAccount: new FormControl(null),
-amount: new FormControl(''),
-operator: new FormControl(this.userData.username),
-createdAt: new FormControl(this.date),
-});
+accountForm: FormGroup = this.accTransa.formGroup();
 
 submitted = false;
 
@@ -74,17 +69,7 @@ submitted = false;
 ngOnInit(): void {
 
   //Function to validate the form fields according to the specific rules
-  this.accountForm = this.formBuilder.group({
-    sourceAccount: ['', [Validators.required, Validators.pattern('[a-zA-Z ]+'), Validators.maxLength(20) ] ],
-    owner2: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200)] ],
-    targetAccount: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('^[0-9]+$')] ],
-    //balanceBefore: ['', Validators.required ],
-    amount: ['', Validators.required ],
-    //balanceAfter: ['', Validators.required ],
-    operator: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200)] ],
-    //status: ['', [Validators.required, Validators.minLength(2)] ],
-    createdAt: ['', Validators.required ],
-  });
+  //this.accountForm = this.accTransa.formGroup()
 
   /**
    * Function to catch the event typing from currency field to check the values being typing by user
@@ -95,16 +80,17 @@ ngOnInit(): void {
   this.accountForm.valueChanges.subscribe( form => {
     if(form.amount){
       this.accountForm.patchValue({
-        amount: this.currencyPipe.transform(form.amount.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '4.2-2', 'fr')
+        amount: this.currencyPipe.transform(form.amount.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '1.0-0')
       }, {emitEvent: false})
     }
   });
 
   //get router parameter
   this.route.paramMap.subscribe((param) => {
-    var id = Number(param.get('id'));
+    const id = Number(param.get('id'));
+    this.transactionType = String(param.get('type'))
 
-    this.getAccountById(id);
+    this.getAccountById(id, this.transactionType);
 
   });
 
@@ -123,28 +109,32 @@ onSubmit(): void {
     return;
   }
 
-  //console.log(JSON.stringify(this.accountForm.value, null, 2))
-
   if(this.accountForm.value.account === this.accountForm.value.sourceAccount){
     this.snackBarAlert.openSnackBar("The source account must be different from account", "Information", 10, 'bottom', "left")
-    //alert("The source account must be different from account")
     return ;
   }
 
   //this.utils.getUpdateCreditAccount(this.accountForm.value.account, this.accountForm);
-  this. creditAccount(this.accountForm);
+
+    this. registOperation(this.accountForm, this.accountData, this.transactionType);
 
 };
 
 
-getAccountById(id: number = 0){
+getAccountById(id: number = 0, type: string){
   if(id > 0){
     this.accountGetServices.getById(id).subscribe((data: any) => {
         this.accountForm.patchValue({
-          sourceAccount: 'Deposit',
-          owner2: data.owner,
-          targetAccount: data.account,
-          operator: this.userData.username
+          tType: type,
+          account: data.account,
+          owner: data.owner,
+          balanceBefore: data.currentBalance,
+          amount: '0',
+          xAccount: '0000000000000',
+          xOwner: 'Unknow',
+          operator: this.userData.username,
+          status: 'Finished',
+          createdAt: ''
         });
         this.currentBalance = data.currentBalance
         //Preserve the account register to be used at next step
@@ -157,32 +147,49 @@ getAccountById(id: number = 0){
      * Compare the value of this parameter with each account from the database to get its ID
      * @param account the account entered in field form
      */
-   creditAccount(form: FormGroup){
+    registOperation(form: FormGroup, accountData: any, transactionType: string){
 
-        if(!this.accountData){ this.snackBarAlert.openSnackBar("This account was not found!" , "Information", 10, 'top', "left") }
+        if(!accountData){ this.snackBarAlert.openSnackBar("This account was not found!" , "Information", 10, 'top', "left") }
         else{
-          let balance = this.accountData.currentBalance.replaceAll("€","");
+          let balance = accountData.currentBalance.replaceAll("€","");
           balance = balance.replaceAll(".","");
           balance = balance.replaceAll(",",".");
 
           let amount = form.value.amount.replaceAll("€","");
           amount = amount.replaceAll(".","");
           amount = amount.replaceAll(",",".");
-        
-          this.accTransa.creditTransaction(
+
+          let finalBalance = 0;
+
+          if(transactionType && (transactionType === 'Deposit' || transactionType === 'Credit')){
+
+            finalBalance = parseFloat(balance) + parseFloat(amount);
+          }
+          else if(transactionType && transactionType === 'Debit'){
+
+            if(Number(amount) > Number(balance) ){
+              this.snackBarAlert.openSnackBar("Insufficient funds to continue the operation. Am " +
+              (amount - Number(balance) < 0) + " Bf "+ Number(balance),
+              "Information", 10, 'bottom', "left");
+              return;
+            }
+
+            finalBalance = parseFloat(balance) - parseFloat(amount);
+          }
+
+          this.accTransa.registTransaction(
             form,
-            this.accountData,
-            form.value.sourceAccount,
-            this.accountData.owner,
-            this.accountData.currentBalance,
+            accountData,
             getFormattedCurrency_deDE(amount),
-            getFormattedCurrency_deDE(parseFloat(balance) + parseFloat(amount)),
-            "O.Finalized",
-            this.datePipe.transform(form.value.createdAt, 'dd/MM/yyyy h:mm:ss')
+            getFormattedCurrency_deDE(finalBalance),
+            formatDateWithPipe(form.value.createdAt) + ' ' + getSystemPipeTime()
           );
+
+          this.router.navigate(['/balance'])
+
         }
 
-  }
+    }
 
 
 }
