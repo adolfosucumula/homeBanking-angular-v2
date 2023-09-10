@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { AccountClass } from 'src/app/models/AccountModel.model';
 import { GetTransactionsService } from '../../send-money/services/get-transaction.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { getFormattedCurrency_deDE } from 'src/app/utils/functions/formatCurrency';
+import { SingInUtil } from 'src/app/auth/utils/signin-util.servicel';
 
 @Component({
   selector: 'app-balance',
@@ -39,20 +41,25 @@ export class BalanceComponent {
   })
 
   constructor(private localStore: StorageService,
-    private accountServices: AccountGetService,
+    private singInUtil: SingInUtil,
     private transService: GetTransactionsService,
     private localStorage: StorageService,
-    private snackBarAlert: SnackBarAlertMessage, private router: Router
+    private snackBarAlert: SnackBarAlertMessage,
+    private router: Router
     ){ }
 
   ngOnInit(): void {
 
     this.userData = this.localStore.getUser();
-    this.getTransactions(this.userData.username)
+    this.isLogged = this.localStore.isLoggedIn();
 
     if(!this.isLogged){
-      this.router.navigate(['/login']);
+      this.router.navigate(['/signin']);
     }
+
+    this.singInUtil.getUserAccount(this.userData.username)
+
+    this.getTransactions(this.userData.username)
 
     this.userAccountData = this.localStorage.getUserAccount()
 
@@ -73,9 +80,12 @@ export class BalanceComponent {
   }
 
   getTransactions(username: string){
-    this.transService.getByUser('owner1='+username).subscribe((data: AccountTransactionModel) => this.dataList = data);
-    this.transService.getByUser('owner2='+username).subscribe((data: AccountTransactionModel) => this.dataList += data)
+    this.transService.getByUser('owner='+username).subscribe((data: AccountTransactionModel) => this.dataList = data);
   };
+
+  formatCurrency(amount: string){
+    return getFormattedCurrency_deDE(Number(amount))
+  }
 
 
 }

@@ -10,7 +10,6 @@ import { BodyComponent } from './welcome/body/body.component';
 import { AccountComponent } from './my-bank/account/account.component';
 import { AddAccountComponent } from './my-bank/crud-account/add-account/add-account.component';
 import { SendMoneyComponent } from './my-bank/send-money/send-money.component';
-import { DebitAccountComponent } from './my-bank/crud-transactions/debit-transaction/debit-account.component';
 import { CreditAccountComponent } from './my-bank/crud-transactions/credit-transaction/credit-account.component';
 import { EditAccountComponent } from './my-bank/crud-account/edit-account/edit-account.component';
 import { AuthGuard } from './auth/guards/auth.guard';

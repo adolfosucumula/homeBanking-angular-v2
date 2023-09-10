@@ -53,12 +53,13 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignoutComponent } from './auth/signout/signout.component';
 import { UserStatusComponent } from './auth/user-status/user-status.component';
 import { CreditAccountComponent } from './my-bank/crud-transactions/credit-transaction/credit-account.component';
-import { DebitAccountComponent } from './my-bank/crud-transactions/debit-transaction/debit-account.component';
 import { BodyComponent } from './welcome/body/body.component';
 import { SidebarComponent } from './welcome/sidebar/sidebar.component';
 import { ToolbarComponent } from './welcome/toolbar/toolbar.component';
 import { SendMoneyComponent } from './my-bank/send-money/send-money.component';
-
+import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import {ProgressBarMode, MatProgressBarModule} from '@angular/material/progress-bar'
 
 @NgModule({
   declarations: [
@@ -75,7 +76,6 @@ import { SendMoneyComponent } from './my-bank/send-money/send-money.component';
     AddAccountComponent,
     EditAccountComponent,
     CreditAccountComponent,
-    DebitAccountComponent,
     SignupComponent,
     SigninComponent,
     SignoutComponent,
@@ -120,7 +120,11 @@ import { SendMoneyComponent } from './my-bank/send-money/send-money.component';
         MatTableModule,
         MatPaginatorModule,
         MatDialogModule,
-        MatBadgeModule
+        MatBadgeModule,
+        ScheduleModule,
+        RecurrenceEditorModule,
+      NgxCurrencyDirective,
+      MatProgressBarModule,
 
   ],
   providers: [

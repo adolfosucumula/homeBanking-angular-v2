@@ -31,6 +31,11 @@ export function formatDateWithPipe(mydate: string){
   return cDate;
 }
 
+export function getSystemPipeDateTime(){
+  const cDate = pipe.transform(date, "dd/MM/yyyy hh:mm:ss", locale[0].localeCode );
+  return cDate;
+}
+
 export function getSystemPipeTime(){
   const cDate = pipe.transform(date, "hh:mm:ss", locale[0].localeCode );
   return cDate;

@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from "rxjs";
 import { Title } from '@angular/platform-browser';
@@ -15,7 +15,7 @@ import { SessionService } from 'src/app/utils/session/session.service';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent {
+export class MainPageComponent implements AfterViewInit{
 
   sessao$: Observable<Session | null>;
 
@@ -34,7 +34,8 @@ export class MainPageComponent {
     private route: ActivatedRoute,
     private router: Router,
     private localStore: StorageService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private cd: ChangeDetectorRef
     ){
       this.sessao$ = this.sessionService.getSession();
   }
@@ -66,15 +67,16 @@ export class MainPageComponent {
    */
   ngAfterViewInit(){
     this.observer.observe(['(max-width: 800px)']).subscribe((res)=>{
+      Promise.resolve(res).then(() => {
+        if(res.matches){
+          this.sidenav.mode = 'over'
+          this.sidenav.close()
+        }else{
 
-      if(res.matches){
-        this.sidenav.mode = 'over'
-        this.sidenav.close()
-      }else{
-
-        this.sidenav.mode = 'side'
-        this.sidenav.open()
-      }
+          this.sidenav.mode = 'side'
+          this.sidenav.open()
+        }
+      })
     })
   }
 

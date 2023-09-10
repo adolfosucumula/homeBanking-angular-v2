@@ -49,13 +49,13 @@
       <!-- Symbol Column -->
       <ng-container matColumnDef="initialBalance">
         <th mat-header-cell *matHeaderCellDef> I.Balance </th>
-        <td mat-cell *matCellDef="let element"> {{element.initialBalance }} </td>
+        <td mat-cell *matCellDef="let element"> {{ this.formatCurrency(element.initialBalance) }} </td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="amount">
         <th mat-header-cell *matHeaderCellDef> C.Amount </th>
-        <td mat-cell *matCellDef="let element"> {{element.currentBalance}} </td>
+        <td mat-cell *matCellDef="let element"> {{ this.formatCurrency(element.currentBalance) }} </td>
       </ng-container>
 
       <!-- Symbol Column -->

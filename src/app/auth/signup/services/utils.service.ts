@@ -21,11 +21,11 @@ export class SignUpUtilsService {
    */
   createSignupFormGroup(): FormGroup {
     return new FormGroup({
-      fullname: new FormControl(''),
-      username: new FormControl(''),
-      email: new FormControl(''),
-      telephone: new FormControl(0),
-      password: new FormControl(''),
+      fullname: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200)] ),
+      username: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.maxLength(100)]),
+      email: new FormControl('', [Validators.required,Validators.email, Validators.maxLength(100)]),
+      telephone: new FormControl(null, [Validators.required,Validators.pattern('^[0-9]+$'), Validators.minLength(9), Validators.maxLength(9)]),
+      password: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(8)]),
       confirmPassword: new FormControl(''),
       role: new FormControl(''),
       isActive: new FormControl(''),
@@ -33,21 +33,6 @@ export class SignUpUtilsService {
       updatedAt: new FormControl(this.date.value)
     });
   };
-
-  /**
-   *
-   */
-  validateFieldGroup(){
-    //Function to validate the form fields according to the specific rules
-    return this.formBuilder.group({
-      fullname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200)] ],
-      username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.maxLength(100)] ],
-      email: ['', [Validators.required,Validators.email, Validators.maxLength(100)] ],
-      telephone: ['', [Validators.required,Validators.pattern('^[0-9]+$'), Validators.minLength(9), Validators.maxLength(9)] ],
-      password: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(8)] ],
-      //confirmPassword: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(8)] ]
-    });
-  }
 
   getUserObject(form: FormGroup): UserModel {
     let {

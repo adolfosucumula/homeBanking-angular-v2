@@ -6,6 +6,8 @@ import { AccountGetService } from './service/account-get.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountClass } from 'src/app/models/AccountModel.model';
 import { FormControl, FormGroup } from '@angular/forms';
+import { formatCurrency } from '@angular/common';
+import { getFormattedCurrency_deDE } from 'src/app/utils/functions/formatCurrency';
 
 @Component({
   selector: 'app-account',
@@ -105,6 +107,8 @@ export class AccountComponent implements OnInit{
     this.router.navigate(['/trans/account/',id, 'Debit']);
    }
 
-
+   formatCurrency(currency: string){
+    return getFormattedCurrency_deDE(Number(currency))
+   }
 
 }

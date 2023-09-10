@@ -6,6 +6,7 @@ import { AuthPostServicesComponent } from '../../auth-services/auth-post-service
 import { AddAccountUtils } from 'src/app/my-bank/crud-account/utils/AddAccountUtils';
 import { AccountPostService } from 'src/app/my-bank/crud-account/service/account-post.service';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
+import { formatDateWithPipe, getSystemPipeDateTime, getSystemPipeTime } from 'src/app/utils/functions/system-timestamp';
 
 @Injectable({
   providedIn: 'root'
@@ -34,11 +35,11 @@ export class SignupServicesService {
 
     this.addAccountUtils.addAccount(
       new FormGroup({
-        owner: new FormControl(formData.value.username),
+        owner: new FormControl(formData.value.fullname),
         ownerDoc: new FormControl(formData.value.telephone),
-        initialBalance: new FormControl('0,00'),
+        initialBalance: new FormControl('0.00'),
         currency: new FormControl('EUR'),
-        createdAt: new FormControl(this.date.getDate()),
+        createdAt: new FormControl(getSystemPipeDateTime()),
         isActive: new FormControl(true),
       }),
       this.addAccountUtils.generateAccount()

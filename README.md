@@ -41,6 +41,15 @@ To generate the documentation, inside the project run `compodoc -p tsconfig.app.
 Defining the port is not mandatory.
 
 
+## Create task execution scheduler
+To use this property we add the API by using the folowing command
+run `ng add @syncfusion/ej2-angular-schedule` 
+
+## Create Currency-Mask with ngx-currency
+gitHub address: https://www.npmjs.com/package/ngx-currency
+
+Inside the project run `npm install ngx-currency`
+
 
 
 

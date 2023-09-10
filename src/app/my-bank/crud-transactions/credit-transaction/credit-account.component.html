@@ -89,6 +89,8 @@
                   <mat-label>Current balance</mat-label>
                   <input matInput type="text"
                     placeholder="Cuurrent balance"
+                    currencyMask
+                    [options]="{align: 'left', prefix: '€ ', thousands: '.', decimal: ',' }"
                     formControlName="balanceBefore"owner
                     [ngClass]="{ 'is-invalid': submitted && _fC['balanceBefore'].errors }"
                   >
@@ -106,6 +108,8 @@
                 <mat-form-field appearance="outline">
                   <mat-label>Amount</mat-label>
                   <input matInput placeholder="Amount" type="text"
+                  currencyMask
+                  [options]="{align: 'left', prefix: '€ ', thousands: '.', decimal: ',' }"
                   formControlName="amount"
                   [ngClass]="{ 'is-invalid': submitted && _fC['amount'].errors }"
                 >

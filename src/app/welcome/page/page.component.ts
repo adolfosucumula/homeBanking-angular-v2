@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, Output, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -7,7 +7,7 @@ import { MatSidenav } from '@angular/material/sidenav';
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss']
 })
-export class PageComponent {
+export class PageComponent implements AfterViewInit{
 
   public isVisited = true;
   isLogged: boolean = false;
@@ -28,16 +28,17 @@ export class PageComponent {
    * 'over' and close it, if false open it setting to 'side' mode
    */
   ngAfterViewInit(){
-    this.observer.observe(['(max-width: 800px)']).subscribe((res)=>{
-
-      if(res.matches){
-        //this.sidenav.mode = 'over'
-       // this.sidenav.close()
-      }else{
-        //this.sidenav.mode = 'side'
-        //this.sidenav.open()
-      }
-    })
+    /*this.observer.observe(['(max-width: 800px)']).subscribe((res)=>{
+      Promise.resolve(res).then(() => {
+        if(res.matches){
+          this.sidenav.mode = 'over'
+         this.sidenav.close()
+        }else{
+          this.sidenav.mode = 'side'
+          this.sidenav.open()
+        }
+      })
+    })*/
   }
 
 }

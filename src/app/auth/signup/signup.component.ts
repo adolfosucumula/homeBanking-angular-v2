@@ -40,7 +40,6 @@ export class SignupComponent {
 
     ngOnInit(): void {
 
-      this.entityForm = this.utils.validateFieldGroup();
       this.isLogged = this.localStore.isLoggedIn()
     };
 

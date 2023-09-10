@@ -68,23 +68,6 @@ submitted = false;
 
 ngOnInit(): void {
 
-  //Function to validate the form fields according to the specific rules
-  //this.accountForm = this.accTransa.formGroup()
-
-  /**
-   * Function to catch the event typing from currency field to check the values being typing by user
-   * are valid or not.
-   * First is removed the all non digit from field, next remove the leading zeros meaning the values might make sense,
-   * at the end its neccessary to stop/disable function to emit any event, otherwise its gonna be on the infinity loop.
-   * */
-  this.accountForm.valueChanges.subscribe( form => {
-    if(form.amount){
-      this.accountForm.patchValue({
-        amount: this.currencyPipe.transform(form.amount.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '1.0-0')
-      }, {emitEvent: false})
-    }
-  });
-
   //get router parameter
   this.route.paramMap.subscribe((param) => {
     const id = Number(param.get('id'));
@@ -151,13 +134,9 @@ getAccountById(id: number = 0, type: string){
 
         if(!accountData){ this.snackBarAlert.openSnackBar("This account was not found!" , "Information", 10, 'top', "left") }
         else{
-          let balance = accountData.currentBalance.replaceAll("€","");
-          balance = balance.replaceAll(".","");
-          balance = balance.replaceAll(",",".");
+          let balance = accountData.currentBalance;
 
-          let amount = form.value.amount.replaceAll("€","");
-          amount = amount.replaceAll(".","");
-          amount = amount.replaceAll(",",".");
+          let amount = form.value.amount;
 
           let finalBalance = 0;
 
@@ -180,8 +159,8 @@ getAccountById(id: number = 0, type: string){
           this.accTransa.registTransaction(
             form,
             accountData,
-            getFormattedCurrency_deDE(amount),
-            getFormattedCurrency_deDE(finalBalance),
+            amount,
+            finalBalance.toString(),
             formatDateWithPipe(form.value.createdAt) + ' ' + getSystemPipeTime()
           );
 

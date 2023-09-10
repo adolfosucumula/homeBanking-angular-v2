@@ -29,10 +29,20 @@ width: 500px;
             <div class="account">
               <span>Account: </span> <strong>{{   this.account }}</strong>
             </div>
-            <br>
-            <div class="account">
-              <span>Current balance: </span> <strong>{{   this.currentBalance }}</strong>
-            </div>
+
+            <!------Progress bar------->
+            <section class="example-section">
+              <!--<mat-progress-bar
+                  class="example-margin"
+                  [color]="color"
+                  [mode]="mode"
+                  [value]="value"
+                  [bufferValue]="bufferValue">
+              </mat-progress-bar>--->
+              <mat-progress-bar *ngIf="showPBar1" mode="indeterminate"></mat-progress-bar>
+              <!--<span>{{ progress }} % Completed</span>-->
+            </section>
+            <!------Progress bar end------->
 
             <mat-form-field appearance="outline">
               <mat-label>Send to</mat-label>
@@ -78,10 +88,27 @@ width: 500px;
               <mat-icon matSuffix>done</mat-icon>
             </mat-form-field>
 
+               <!------------------------------------------------>
+          <mat-form-field appearance="outline">
+            <mat-label>Current balance</mat-label>
+            <input matInput placeholder="Current balance" type="tel"
+            currencyMask
+            [options]="{align: 'left', prefix: '€ ', thousands: '.', decimal: ',' }"
+            formControlName="balanceBefore"
+            [ngClass]="{ 'is-invalid': submitted && _fC['balanceBefore'].errors }"
+          >
+            <span *ngIf="submitted && _fC['balanceBefore'].errors" class="invalid-feedback">
+              <span *ngIf="_fC['balanceBefore'].errors['required']">The current balance is required</span>
+            </span>
+            <mat-icon matSuffix>done</mat-icon>
+          </mat-form-field>
+
              <!------------------------------------------------>
           <mat-form-field appearance="outline">
             <mat-label>Amount</mat-label>
-            <input matInput placeholder="Amount" type="text"
+            <input matInput placeholder="Amount" type="tel"
+            currencyMask
+            [options]="{align: 'left', prefix: '€ ', thousands: '.', decimal: ',' }"
             formControlName="amount"
             [ngClass]="{ 'is-invalid': submitted && _fC['amount'].errors }"
           >

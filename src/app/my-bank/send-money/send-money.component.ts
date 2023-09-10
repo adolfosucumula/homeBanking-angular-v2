@@ -11,6 +11,8 @@ import { getFormattedCurrency_deDE } from 'src/app/utils/functions/formatCurrenc
 import { SingInUtil } from 'src/app/auth/utils/signin-util.servicel';
 import { formatDateWithPipe, getSystemPipeTime } from 'src/app/utils/functions/system-timestamp';
 import { patchDataToForm } from './services/patch-data-to-form';
+import { ProgressBarMode } from '@angular/material/progress-bar';
+import { ThemePalette } from '@angular/material/core';
 
 let userAccountData = {account: '000', owner: 'owner', currentBalance: '0,00'}
 
@@ -25,13 +27,20 @@ export class SendMoneyComponent {
   date = new FormControl(new Date());
   serializedDate = new FormControl(new Date().toISOString());
   submitted = false;
-  id!:number;
   account?: string = '000000'
-  owner1 = ''
-
+  barWidth = 0;
+  progress = 0
+  showPBar1 = false
   currentBalance: any = '0,00'
   userAccount: [] = []
   userData: any;
+
+  //
+  color: ThemePalette = 'primary';
+  mode: ProgressBarMode = 'determinate';
+  value = 0;
+  bufferValue = 75;
+  ///
 
   //
   constructor(private localStore: StorageService,
@@ -42,7 +51,8 @@ export class SendMoneyComponent {
     private accountService: AccountGetService,
     private snackBarAlert: SnackBarAlertMessage,
     private editAccountUtils: EditAccountUtils,
-    private localStorage: StorageService
+    private localStorage: StorageService,
+    private singInUtil: SingInUtil
     ) { }
 
 
@@ -56,69 +66,27 @@ export class SendMoneyComponent {
     ngOnInit(): void {
 
       this.userData = this.localStore.getUser();
-      //this.singInUtil.getUserAccount(this.userData.username)
+      this.singInUtil.getUserAccount(this.userData.username)
       userAccountData = this.localStorage.getUserAccount()
       this.account = userAccountData.account
       this.currentBalance = userAccountData.currentBalance,
       this.patchDataToForm()
 
-      //Function to validate the form fields according to the specific rules
-      //this.accountForm = this.utils.validateForm()
-
-      /**
-       * Function to catch the event typing from currency field to check the values being typing by user
-       * are valid or not.
-       * First is removed the all non digit from field, next remove the leading zeros meaning the values might make sense,
-       * at the end its neccessary to stop/disable function to emit any event, otherwise its gonna be on the infinity loop.
-       * */
-      this.accountForm.valueChanges.subscribe( form => {
-        if(form.amount){
-          this.accountForm.patchValue({
-            amount: this.currencyPipe.transform(form.amount.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '1.0-0')
-          }, {emitEvent: false})
-        }
-        if(form.balanceBefore){
-          this.accountForm.patchValue({
-            balanceBefore: this.currencyPipe.transform(form.balanceBefore.replace(/\D/g, '').replace(/^0+/, ''), 'EUR', 'symbol', '1.0-0')
-          }, {emitEvent: false})
-        }
-      });
-
+      /*setTimeout(()=>{
+        let intervalID = setInterval(()=>{
+          if(this.barWidth == 100){
+            clearInterval(intervalID);
+          }else{
+            this.animate()
+          }
+        }, 100)
+      }, 2000)*/
     };
 
 
     //Call AbstractControl class to check if the data from form fields conforms to the rule defined above
     get _fC(): {[key: string]: AbstractControl } {
       return this.accountForm.controls;
-    };
-
-
-    getById(id: number = 0){
-
-      if(id > 0){
-        this.accountService.getById(id).subscribe((data: any) => {
-          this.accountForm.patchValue({
-            targetAccount: '',
-            owner2: '',
-            amount: new FormControl(''),
-            operator: new FormControl(''),
-            status: new FormControl(''),
-            createdAt: new FormControl(''),
-          });
-
-          //Preserve the account register to be used at next step
-          this.accountData.patchValue(data);
-        })
-      }else{
-        this.accountForm.patchValue({
-          targetAccount: '',
-          owner2: '',
-          amount: '',
-          operator: this.userData.username,
-          status: 'Pendent',
-          createdAt: ''
-        });
-      }
     };
 
 
@@ -129,32 +97,17 @@ export class SendMoneyComponent {
         return;
       }
 
-      //let balanceBefore = this.accountForm.value.balanceBefore;
+      let balanceBefore = this.accountForm.value.balanceBefore;
       let amount = this.accountForm.value.amount;
-      const account = this.accountForm.value.account;
-
-      let balanceBefore = this.currentBalance?.toString().replaceAll("€","");
-      balanceBefore = balanceBefore.replaceAll(".","");
-      balanceBefore = balanceBefore.replaceAll(",",".");
-      amount = amount.replaceAll("€","");
-      amount = amount.replaceAll(".","");
-      amount = amount.replaceAll(",",".");
-
-
-      //get the ID account from the account list
-
-      if( Number(balanceBefore) === 0 || amount === 0){
-        this.snackBarAlert.openSnackBar("Insufficient funds to continue the operation. ", "Information", 10, 'bottom', "left")
-        return;
-      }
-      if(Number(amount) > Number(balanceBefore) ){
-        this.snackBarAlert.openSnackBar("Insufficient funds to continue the operation. Am " +
-        (amount - Number(balanceBefore) < 0) + " Bf "+ Number(balanceBefore),
-        "Information", 10, 'bottom', "left");
-        return;
-      }
 
       let tType = this.accountForm.value.tType;
+
+      if(!amount || amount ===0){ return }
+      else if(!balanceBefore || balanceBefore ===0){
+        this.snackBarAlert.openSnackBar("Insufficient funds to continue the operation.",
+            "Information", 10, 'bottom', "left");
+         return
+      }
 
       if(tType === 'Debit'){
 
@@ -163,7 +116,7 @@ export class SendMoneyComponent {
         tType = 'Credit'
       }
 
-      //this.sleep(1000).then(()=>{
+      this.sleep(2000).then(()=>{
 
         if(tType === 'Credit'){
 
@@ -185,18 +138,21 @@ export class SendMoneyComponent {
               createdAt: this.accountForm.value.createdAt
             })
 
+            this.showPBar1 = false
+
             this.registOperation(this.accountForm, data[0], tType);
 
           });
         }
 
-        this.router.navigate(['/balance'])
+        this.router.navigate(['/dashboard'])
 
-      //})
+      })
 
     };
 
     patchDataToForm(){
+
       patchDataToForm(
         this.accountForm,
         'Debit',
@@ -222,37 +178,33 @@ export class SendMoneyComponent {
       if(!accountData){ this.snackBarAlert.openSnackBar("This account was not found!" , "Information", 10, 'top', "left") }
       else{
 
-        let balance = accountData.currentBalance.replaceAll("€","");
-        balance = balance.replaceAll(".","");
-        balance = balance.replaceAll(",",".");
+        let balanceBefore = this.accountForm.value.balanceBefore;
 
-        let amount = form.value.amount.replaceAll("€","");
-        amount = amount.replaceAll(".","");
-        amount = amount.replaceAll(",",".");
+        let amount = form.value.amount;
 
         let finalBalance = 0;
 
         if(transactionType && (transactionType === 'Deposit' || transactionType === 'Credit')){
 
-          finalBalance = parseFloat(balance) + parseFloat(amount);
+          finalBalance = parseFloat(balanceBefore) + parseFloat(amount);
         }
         else if(transactionType && transactionType === 'Debit'){
 
-          if(Number(amount) > Number(balance) ){
+          if(Number(amount) > Number(balanceBefore) ){
             this.snackBarAlert.openSnackBar("Insufficient funds to continue the operation. Am " +
-            (amount - Number(balance) < 0) + " Bf "+ Number(balance),
+            (amount - Number(balanceBefore) < 0) + " Bf "+ Number(balanceBefore),
             "Information", 10, 'bottom', "left");
             return;
           }
 
-          finalBalance = parseFloat(balance) - parseFloat(amount);
+          finalBalance = parseFloat(balanceBefore) - parseFloat(amount);
         }
 
         this.accTransa.registTransaction(
           form,
           accountData,
-          getFormattedCurrency_deDE(amount),
-          getFormattedCurrency_deDE(finalBalance),
+          amount,
+          finalBalance.toString(),
           formatDateWithPipe(form.value.createdAt) + ' ' + getSystemPipeTime()
         );
 
@@ -260,59 +212,22 @@ export class SendMoneyComponent {
 
       }
 
-  }
+    }
 
-
-    /**
-     * Compare the value of this parameter with each account from the database to get its ID
-     * @param account the account entered in field form
-     */
-   /* creditAccount(sourceAccount: string, owner: string, form: FormGroup){
-
-      if(sourceAccount){
-        this.accountService.getByParams('account=' + form.value.targetAccount +
-        '&&' +
-        'owner=' + form.value.owner2)
-        .subscribe((data: any) => {
-
-          if(data.size == 0){ this.snackAlert.openSnackBar("This account "+ sourceAccount + " was not found!" , "Information", 10, 'bottom', "left") }
-          else{
-            let balance = data[0].currentBalance.toString().replaceAll("€","");
-            balance = balance.replaceAll(".","");
-            balance = balance.replaceAll(",",".");
-
-            let amount = form.value.amount.replaceAll("€","");
-            amount = amount.replaceAll(".","");
-            amount = amount.replaceAll(",",".");
-
-            this.utils.creditTransaction(
-              form,
-            {
-              id: data[0].id,
-              account: data[0].account,
-              iban: data[0].iban,
-              swift: data[0].swift,
-              owner: data[0].owner,
-              ownerDoc: data[0].ownerDoc,
-              initialBalance: data[0].initialBalance,
-              currency: data[0].currency,
-              isActive: data[0].isActive
-            },
-              this.account?.toString(),
-              userAccountData.owner,
-              data[0].currentBalance,
-              getFormattedCurrency_deDE(amount),
-              getFormattedCurrency_deDE(parseFloat(balance) + parseFloat(amount)),
-              "O.Finalized",
-              this.datePipe.transform(this.accountForm.value.createdAt, 'dd/MM/yyyy h:mm:ss')
-            );
-          }
-        })
-      }
-    }*/
-
-    sleep(ms: number){
+    sleep(ms: number){ this.showPBar1 = true
       return new Promise(res => setTimeout(res, ms));
     }
+
+
+    animate(){
+      this.barWidth ++;
+      this.value = this.barWidth
+      this.progress = this.barWidth
+      setTimeout(()=>{
+
+      }, 1000)
+    }
+
+
 
 }

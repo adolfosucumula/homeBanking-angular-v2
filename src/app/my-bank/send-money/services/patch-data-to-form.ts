@@ -1,7 +1,8 @@
 import { FormGroup } from "@angular/forms";
 
 
-export function patchDataToForm(form: FormGroup,
+export function patchDataToForm(
+    form: FormGroup,
     tType: string,
     account: string,
     owner: string,
