@@ -1,0 +1,43 @@
+button {
+  margin-right: 8px;
+}
+
+.title{
+  background: #1a1838;
+  color: rgb(255, 255, 255);
+  margin-bottom: 0%;
+}
+
+.title span{
+  margin-left: 3%;
+}
+
+.content{
+  margin-top: 0%;
+  padding: .1rem 2rem;
+  background: #1a1838;
+  color: rgb(255, 255, 255);
+}
+
+.content .message {
+  padding: .3rem .7rem;
+  margin: 1;
+  border-radius: .4rem;
+  background: rgba(187, 187, 187, 0.26);
+  color: #ffffff;
+}
+
+.footer{
+  background: #1a1838;
+  color: rgb(255, 255, 255);
+}
+
+mat-card {
+  background: #1a1838;
+  color: rgb(255, 255, 255);
+}
+
+mat-card button{
+  color: #FFF;
+  border: #4fee7e 1px solid;
+}

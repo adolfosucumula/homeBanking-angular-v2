@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SnackBarAlertMessage } from "src/app/utils/snackBarAlertMessage";
-import { AccountUpdatePostService } from "../service/account-update.service";
+import { AccountUpdateService } from "./account-update.service";
 
 
 @Injectable({
@@ -12,7 +12,7 @@ import { AccountUpdatePostService } from "../service/account-update.service";
 
 export class EditAccountUtils {
 
-  constructor(private accountService: AccountUpdatePostService
+  constructor(private accountService: AccountUpdateService
     ,private route: ActivatedRoute, private router: Router, private snackAlert: SnackBarAlertMessage) {}
 
 
@@ -134,18 +134,12 @@ export class EditAccountUtils {
     ){
 
     this.accountService.updateBalance
-    ( id,
+    (  id,
       account,
-      iban,
-      swift,
       owner,
       ownerDoc,
-      initialBalance,
       currentBalance,
-      currency,
-      createdAt,
-      updatedAt,
-      isActive
+      createdAt
       )
       .subscribe({
       next: data => {

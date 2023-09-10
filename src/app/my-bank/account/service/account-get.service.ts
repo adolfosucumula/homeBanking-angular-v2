@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AccountClass } from 'src/app/models/AccountModel';
+import { AccountClass } from 'src/app/models/AccountModel.model';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { handleError } from 'src/app/utils/handle-error';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
-import { GenericServices } from 'src/app/endpoint/generic-services.service';
+import { GenericServices } from 'src/app/http-settings/generic-services.service';
 
 let model: AccountClass = new AccountClass();
 
@@ -51,18 +51,31 @@ export class AccountGetService {
     .pipe(
       retry(3), // retry a failed request up to 3 times
       //catchError(this.handleError) // then handle the error
-      retry(3), // retry a failed request up to 3 times
       catchError(handleError) // then handle the error
     );
   }
 
-  getByAccount(account: string): Observable<any> {
+  getUserAccount(account: string, owner: string): Observable<any> {
     model.setTableName("accounts")
     return this.services.find(model, account)
     .pipe(
       retry(3), // retry a failed request up to 3 times
       //catchError(this.handleError) // then handle the error
+      catchError(handleError) // then handle the error
+    );
+  }
+
+  /**
+   *
+   * @param params ex: 'owner=Admin'
+   * @returns
+   */
+  getByParams(params: string): Observable<any> {
+
+    return this.services.findObjts('accounts',params)
+    .pipe(
       retry(3), // retry a failed request up to 3 times
+      //catchError(this.handleError) // then handle the error
       catchError(handleError) // then handle the error
     );
   }

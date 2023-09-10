@@ -7,7 +7,7 @@ import { DatePipe, formatDate } from '@angular/common';
 
 export class CurrentDate {
 
-  public today = new Date();
+  private today = new Date();
   private date = '';
   private hour = '';
   private pipe = new DatePipe('en-US');

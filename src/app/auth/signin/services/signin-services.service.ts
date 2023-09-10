@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
-import { AuthUtils } from 'src/app/auth/utils/AuthUtils';
+import { AuthUtils } from 'src/app/auth/utils/AuthUtils.service';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { AuthPostServicesComponent } from '../../auth-services/auth-post-service.service';
+import { SessionService } from 'src/app/utils/session/session.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class SigninServicesService {
   constructor(
     private authUtils: AuthUtils, private alertD: AlertMessageFactories,
      private localStore: StorageService,
+     private sessionService: SessionService,
      private router: Router, private authServices: AuthPostServicesComponent,
      private currentDate: CurrentDate
     ) {}
@@ -33,7 +35,7 @@ export class SigninServicesService {
      * @param isActive
      */
 
-    signIn(form: FormGroup, username: string, email: string, telephone: number, userID: number, userRole: string, isActive: boolean ){
+    saveLoginHistoric(form: FormGroup, userData: any ){
 
       this.authServices.signIn(
         this.authUtils.getLoginFormData(form).username,
@@ -42,17 +44,21 @@ export class SigninServicesService {
       ).subscribe((data: any) => {
 
           this.localStore.saveUser({
-            userID: userID,
-            username: username,
-            email: email,
-            telephone: telephone,
-            role: userRole,
+            userID: userData.id,
+            username: userData.username,
+            email: userData.email,
+            telephone: userData.telephone,
+            role: userData.role,
             createdAt: this.currentDate.getDate(),
-            isActive: isActive
+            isActive: userData.isActive
           },1);
+
+          this.sessionService.saveSession(data)
+
           this.isLogged = this.localStore.isLoggedIn();
+
           if(this.isLogged){
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/balance']);
 
           }else{
             this.alertD.openErrorAlertDialog("Error", "Logging failed!", "Ok", '700ms', '1000ms')
@@ -61,4 +67,6 @@ export class SigninServicesService {
       })
 
     }
+
+
 }

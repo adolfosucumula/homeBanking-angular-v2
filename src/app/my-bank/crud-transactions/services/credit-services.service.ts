@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { HttpEndpointSetting } from 'src/app/endpoint/httpEndpointSetting';
-import { AccountTransactionModel } from 'src/app/models/AccountTransactionModel';
+import { HttpEndpointSetting } from 'src/app/http-settings/httpEndpointSetting';
+import { AccountTransactionModel } from 'src/app/models/AccountTransactionModel.model';
 @Injectable({
   providedIn: 'root'
 })

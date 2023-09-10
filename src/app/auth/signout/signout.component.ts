@@ -4,6 +4,9 @@ import { AuthGetServicesComponent } from 'src/app/auth/auth-services/auth-get.se
 import { CurrentDate } from 'src/app/utils/CurrentDate';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { SignoutServicesService } from './services/signout-services.service';
+import { Session } from 'src/app/models/session.model';
+import { SessionService } from 'src/app/utils/session/session.service';
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-signout',
@@ -12,9 +15,14 @@ import { SignoutServicesService } from './services/signout-services.service';
 })
 export class SignoutComponent implements OnInit {
 
-    constructor(private router: Router, private localStore: StorageService,
-      private service: SignoutServicesService, private currentDate: CurrentDate
-      ){}
+  sessao$: Observable<Session | null>;
+
+    constructor(
+      private service: SignoutServicesService,
+      private sessionService: SessionService
+    ){
+      this.sessao$ = this.sessionService.getSession();
+  }
 
     okay = true;
     user: any;
@@ -28,6 +36,7 @@ export class SignoutComponent implements OnInit {
      * user is logged yet. If false don't do nothing if true redirect to the root page
      */
     signOut(){
+      this.sessionService.clearSession()
       this.service.signOut();
     }
 

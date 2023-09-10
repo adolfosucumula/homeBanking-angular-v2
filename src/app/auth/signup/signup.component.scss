@@ -1,0 +1,97 @@
+
+main{
+  align-items: center;
+  background-color: #021733;
+  border-radius: 0 0 20rem;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, .45);
+}
+
+main .container{
+  align-items: center;
+  text-align: center;
+}
+
+.example-form{
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 800px;
+  max-width: 800px;
+  color: #FFF;
+  background-color: rgba(243, 243, 243, 0.45);
+
+  mat-form-field{
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+    min-width: 30%;
+    margin-bottom: 0;
+
+    mat-label{
+      color: #fdfdfd;
+    }
+
+    mat-icon{
+
+    }
+
+    .invalid-feedback{
+      color: #c22626;
+      font-size: .8rem;
+    }
+  }
+
+}
+
+main .container .example-form .title{
+  padding: 2rem 1rem;
+  margin: 1;
+  min-width: 400px;
+  text-align: center;
+}
+
+main .container .example-form .title h2{
+  font-weight: bold;
+  color: rgb(179, 179, 179);
+}
+
+.example-button-row a{
+  color: #bccadd;
+}
+
+
+
+@media screen and (max-width: 767px) {
+
+  .btn-menu-01{
+    display: none;
+  }
+
+  .btn-menu{
+    display: block;
+  }
+
+  .mat-drawer{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  mat-form-field {
+
+    min-width: 200px;
+  }
+
+   .example-form{
+    padding: .5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 100px;
+
+  }
+
+}

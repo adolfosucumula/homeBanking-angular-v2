@@ -1,0 +1,147 @@
+<app-main-page>
+
+<style>
+  .mat-form-field {
+
+width: 500px;
+}
+
+</style>
+
+<main>
+
+  <div class="container">
+    <!-------  Form to search accounts -->
+
+
+    <form class="example-form" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+        <div class="title">
+          <h2>Debit account</h2>
+        </div>
+
+        <!----------------------------->
+
+        <div class="content">
+          <div class="box">
+
+             <!----------------------------->
+
+            <div class="account">
+              <span>Account: </span> <strong>{{   this.account }}</strong>
+            </div>
+            <br>
+            <div class="account">
+              <span>Current balance: </span> <strong>{{   this.currentBalance }}</strong>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Send to</mat-label>
+              <input matInput type="text"
+                placeholder="Send  to"
+                formControlName="targetAccount"
+                [ngClass]="{ 'is-invalid': submitted && _fC['targetAccount'].errors }"
+               >
+               <span *ngIf="submitted && _fC['targetAccount'].errors" class="invalid-feedback">
+                <span *ngIf="_fC['targetAccount'].errors['required']">The target account is required</span>
+
+                <span *ngIf="_fC['targetAccount'].errors['maxlength']">
+                  The target account must not exceed 13 characters
+                </span>
+                <span *ngIf="_fC['targetAccount'].errors['minlength']">
+                  The target account must have at least 13 characters
+                </span>
+                <span *ngIf="_fC['targetAccount'].errors['pattern']">
+                  This field accepts only numbers as value
+                </span>
+              </span>
+              <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
+              <mat-icon matSuffix>done</mat-icon>
+            </mat-form-field>
+
+            <!----------------------------------->
+            <mat-form-field appearance="outline">
+              <mat-label>Owner</mat-label>
+              <input matInput placeholder="Owner" type="text"
+              formControlName="owner2"
+              [ngClass]="{ 'is-invalid': submitted && _fC['owner2'].errors }"
+
+            >
+              <span *ngIf="submitted && _fC['owner2'].errors" class="invalid-feedback">
+                <span *ngIf="_fC['owner2'].errors['required']">The owner is required</span>
+                <span *ngIf="_fC['owner2'].errors['maxlength']">
+                  The owner must not exceed 200 characters
+                </span>
+                <span *ngIf="_fC['owner2'].errors['pattern']">
+                  This field accepts only characters as value
+                </span>
+              </span>
+              <mat-icon matSuffix>done</mat-icon>
+            </mat-form-field>
+
+             <!------------------------------------------------>
+          <mat-form-field appearance="outline">
+            <mat-label>Amount</mat-label>
+            <input matInput placeholder="Amount" type="text"
+            formControlName="amount"
+            [ngClass]="{ 'is-invalid': submitted && _fC['amount'].errors }"
+          >
+            <span *ngIf="submitted && _fC['amount'].errors" class="invalid-feedback">
+              <span *ngIf="_fC['amount'].errors['required']">The amount is required</span>
+            </span>
+            <mat-icon matSuffix>done</mat-icon>
+          </mat-form-field>
+
+          <!----------------------------------->
+          <mat-form-field appearance="outline">
+            <mat-label>Operator</mat-label>
+            <input matInput placeholder="Operator" type="text"
+            formControlName="operator"
+            [ngClass]="{ 'is-invalid': submitted && _fC['operator'].errors }"
+          >
+            <span *ngIf="submitted && _fC['operator'].errors" class="invalid-feedback">
+              <span *ngIf="_fC['operator'].errors['required']">The operator is required</span>
+              <span *ngIf="_fC['operator'].errors['maxlength']">
+                The operator must not exceed 200 characters
+              </span>
+              <span *ngIf="_fC['operator'].errors['pattern']">
+                This field accepts only characters as value
+              </span>
+            </span>
+            <mat-icon matSuffix>done</mat-icon>
+          </mat-form-field>
+
+          <!--  DatePicker -->
+
+          <mat-form-field appearance="outline">
+            <mat-label>Created at</mat-label>
+            <input matInput [matDatepicker]="picker3" formControlName="createdAt"
+            [ngClass]="{ 'is-invalid': submitted && _fC['createdAt'].errors }" [value]="date.value"
+
+            >
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker3" disabled="false"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+
+            <span *ngIf="submitted && _fC['createdAt'].errors" class="invalid-feedback">
+              <span *ngIf="_fC['createdAt'].errors['required']">The data is required</span>
+              <span *ngIf="_fC['createdAt'].errors['maxlength']">
+                The date must not exceed 9 characters
+              </span>
+            </span>
+          </mat-form-field>
+
+          </div>
+
+        </div>
+
+
+        <div class="example-button-row">
+          <button mat-raised-button type="submit" color="primary">Submit</button>
+        </div>
+    </form>
+
+
+  </div>
+</main>
+
+</app-main-page>

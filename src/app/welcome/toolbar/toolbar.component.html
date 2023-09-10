@@ -1,0 +1,23 @@
+
+<div class="toolbar">
+  <div class="title" routerLink="/dashboard">
+    <span>SmartBank</span>
+    |<span id="note" >my Home bank</span>
+  </div>
+
+  <div class="navbar">
+    <!--<span class="matBadge">
+      <mat-icon matBadge="0" matBadgeColor="warn">notifications</mat-icon>
+    </span>-->
+    <app-signout *ngIf="this.isLogged"></app-signout>
+
+    <button mat-button routerLink="/signin" *ngIf="!this.isLogged">
+      <span>Sign In</span>
+    </button>
+    <button mat-button routerLink="/signup" *ngIf="!this.isLogged">
+      <span>Sign Up</span>
+    </button>
+  </div>
+</div>
+
+

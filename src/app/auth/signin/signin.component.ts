@@ -1,29 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserModel } from 'src/app/models/UserModel';
+import { UserModel } from 'src/app/models/UserModel.model';
 import { AuthGetServicesComponent } from 'src/app/auth/auth-services/auth-get.service';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
-import { AuthUtils } from 'src/app/auth/utils/AuthUtils';
+import { AuthUtils } from 'src/app/auth/utils/AuthUtils.service';
 import { CurrentDate } from 'src/app/utils/CurrentDate';
 import { StorageService } from 'src/app/utils/StorageService.service';
 import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
 import { SigninServicesService } from './services/signin-services.service';
+import { SingInUtil } from '../utils/signin-util.servicel';
 
 let user = new UserModel();
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent {
 
+  fullWidth = 0;
 
-  constructor(private authUtils: AuthUtils,
-     private localStore: StorageService,private formBuilder: FormBuilder,
-     private router: Router, private authServices: AuthGetServicesComponent, private alertD: AlertMessageFactories,
-     private  signinService: SigninServicesService
+  constructor(private authUtils: AuthUtils, private signIn: SingInUtil,
+     private localStore: StorageService,
+     private router: Router, private authServices: AuthGetServicesComponent,
+     private alertD: AlertMessageFactories
     ){}
 
   submitted = false;
@@ -43,7 +45,7 @@ export class SigninComponent {
     this.entityForm = this.authUtils.validateForm();
 
     if(this.localStore.isLoggedIn()){
-      this.router.navigate(['/']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
@@ -58,49 +60,13 @@ export class SigninComponent {
     if(this.entityForm.invalid){
       return;
     }
-
-    this.firstFindUser();
+    this.authServices.findUser('username=' + this.entityForm.value.username ).subscribe(
+      (data) => this.signIn.makeLogin(data, this.entityForm)
+      );
 
   };
 
-  /**
-   * Firt load all  the user from JSON server and find the user that want to sign In, if found compare their password
-   *, if equals, a register of login is created on JSON server and the user is  redirected to  the dashboard
-   */
-  firstFindUser(){
 
-    // Load all user from JSON SERVER
-    this.authServices.allUsers().subscribe((data: any) => {
-
-      // Find user from database list
-      const exists = this.authServices.compareUsername(data, this.entityForm.value.username);
-
-      if(!exists){
-        this.alertD.openErrorAlertDialog("Warning", "User not found.", "Ok", '700ms', '1000ms')
-      }else{
-
-        const exists = this.authServices.compareUsernameAndPassword(data, this.entityForm.value.username, this.entityForm.value.password);
-        if(!exists){
-          this.alertD.openErrorAlertDialog("Warning", "Password wrong.", "Ok", '700ms', '1000ms')
-        }else{
-
-          const array = JSON.stringify(this.authServices.findUserByUsernameInDBList(data, this.entityForm.value.username));
-          const items = JSON.parse(array);
-
-          // Register login history
-          if(!items.isActive){
-            this.router.navigate(['/user-inactive']);
-          }
-          else{
-            this.signinService.signIn(this.entityForm, items.username, items.email, items.telephone, items.id, items.role, items.isActive );
-          }
-
-        }
-
-      }
-
-    })
-  };
 
 
 }

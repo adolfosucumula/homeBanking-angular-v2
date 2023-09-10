@@ -13,28 +13,68 @@ main .container .example-form{
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 800px;
-  max-width: 800px;
 
+
+  .title{
+    padding: .5rem 1rem;
+    margin: 1;
+    background: rgba(231, 231, 231, 0.33);
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #dadada;
+
+    h2{
+      font-weight: bold;
+      color: rgb(54, 54, 54);
+    }
+
+  }
+
+  .content{
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+
+    .box{
+      padding: .5rem;
+      margin-left: 1%;
+      margin-top: 0%;
+      width: 50%;
+      border: 2px solid #7c7c7c;
+
+      .account-data{
+        display: flex;
+        flex-direction: column;
+        padding: .5rem;
+        margin-bottom: 20px;
+        border-radius: .3rem;
+        background-color: #e2e2e2;
+        font-size: 1.4rem;
+        span{
+          margin-bottom: 4%;
+          margin-top: 2%;
+        }
+
+        strong{
+          color: #0eb129;
+        }
+      }
+
+      .mat-form-field{
+        min-width: 85%;
+        max-width: 90%;
+      }
+    }
+  }
 }
 
-main .container .example-form .title{
-  padding: 2rem 1rem;
-  margin: 1;
-  background: rgba(56, 87, 53, .33);
 
-  min-width: 400px;
-  text-align: center;
-}
 
-main .container .example-form .title h2{
-  font-weight: bold;
-  color: rgb(59, 59, 59);
-}
-mat-form-field {
 
-  min-width: 500px;
-}
+
 
 
 

@@ -32,6 +32,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatPaginatorModule} from '@angular/material/paginator';
+import {MatBadgeModule} from '@angular/material/badge';
 
 //Importing Http client module because we have components that make http requests throught HttpClient module
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -42,18 +43,21 @@ import { AlertModalComponent } from './dialog/alert-modal/alert-modal.component'
 import { ErrorAlertDialogComponent } from './dialog/error-alert-dialog/error-alert-dialog.component';
 import { SuccessAlertDialogComponent } from './dialog/success-alert-dialog/success-alert-dialog.component';
 import { UserDashboardComponent } from './my-bank/user-dashboard/user-dashboard.component';
-import { MainPageComponent } from './my-bank/customer-dashboard/main-page/main-page.component';
+import { MainPageComponent } from './my-bank/main-page/main-page.component';
 import { BalanceComponent } from './my-bank/customer-dashboard/balance/balance.component';
 import { AccountComponent } from './my-bank/account/account.component';
 import { AddAccountComponent } from './my-bank/crud-account/add-account/add-account.component';
 import { EditAccountComponent } from './my-bank/crud-account/edit-account/edit-account.component';
-import { NavbarComponent } from './welcome/navbar/navbar.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignoutComponent } from './auth/signout/signout.component';
 import { UserStatusComponent } from './auth/user-status/user-status.component';
 import { CreditAccountComponent } from './my-bank/crud-transactions/credit-transaction/credit-account.component';
 import { DebitAccountComponent } from './my-bank/crud-transactions/debit-transaction/debit-account.component';
+import { BodyComponent } from './welcome/body/body.component';
+import { SidebarComponent } from './welcome/sidebar/sidebar.component';
+import { ToolbarComponent } from './welcome/toolbar/toolbar.component';
+import { SendMoneyComponent } from './my-bank/send-money/send-money.component';
 
 
 @NgModule({
@@ -72,11 +76,14 @@ import { DebitAccountComponent } from './my-bank/crud-transactions/debit-transac
     EditAccountComponent,
     CreditAccountComponent,
     DebitAccountComponent,
-    NavbarComponent,
     SignupComponent,
     SigninComponent,
     SignoutComponent,
-    UserStatusComponent
+    UserStatusComponent,
+    BodyComponent,
+    SidebarComponent,
+    ToolbarComponent,
+    SendMoneyComponent
   ],
   imports: [
      BrowserModule,
@@ -112,7 +119,9 @@ import { DebitAccountComponent } from './my-bank/crud-transactions/debit-transac
         MatSnackBarModule,
         MatTableModule,
         MatPaginatorModule,
-        MatDialogModule
+        MatDialogModule,
+        MatBadgeModule
+
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}

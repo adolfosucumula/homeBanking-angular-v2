@@ -1,0 +1,29 @@
+
+<div class="sidenav">
+  <div class="userdata">
+    <img *ngIf="userdata.userImg" src="{{ userdata.userImg }}" alt="" srcset="">
+    <img *ngIf="!userdata.userImg" src="{{ userImg }}" alt="" srcset="">
+    <span>{{ userdata.username }}</span>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-list *ngFor="let item of menuItems">
+    <!----  Buttons for normal users -->
+    <button mat-button class="menu-button" *ngIf="item.deny" routerLink="{{ item.router}}">
+      <mat-icon>{{item.icon}}</mat-icon>
+      <span>{{item.label}}</span>
+    </button>
+
+
+    <!-----  Buttons form ROOT user -->
+    <button mat-button class="menu-button" *ngIf="!item.deny && userdata.role === 'ROOT'" routerLink="{{ item.router}}"
+      routerLinkActive="selected"
+    >
+      <mat-icon>{{item.icon}}</mat-icon>
+      <span>{{item.label}}</span>
+    </button>
+
+    <mat-divider *ngIf="!item.deny && userdata.role === 'ROOT'"></mat-divider>
+    <mat-divider *ngIf="item.deny"></mat-divider>
+  </mat-list>
+</div>
+

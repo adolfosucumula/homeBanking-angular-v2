@@ -1,11 +1,5 @@
+<app-main-page>
 
-<style>
-  .mat-form-field {
-
-width: 500px;
-}
-
-</style>
 
 <main>
 
@@ -40,16 +34,16 @@ width: 500px;
         <mat-form-field appearance="outline">
           <mat-label>Owner</mat-label>
           <input matInput placeholder="Owner" type="text"
-          formControlName="owner"
-          [ngClass]="{ 'is-invalid': submitted && _fC['owner'].errors }"
+          formControlName="owner2"
+          [ngClass]="{ 'is-invalid': submitted && _fC['owner2'].errors }"
 
         >
-          <span *ngIf="submitted && _fC['owner'].errors" class="invalid-feedback">
-            <span *ngIf="_fC['owner'].errors['required']">The owner is required</span>
-            <span *ngIf="_fC['owner'].errors['maxlength']">
+          <span *ngIf="submitted && _fC['owner2'].errors" class="invalid-feedback">
+            <span *ngIf="_fC['owner2'].errors['required']">The owner is required</span>
+            <span *ngIf="_fC['owner2'].errors['maxlength']">
               The owner must not exceed 200 characters
             </span>
-            <span *ngIf="_fC['owner'].errors['pattern']">
+            <span *ngIf="_fC['owner2'].errors['pattern']">
               This field accepts only characters as value
             </span>
           </span>
@@ -62,20 +56,20 @@ width: 500px;
           <mat-label>Account number</mat-label>
           <input matInput type="text"
             placeholder="Account number"
-            formControlName="account"
-            [ngClass]="{ 'is-invalid': submitted && _fC['account'].errors }"
+            formControlName="targetAccount"
+            [ngClass]="{ 'is-invalid': submitted && _fC['targetAccount'].errors }"
             readonly="false"
            >
-           <span *ngIf="submitted && _fC['account'].errors" class="invalid-feedback">
-            <span *ngIf="_fC['account'].errors['required']">The account number is required</span>
+           <span *ngIf="submitted && _fC['targetAccount'].errors" class="invalid-feedback">
+            <span *ngIf="_fC['targetAccount'].errors['required']">The account number is required</span>
 
-            <span *ngIf="_fC['account'].errors['maxlength']">
+            <span *ngIf="_fC['targetAccount'].errors['maxlength']">
               The account number must not exceed 13 characters
             </span>
-            <span *ngIf="_fC['account'].errors['minlength']">
+            <span *ngIf="_fC['targetAccount'].errors['minlength']">
               The account number must have at least 13 characters
             </span>
-            <span *ngIf="_fC['account'].errors['pattern']">
+            <span *ngIf="_fC['targetAccount'].errors['pattern']">
               This field accepts only numbers as value
             </span>
           </span>
@@ -144,3 +138,6 @@ width: 500px;
 
   </div>
 </main>
+
+
+</app-main-page>

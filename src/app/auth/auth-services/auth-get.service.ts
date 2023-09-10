@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 //My imports authrntication requests controll
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { AuthUtils } from 'src/app/auth/utils/AuthUtils';
+import { AuthUtils } from 'src/app/auth/utils/AuthUtils.service';
 import { FormGroup } from '@angular/forms';
-import { UserModel } from 'src/app/models/UserModel';
+import { UserModel } from 'src/app/models/UserModel.model';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
-import { GenericServices } from 'src/app/endpoint/generic-services.service';
+import { GenericServices } from 'src/app/http-settings/generic-services.service';
 
 let model: UserModel = new UserModel();
 
@@ -51,6 +51,35 @@ export class AuthGetServicesComponent {
 
   /**
    *
+   * @param params ex: 'username=Jane'
+   * @returns
+   */
+  findUser(params: string): Observable <any>{
+
+    return this.services.findObjts("users", params)
+    .pipe(
+      retry(3), // retry a failed request up to 3 times
+      //catchError(this.handleError) // then handle the error
+      catchError((err) => {
+        console.log('error caught in service. When trying to load users. '+ err.status)
+        if(err.status == 0){
+          this.alertD.openErrorAlertDialog("Error Message", "Server error: "+ err.message, "Ok", '800ms', '500ms')
+        }else{
+          this.alertD.openErrorAlertDialog("Error Message", err.message + " Status: " + err.status, "Ok", '700ms', '400ms')
+        }
+        console.error(err);
+
+        //Handle the error here
+
+        return throwError(err);    //Rethrow it back to component
+      })
+    );
+  }
+
+
+
+  /**
+   *
    * @param dataList
    * @param id
    * @returns
@@ -67,7 +96,6 @@ export class AuthGetServicesComponent {
    */
   findUserByUsernameInDBList(dataList: UserModel | any, username: string): Observable <any> {
     const array = dataList.find((dataList: {username: string}) =>  dataList.username == username );
-    console.log(array)
     return array
   }
 
@@ -93,13 +121,8 @@ export class AuthGetServicesComponent {
    * @param password
    * @returns
    */
-  compareUsernameAndPassword(dataList: any | any, username: string, password: string): boolean {
-    const isEqual = dataList.findIndex( (element: {username: string, password: string}) =>
-    element.username  == username
-    && element.password  == password);
-
-    if(isEqual >= 0) return true;
-    else return false;
+  compareUsernameAndPassword(password02: any | any, password: string): boolean {
+    return password02  === password;
   }
 
 

@@ -1,15 +1,18 @@
 button{
   font-size: .8rem;
   color: #e6e6e6;
-
-
+  border: none;
+  background-color: transparent;
+  color: #e6e6e6;
 }
 
 button mat-icon{
   color: #e6e6e6;
 }
 
-button.btn-logout:hover{
-  border: 1px solid #e6e6e6;
-  background: rgba(248, 25, 25, 0.26);
+button:hover{
+  background-color: rgba(226, 226, 226, 0.24);
+  border-radius: 2rem;
+  text-decoration: underline;
+
 }

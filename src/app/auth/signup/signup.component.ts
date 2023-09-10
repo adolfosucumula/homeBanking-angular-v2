@@ -6,14 +6,14 @@ import { StorageService } from 'src/app/utils/StorageService.service';
 import { SnackBarAlertMessage } from 'src/app/utils/snackBarAlertMessage';
 import { SignUpUtilsService } from './services/utils.service';
 import { AuthGetServicesComponent } from '../auth-services/auth-get.service';
-import { UserModel } from 'src/app/models/UserModel';
+import { UserModel } from 'src/app/models/UserModel.model';
 import { SignupServicesService } from './services/signup-services.service';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
 
@@ -21,9 +21,8 @@ export class SignupComponent {
   constructor(private utils: SignUpUtilsService,
     private localStore: StorageService,
     private signUpService: SignupServicesService,
-    private router: Router, private authServices: AuthGetServicesComponent,
+    private authServices: AuthGetServicesComponent,
     private alertD: AlertMessageFactories,
-    private currentDate: CurrentDate
    ){}
 
   submitted = false;
@@ -42,10 +41,7 @@ export class SignupComponent {
     ngOnInit(): void {
 
       this.entityForm = this.utils.validateFieldGroup();
-
-      if(this.localStore.isLoggedIn()){
-        this.router.navigate(['/']);
-      }
+      this.isLogged = this.localStore.isLoggedIn()
     };
 
     /**

@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { StorageService } from 'src/app/utils/StorageService.service';
-import { AuthUtils } from 'src/app/auth/utils/AuthUtils';
+import { AuthUtils } from 'src/app/auth/utils/AuthUtils.service';
 import { FormGroup } from '@angular/forms';
-import { UserModel } from 'src/app/models/UserModel';
+import { UserModel } from 'src/app/models/UserModel.model';
 import { AlertMessageFactories } from 'src/app/utils/AlertMessageFactories';
-import { GenericServices } from 'src/app/endpoint/generic-services.service';
+import { GenericServices } from 'src/app/http-settings/generic-services.service';
 
 let model: UserModel = new UserModel();
 
