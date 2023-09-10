@@ -98,11 +98,11 @@ export class AccountComponent implements OnInit{
    }
 
    accountCredit(id: number){
-     this.router.navigate(['/credit/account/',id]);
+     this.router.navigate(['/trans/account/',id, 'Deposit']);
    }
 
    accountDebit(id: number){
-     this.router.navigate(['/debit/account/',id]);
+    this.router.navigate(['/trans/account/',id, 'Debit']);
    }
 
 

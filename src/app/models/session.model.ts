@@ -1,4 +1,4 @@
 export interface Session {
-  nome: string;
+  name: string;
   accessToken: string;
 }

@@ -16,133 +16,213 @@
 
       <form class="example-form" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
           <div class="title">
-            <h2>Deposit Money</h2>
+            <h2>{{ transactionType }} Money</h2>
           </div>
 
           <div class="content">
             <div class="box">
-          <!----------------------------->
-          <div class="account">
-            <span>Current balance: </span> <strong>{{   this.currentBalance }}</strong>
+
+              <div class="card">
+
+                <!----------------------------------->
+                <mat-form-field *ngIf="transactionType ==='Transfer'">
+                  <mat-label>Type of transaction</mat-label>
+                  <mat-select
+                    placeholder="Select the type"
+                    formControlName="tType"
+                    [ngClass]="{ 'is-invalid': submitted && _fC['tType'].errors }"
+                  >
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let type of tTypes" [value]="type">
+                      {{type}}
+                    </mat-option>
+                  </mat-select>
+                  <span *ngIf="submitted && _fC['tType'].errors" class="invalid-feedback">
+                    <span *ngIf="_fC['tType'].errors['required']">The type of transaction is required</span>
+                  </span>
+                </mat-form-field>
+
+                <!----------------------------------->
+                <mat-form-field appearance="outline">
+                  <mat-label>Account number</mat-label>
+                  <input matInput type="text"
+                    placeholder="Account number"
+                    formControlName="account"
+                    [ngClass]="{ 'is-invalid': submitted && _fC['account'].errors }"
+                  >
+                  <span *ngIf="submitted && _fC['account'].errors" class="invalid-feedback">
+                    <span *ngIf="_fC['account'].errors['required']">The account is required</span>
+
+                    <span *ngIf="_fC['account'].errors['maxlength']">
+                      The account must not exceed 13 characters
+                    </span>
+                    <span *ngIf="_fC['account'].errors['pattern']">
+                      This field accepts only characters as value
+                    </span>
+                  </span>
+                  <mat-icon matSuffix>done</mat-icon>
+                </mat-form-field>
+
+                <!----------------------------------->
+                <mat-form-field appearance="outline">
+                  <mat-label>Owner</mat-label>
+                  <input matInput type="text"
+                    placeholder="Owner"
+                    formControlName="owner"owner
+                    [ngClass]="{ 'is-invalid': submitted && _fC['owner'].errors }"
+                  >
+                  <span *ngIf="submitted && _fC['owner'].errors" class="invalid-feedback">
+                    <span *ngIf="_fC['owner'].errors['required']">The owner is required</span>
+
+                    <span *ngIf="_fC['owner'].errors['maxlength']">
+                      The owner must not exceed 13 characters
+                    </span>
+                    <span *ngIf="_fC['owner'].errors['pattern']">
+                      This field accepts only characters as value
+                    </span>
+                  </span>
+                  <mat-icon matSuffix>done</mat-icon>
+                </mat-form-field>
+
+                <!----------------------------------->
+                <mat-form-field appearance="outline">
+                  <mat-label>Current balance</mat-label>
+                  <input matInput type="text"
+                    placeholder="Cuurrent balance"
+                    formControlName="balanceBefore"owner
+                    [ngClass]="{ 'is-invalid': submitted && _fC['balanceBefore'].errors }"
+                  >
+                  <span *ngIf="submitted && _fC['balanceBefore'].errors" class="invalid-feedback">
+                    <span *ngIf="_fC['balanceBefore'].errors['required']">The current balance is required</span>
+
+                    <span *ngIf="_fC['balanceBefore'].errors['pattern']">
+                      This field accepts only characters as value
+                    </span>
+                  </span>
+                  <mat-icon matSuffix>done</mat-icon>
+                </mat-form-field>
+
+                <!------------------------------------------------>
+                <mat-form-field appearance="outline">
+                  <mat-label>Amount</mat-label>
+                  <input matInput placeholder="Amount" type="text"
+                  formControlName="amount"
+                  [ngClass]="{ 'is-invalid': submitted && _fC['amount'].errors }"
+                >
+                  <span *ngIf="submitted && _fC['amount'].errors" class="invalid-feedback">
+                    <span *ngIf="_fC['amount'].errors['required']">The amount is required</span>
+                  </span>
+                  <mat-icon matSuffix>done</mat-icon>
+                </mat-form-field>
+
+
+              </div>
+
+              <div class="card">
+                <!----------------------------->
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Source account</mat-label>
+                  <input matInput type="text"
+                    placeholder="Source account"
+                    formControlName="xAccount"
+                    [ngClass]="{ 'is-invalid': submitted && _fC['xAccount'].errors }"
+                  >
+                  <span *ngIf="submitted && _fC['xAccount'].errors" class="invalid-feedback">
+                    <span *ngIf="_fC['xAccount'].errors['required']">The source account number is required</span>
+
+                    <span *ngIf="_fC['xAccount'].errors['maxlength']">
+                      The source account number must not exceed 13 characters
+                    </span>
+                    <span *ngIf="_fC['xAccount'].errors['minlength']">
+                      The source account number must have at least 13 characters
+                    </span>
+                    <span *ngIf="_fC['xAccount'].errors['pattern']">
+                      This field accepts only numbers as value
+                    </span>
+                  </span>
+                  <mat-icon matSuffix>done</mat-icon>
+                </mat-form-field>
+
+                <!----------------------------------->
+                <mat-form-field appearance="outline">
+                  <mat-label>S.A Owner</mat-label>
+                  <input matInput placeholder="Source account owner" type="text"
+                  formControlName="xOwner"
+                  [ngClass]="{ 'is-invalid': submitted && _fC['xOwner'].errors }"
+                >
+                  <span *ngIf="submitted && _fC['xOwner'].errors" class="invalid-feedback">
+                    <span *ngIf="_fC['xOwner'].errors['required']">The Source account owner is required</span>
+                    <span *ngIf="_fC['xOwner'].errors['maxlength']">
+                      The Source account owner must not exceed 200 characters
+                    </span>
+                    <span *ngIf="_fC['xOwner'].errors['pattern']">
+                      This field accepts only characters as value
+                    </span>
+                  </span>
+                  <mat-icon matSuffix>done</mat-icon>
+                </mat-form-field>
+
+                <!----------------------------------->
+                <mat-form-field appearance="outline">
+                  <mat-label>Operator</mat-label>
+                  <input matInput placeholder="Operator" type="text"
+                  formControlName="operator"
+                  [ngClass]="{ 'is-invalid': submitted && _fC['operator'].errors }"
+                >
+                  <span *ngIf="submitted && _fC['operator'].errors" class="invalid-feedback">
+                    <span *ngIf="_fC['operator'].errors['required']">The operator is required</span>
+                    <span *ngIf="_fC['operator'].errors['maxlength']">
+                      The operator must not exceed 200 characters
+                    </span>
+                    <span *ngIf="_fC['operator'].errors['pattern']">
+                      This field accepts only characters as value
+                    </span>
+                  </span>
+                  <mat-icon matSuffix>done</mat-icon>
+                </mat-form-field>
+
+                <!--------------------------->
+
+                <mat-radio-group aria-label="Account is?" type="radio"
+                  formControlName="status"
+                  [ngClass]="{ 'is-invalid': submitted && _fC['status'].errors }"
+              >
+
+                <mat-radio-button value="Finished" >Finished process</mat-radio-button>
+                <mat-radio-button value="Pending">Pending process</mat-radio-button>
+                <br>
+                <span *ngIf="submitted && _fC['status'].errors" class="invalid-feedback"
+                style="color: #e02a2a; font-size: 13px;
+                ">
+                  <span *ngIf="_fC['status'].errors['required']">Select the status</span>
+                </span>
+              </mat-radio-group>
+
+                <!--  DatePicker -->
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Created at</mat-label>
+                  <input matInput [matDatepicker]="picker3" formControlName="createdAt"
+                  [ngClass]="{ 'is-invalid': submitted && _fC['createdAt'].errors }" [value]="serializedDate.value"
+                  >
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker3" disabled="false"></mat-datepicker-toggle>
+                  <mat-datepicker #picker3></mat-datepicker>
+
+                  <span *ngIf="submitted && _fC['createdAt'].errors" class="invalid-feedback">
+                    <span *ngIf="_fC['createdAt'].errors['required']">The data is required</span>
+                    <span *ngIf="_fC['createdAt'].errors['maxlength']">
+                      The date must not exceed 9 characters
+                    </span>
+                  </span>
+                </mat-form-field>
+
+
+              </div>
+
+            </div>
           </div>
-          <mat-form-field appearance="outline">
-            <mat-label>Source account</mat-label>
-            <input matInput type="text"
-              placeholder="Source account"
-              formControlName="sourceAccount"
-              [ngClass]="{ 'is-invalid': submitted && _fC['sourceAccount'].errors }"
-             >
-             <span *ngIf="submitted && _fC['sourceAccount'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['sourceAccount'].errors['required']">The source account is required</span>
-
-              <span *ngIf="_fC['sourceAccount'].errors['maxlength']">
-                The source account must not exceed 13 characters
-              </span>
-              <span *ngIf="_fC['sourceAccount'].errors['pattern']">
-                This field accepts only characters as value
-              </span>
-            </span>
-            <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
-            <mat-icon matSuffix>done</mat-icon>
-          </mat-form-field>
-          
-          <!----------------------------------->
-          <mat-form-field appearance="outline">
-            <mat-label>Owner</mat-label>
-            <input matInput placeholder="Owner" type="text"
-            formControlName="owner2"
-            [ngClass]="{ 'is-invalid': submitted && _fC['owner2'].errors }"
-          >
-            <span *ngIf="submitted && _fC['owner2'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['owner2'].errors['required']">The owner is required</span>
-              <span *ngIf="_fC['owner2'].errors['maxlength']">
-                The owner must not exceed 200 characters
-              </span>
-              <span *ngIf="_fC['owner2'].errors['pattern']">
-                This field accepts only characters as value
-              </span>
-            </span>
-            <mat-icon matSuffix>done</mat-icon>
-          </mat-form-field>
-
-          <!----------------------------->
-
-          <mat-form-field appearance="outline">
-            <mat-label>Account number</mat-label>
-            <input matInput type="text"
-              placeholder="Account number"
-              formControlName="targetAccount"
-              [ngClass]="{ 'is-invalid': submitted && _fC['targetAccount'].errors }"
-             >
-             <span *ngIf="submitted && _fC['targetAccount'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['targetAccount'].errors['required']">The account number is required</span>
-
-              <span *ngIf="_fC['targetAccount'].errors['maxlength']">
-                The account number must not exceed 13 characters
-              </span>
-              <span *ngIf="_fC['targetAccount'].errors['minlength']">
-                The account number must have at least 13 characters
-              </span>
-              <span *ngIf="_fC['targetAccount'].errors['pattern']">
-                This field accepts only numbers as value
-              </span>
-            </span>
-            <!--<mat-hint align="end">{{input.value.length}}/10</mat-hint>-->
-            <mat-icon matSuffix>done</mat-icon>
-          </mat-form-field>
-
-          <!------------------------------------------------>
-          <mat-form-field appearance="outline">
-            <mat-label>Amount</mat-label>
-            <input matInput placeholder="Amount" type="text"
-            formControlName="amount"
-            [ngClass]="{ 'is-invalid': submitted && _fC['amount'].errors }"
-          >
-            <span *ngIf="submitted && _fC['amount'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['amount'].errors['required']">The amount is required</span>
-            </span>
-            <mat-icon matSuffix>done</mat-icon>
-          </mat-form-field>
-
-          <!----------------------------------->
-          <mat-form-field appearance="outline">
-            <mat-label>Operator</mat-label>
-            <input matInput placeholder="Operator" type="text"
-            formControlName="operator"
-            [ngClass]="{ 'is-invalid': submitted && _fC['operator'].errors }"
-          >
-            <span *ngIf="submitted && _fC['operator'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['operator'].errors['required']">The operator is required</span>
-              <span *ngIf="_fC['operator'].errors['maxlength']">
-                The operator must not exceed 200 characters
-              </span>
-              <span *ngIf="_fC['operator'].errors['pattern']">
-                This field accepts only characters as value
-              </span>
-            </span>
-            <mat-icon matSuffix>done</mat-icon>
-          </mat-form-field>
-
-           <!--  DatePicker -->
-
-           <mat-form-field appearance="outline">
-            <mat-label>Created at</mat-label>
-            <input matInput [matDatepicker]="picker3" formControlName="createdAt"
-            [ngClass]="{ 'is-invalid': submitted && _fC['createdAt'].errors }" [value]="serializedDate.value"
-            >
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker3" disabled="false"></mat-datepicker-toggle>
-            <mat-datepicker #picker3></mat-datepicker>
-
-            <span *ngIf="submitted && _fC['createdAt'].errors" class="invalid-feedback">
-              <span *ngIf="_fC['createdAt'].errors['required']">The data is required</span>
-              <span *ngIf="_fC['createdAt'].errors['maxlength']">
-                The date must not exceed 9 characters
-              </span>
-            </span>
-          </mat-form-field>
-        </div>
-        </div>
 
           <div class="example-button-row">
             <button mat-raised-button type="submit" color="primary">Submit</button>

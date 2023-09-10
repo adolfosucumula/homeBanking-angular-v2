@@ -22,14 +22,55 @@ export class AccountTransactionUtils {
    * class to manage the form fields value, controlling and validate them
    */
 
-  debitFormGroup (): FormGroup  {
+  formGroup (): FormGroup  {
     return new FormGroup({
-      targetAccount: new FormControl(null),
+      tType: new FormControl <string> ("", {
+        nonNullable: true,
+        validators: [ Validators.required, Validators.pattern('[a-zA-Z]+'), Validators.maxLength(20) ]
+      }),
+      account: new FormControl <string> ("", {
+        nonNullable: true,
+        validators: [ Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('^[0-9]+$') ]
+      }),
+      owner: new FormControl <string> ("", {
+        nonNullable: true,
+        validators: [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200)]
+      }),
+      balanceBefore: new FormControl <string> ("", {
+        nonNullable: true,
+        validators: [ Validators.required ]
+      }),
+      amount: new FormControl <string> ("", {
+        nonNullable: true,
+        validators: [ Validators.required ]
+      }),
+      xAccount: new FormControl <string> ("", {
+        nonNullable: false,
+        validators: [ Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('^[0-9]+$') ]
+      }),
+      xOwner: new FormControl <string> ("", {
+        nonNullable: false,
+        validators: [ Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200) ]
+      }),
+      operator: new FormControl <string> ("", {
+        nonNullable: true,
+        validators: [ Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200) ]
+      }),
+      status: new FormControl <string> ("", {
+        nonNullable: true,
+        validators: [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(20)]
+      }),
+      createdAt: new FormControl <string> ("", {
+        nonNullable: true,
+        validators: [ Validators.required ]
+      }),
+
+      /*targetAccount: new FormControl(null),
       owner2: new FormControl(''),
       amount: new FormControl(''),
       operator: new FormControl(''),
       status: new FormControl(''),
-      createdAt: new FormControl(''),
+      createdAt: new FormControl(''),*/
     });
 
   };
@@ -43,104 +84,90 @@ export class AccountTransactionUtils {
   getFormData(form: FormGroup){
 
     const {
-      targetAccount,
-      owner2,
+      tType,
+      account,
+      owner,
+      balanceBefore,
       amount,
+      balanceAfter,
+      xAccount,
+      xOwner,
       operator,
       status,
-      createdAt
+      createdAt,
     } = form.value;
 
     return {
-      targetAccount,
-      owner2,
+      tType,
+      account,
+      owner,
+      balanceBefore,
       amount,
+      balanceAfter,
+      xAccount,
+      xOwner,
       operator,
       status,
-      createdAt
+      createdAt,
     };
   };
-
-  /**
-   *
-   * @returns
-   */
-  validateForm(): FormGroup {
-    return this.formBuilder.group({
-      owner2: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200)] ],
-      targetAccount: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('^[0-9]+$')] ],
-
-      amount: ['', Validators.required ],
-      //balanceAfter: ['', Validators.required ],
-      operator: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+'), Validators.maxLength(200)] ],
-      //status: ['', [Validators.required, Validators.minLength(2)] ],
-      createdAt: ['', Validators.required ],
-    });
-
-  }
 
   debitTransaction(
     form: FormGroup,
     accountData: any,
-    sourceAccount: string | any,
-    owner1: string,
-    balanceBefore: string,
-    amount: string,
     balanceAfter: string,
-    status: string,
     date: any
     ){
 
       this.postServices.create(
-        sourceAccount,
-        this.getFormData(form).owner2,
-        this.getFormData(form).targetAccount,
-        this.getFormData(form).owner2,
-        balanceBefore,
-        amount,
-        balanceAfter,
+        this.getFormData(form).tType,
+        this.getFormData(form).account,
+        this.getFormData(form).owner,
+        this.getFormData(form).balanceBefore,
+        this.getFormData(form).amount,
+        this.getFormData(form).balanceAfter,
+        this.getFormData(form).xAccount,
+        this.getFormData(form).xOwner,
         this.getFormData(form).operator,
-        'debit',
-        status,
-        date
+        this.getFormData(form).status,
+        date,
       )
-      .subscribe((data: any) =>  this.updateBalanceAsDebit(form, accountData, balanceAfter, date))
+      .subscribe((data: any) =>  this.updateBalance(this.getFormData(form).tType,accountData, balanceAfter, date))
   }
 
-  creditTransaction(
+  registTransaction(
     form: FormGroup,
     accountData: any,
-    sourceAccount: string | any,
-    owner1: string,
-    balanceBefore: string,
     amount: string,
     balanceAfter: string,
-    status: string,
     date: any
     ){
+
+      const data = this.getFormData(form);
+
       this.postServices.create(
-        sourceAccount,
-        owner1,
-        this.getFormData(form).targetAccount,
-        this.getFormData(form).owner2,
-        balanceBefore,
+        data.tType,
+        data.account,
+        data.owner,
+        data.balanceBefore,
         amount,
         balanceAfter,
-        this.getFormData(form).operator,
-        'credit',
-        status,
-        date
+        data.xAccount,
+        data.xOwner,
+        data.operator,
+        data.status,
+        date,
       )
-      .subscribe((data: any) =>  this.updateBalanceAsDebit(form, accountData, balanceAfter, date))
+      .subscribe((data: any) =>  this.updateBalance(data.tType, accountData, balanceAfter, date))
   };
 
-updateBalanceAsDebit(
-    form: FormGroup,
+updateBalance(
+    tType: string,
     accountData: any,
     balanceAfter: string,
     date: any
     ){
-    
+
       this.updateAccountService.update(
         accountData.id,
         accountData.account,
@@ -154,7 +181,9 @@ updateBalanceAsDebit(
         date,
         accountData.isActive
       )
-      .subscribe()
+      .subscribe((data: any) =>{
+
+      })
   }
 
 
